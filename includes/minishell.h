@@ -1,8 +1,8 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define DQUOTE 2
-# define SQUOTE 1
+# define DQUOTE '"'
+# define SQUOTE '\''
 # define NOQUOTE 0
 
 # include "libft.h"
@@ -38,10 +38,19 @@ typedef struct s_global
 
 t_global g_global;
 
-int			quote_state(char c);
+int			__quote_state(char c, int old_state);
 void		ft_check_cmd(char *prompt);
 void		ft_init_global(char **envp);
-void ft_print_lists(void);
-char *ft_get_env(char *key);
-char *ft_readline(void);
+// DEBUG
+void 		ft_print_lists(void);
+// END DEBUG
+char 		*ft_get_env(char *key);
+char 		*ft_readline(void);
+int 		quote_state(char c);
+char 		**ft_str_add_back(char **str, char *add);
+char		**ft_cmdtrim(char *prompt);
+void 		ft_parser(char *promt);
+char **ft_expand_vars(char **cmd);
+char	*ft_strnstr_perso(const char *haystack, const char *needle, size_t len);
+
 #endif // MINISHELL_H

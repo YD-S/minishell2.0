@@ -1,6 +1,6 @@
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -MD
+CFLAGS = -Wall -Wextra -Werror -MD -g
 
 NAME = Minishell
 SRC_DIR = src

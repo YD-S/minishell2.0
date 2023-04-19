@@ -3,10 +3,23 @@
 
 int	quote_state(char c)
 {
-	static int	state;
-	int			old_state;
+	static int	old_state;
+	int			old_old_state;
 
-	old_state = state;
+	old_old_state = old_state;
+	if (!c)
+	{
+		old_state = NOQUOTE;
+		return (0);
+	}
+	old_state = __quote_state(c, old_old_state);
+	return (old_state);
+}
+
+int	__quote_state(char c, int old_state)
+{
+	int	state;
+
 	if (c == '"')
 	{
 		if (old_state == DQUOTE)
@@ -15,7 +28,7 @@ int	quote_state(char c)
 			return (state);
 		}
 		else if (old_state == NOQUOTE)
-			state = DQUOTE;
+			return (DQUOTE);
 	}
 	else if (c == '\'')
 	{
@@ -25,7 +38,7 @@ int	quote_state(char c)
 			return (state);
 		}
 		else if (old_state == NOQUOTE)
-			state = SQUOTE;
+			return (SQUOTE);
 	}
 	return (old_state);
 }
@@ -33,29 +46,24 @@ int	quote_state(char c)
 void	ft_check_cmd(char *prompt)
 {
 	int	state;
-	int	prev_state;
 	int	i;
 
+	quote_state('\0');
 	state = NOQUOTE;
-	prev_state = NOQUOTE;
 	i = 0;
 	while (prompt[i])
 	{
-		prev_state = state;
 		state = quote_state(prompt[i]);
 		i++;
 	}
-	if (state == NOQUOTE)
-		printf("%c No quotes\n", prompt[i - 1]);
-	else if (state == DQUOTE && prompt[i - 1] == '"' && prev_state == DQUOTE)
-		printf("Double Quotes closed\n");
-	else if (state == SQUOTE && prompt[i - 1] == '\'' && prev_state == SQUOTE)
-		printf("Single Quotes closed\n");
-	else
-		printf("Quotes not closed\n");
+	if (state != NOQUOTE)
+	{
+		ft_printf("Quote Error\n");
+		exit(0);
+	}
 }
 
-char *ft_get_env(char *key)
+void	ft_print_lists(void)
 {
 	t_list	*tmp;
 	t_envp	*env;
@@ -64,23 +72,71 @@ char *ft_get_env(char *key)
 	while (tmp)
 	{
 		env = tmp->content;
-		if (ft_strcmp(env->key, key) == 0)
-			return (env->value);
 		tmp = tmp->next;
+	}
+	(void)env;
+}
+
+char	**ft_str_add_back(char **str, char *add)
+{
+	int		temp_len;
+	int		len;
+	char	**ret;
+
+	len = ft_charpplen(str);
+	temp_len = len;
+	ret = ft_calloc(sizeof(char *), len + 2);
+	while (len--)
+		ret[len] = str[len];
+	ret[temp_len] = add;
+	free(str);
+	return (ret);
+}
+
+char	**ft_cmdtrim(char *prompt)
+{
+	char	**ret;
+	int		j;
+	int		k;
+
+	j = 0;
+	k = 0;
+	ret = NULL;
+	while (j < (int)ft_strlen(prompt))
+	{
+		while (prompt[j] && (prompt[j] == ' '
+				&& quote_state(prompt[j]) == NOQUOTE))
+			j++;
+		k = 0;
+		if (SQUOTE == prompt[j + k] || DQUOTE == prompt[j + k])
+			while (prompt[j + k] && (prompt[j + k] != ' ' && quote_state(prompt[j
+					+ k]) != NOQUOTE))
+				k++;
+		else
+			while (prompt[j + k] && (prompt[j + k] != ' ' && quote_state(prompt[j
+					+ k]) == NOQUOTE))
+				k++;
+		ret = ft_str_add_back(ret, ft_substr(prompt, j, k));
+		j += k;
+	}
+	return (ret);
+}
+
+char	*ft_strnstr_perso(const char *haystack, const char *needle, size_t len)
+{
+	unsigned int i;
+
+	i = 0;
+	if (*needle == 0 || haystack == needle)
+		return ((char *)haystack);
+	i = ft_strlen(needle);
+	while (*haystack && i <= len)
+	{
+		if (!(ft_strncmp((char *)haystack, (char *)needle, i))
+			&& !ft_isalnum(*(haystack + i)) && *(haystack + i) != '_')
+			return ((char *)haystack);
+		haystack++;
+		len--;
 	}
 	return (NULL);
-}
-
-void ft_print_lists(void)
-{
-	t_list	*tmp;
-	t_envp	*env;
-
-	tmp = g_global.envp;
-	while (tmp)
-	{
-		env = tmp->content;
-		printf("key: %s, value: %s\n", env->key, env->value);
-		tmp = tmp->next;
-	}
 }

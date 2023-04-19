@@ -42,6 +42,8 @@
 *.pdb
 
 # Kernel Module Compile Results
+.idea/
+.DS_Store
 *.mod*
 *.cmd
 .tmp_versions/
