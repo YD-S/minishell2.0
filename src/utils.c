@@ -4,7 +4,6 @@
 void	ft_check_cmd(char *prompt)
 {
 	int	state;
-	int	prev_state;
 	int	i;
 
 	quote_state('\0');
@@ -12,11 +11,10 @@ void	ft_check_cmd(char *prompt)
 	i = 0;
 	while (prompt[i])
 	{
-		prev_state = state;
 		state = quote_state(prompt[i]);
 		i++;
 	}
-	if (state != NO && prev_state == NO)
+	if (state != NO && state != SQC && state != DQC)
 	{
 		ft_printf("Quote Error\n");
 		exit(0);
@@ -69,7 +67,9 @@ char	**ft_cmdtrim(char *prompt)
 	while (i < (int)ft_strlen(prompt))
 	{
 		qs = quote_state(prompt[i]);
-		if (qs == NO || qs == SQI || qs == DQI)
+		if (qs == NO && prompt[i] == ' ')
+			j++;
+		else if (qs == NO || qs == SQI || qs == DQI)
 			k++;
 		else if (((qs == SQO || qs == DQO) && k != 0) || qs == SQC || qs == DQC
 				|| i == (int)ft_strlen(prompt) - 1)
