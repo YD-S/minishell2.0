@@ -13,10 +13,11 @@ void	ft_init_global(char **envp)
 		ft_lstadd_back(&g_global.envp, ft_lstnew(env));
 		envp++;
 	}
-	g_global.path = ft_get_env("PATH");
+	ft_add_dollar();
+	g_global.path = ft_get_env("$PATH");
 	g_global.exit_status = 0;
 	g_global.heredoc_out = NULL;
-	g_global.user = ft_get_env("USER");
+	g_global.user = ft_get_env("$USER");
 }
 
 char	*ft_get_env(char *key)

@@ -1,62 +1,22 @@
 
 #include "minishell.h"
 
-int	quote_state(char c)
-{
-	static int	old_state;
-	int			old_old_state;
-
-	old_old_state = old_state;
-	if (!c)
-	{
-		old_state = NOQUOTE;
-		return (0);
-	}
-	old_state = __quote_state(c, old_old_state);
-	return (old_state);
-}
-
-int	__quote_state(char c, int old_state)
-{
-	int	state;
-
-	if (c == '"')
-	{
-		if (old_state == DQUOTE)
-		{
-			state = NOQUOTE;
-			return (state);
-		}
-		else if (old_state == NOQUOTE)
-			return (DQUOTE);
-	}
-	else if (c == '\'')
-	{
-		if (old_state == SQUOTE)
-		{
-			state = NOQUOTE;
-			return (state);
-		}
-		else if (old_state == NOQUOTE)
-			return (SQUOTE);
-	}
-	return (old_state);
-}
-
 void	ft_check_cmd(char *prompt)
 {
 	int	state;
+	int	prev_state;
 	int	i;
 
 	quote_state('\0');
-	state = NOQUOTE;
+	state = NO;
 	i = 0;
 	while (prompt[i])
 	{
+		prev_state = state;
 		state = quote_state(prompt[i]);
 		i++;
 	}
-	if (state != NOQUOTE)
+	if (state != NO && prev_state == NO)
 	{
 		ft_printf("Quote Error\n");
 		exit(0);
@@ -96,35 +56,38 @@ char	**ft_str_add_back(char **str, char *add)
 char	**ft_cmdtrim(char *prompt)
 {
 	char	**ret;
+	int		qs;
 	int		j;
 	int		k;
+	int		i;
 
+	i = 0;
 	j = 0;
 	k = 0;
 	ret = NULL;
-	while (j < (int)ft_strlen(prompt))
+	prompt = ft_add_quote(prompt);
+	while (i < (int)ft_strlen(prompt))
 	{
-		while (prompt[j] && (prompt[j] == ' '
-				&& quote_state(prompt[j]) == NOQUOTE))
-			j++;
-		k = 0;
-		if (SQUOTE == prompt[j + k] || DQUOTE == prompt[j + k])
-			while (prompt[j + k] && (prompt[j + k] != ' ' && quote_state(prompt[j
-					+ k]) != NOQUOTE))
-				k++;
-		else
-			while (prompt[j + k] && (prompt[j + k] != ' ' && quote_state(prompt[j
-					+ k]) == NOQUOTE))
-				k++;
-		ret = ft_str_add_back(ret, ft_substr(prompt, j, k));
-		j += k;
+		qs = quote_state(prompt[i]);
+		if (qs == NO || qs == SQI || qs == DQI)
+			k++;
+		else if (((qs == SQO || qs == DQO) && k != 0) || qs == SQC || qs == DQC
+				|| i == (int)ft_strlen(prompt) - 1)
+		{
+			ret = ft_str_add_back(ret, ft_substr(prompt, j, k + (qs == SQC
+							|| qs == DQC) * 2));
+			j += k + (qs == SQC || qs == DQC) * 2;
+			k = 0;
+		}
+		i++;
 	}
+	ret = ft_charpp_del_back(ret);
 	return (ret);
 }
 
 char	*ft_strnstr_perso(const char *haystack, const char *needle, size_t len)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	if (*needle == 0 || haystack == needle)
@@ -139,4 +102,21 @@ char	*ft_strnstr_perso(const char *haystack, const char *needle, size_t len)
 		len--;
 	}
 	return (NULL);
+}
+
+void	ft_add_dollar(void)
+{
+	t_list	*tmp;
+	t_envp	*env;
+	char	*key_temp;
+
+	tmp = g_global.envp;
+	while (tmp)
+	{
+		env = tmp->content;
+		key_temp = env->key;
+		env->key = ft_strjoin("$", env->key);
+		free(key_temp);
+		tmp = tmp->next;
+	}
 }
