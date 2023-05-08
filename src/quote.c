@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 21:29:40 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/08 19:25:13 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/05/09 01:10:40 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_add_quote(char *str)
 
 static int	__qs_dq(int old_state)
 {
-	if (old_state == SQI)
+	if (old_state == SQI || old_state == SQO || old_state == SQC)
 		return (SQI);
 	else if (old_state == DQI || old_state == DQO)
 		return (DQC);
@@ -42,7 +42,7 @@ static int	__qs_dq(int old_state)
 
 static int	__qs_sq(int old_state)
 {
-	if (old_state == DQI)
+	if (old_state == DQI || old_state == DQO || old_state == DQC)
 		return (DQI);
 	else if (old_state == SQO || old_state == SQI)
 		return (SQC);

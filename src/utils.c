@@ -19,6 +19,7 @@ void	ft_check_cmd(char *prompt)
 		ft_printf("Quote Error\n");
 		exit(0);
 	}
+	__qs('\0', 1);
 }
 
 void	ft_print_lists(void)
