@@ -57,7 +57,8 @@ char	**ft_expand_vars(char **cmd)
 		return (NULL);
 	while (cmd[++i])
 		ret = ft_str_add_back(ret, ft_get_var(cmd[i]));
-	return (ft_charppfree(cmd), ret);
+	ft_charppfree(cmd);
+	return (ret);
 }
 
 void	ft_parser(char *prompt)

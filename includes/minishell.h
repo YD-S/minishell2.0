@@ -65,5 +65,6 @@ char		*ft_strnstr_perso(const char *haystack, const char *needle,
 void		ft_add_dollar(void);
 void		quote_reset(void);
 char		*ft_add_quote(char *str);
+int			__qs(char c, int reset);
 
 #endif // MINISHELL_H

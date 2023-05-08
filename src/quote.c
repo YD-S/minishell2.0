@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 21:29:40 by ysingh            #+#    #+#             */
-/*   Updated: 2023/04/20 21:31:10 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/05/08 19:25:13 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@ char	*ft_add_quote(char *str)
 {
 	char	*ret;
 	int		len;
+	int i = 0;
 
 	len = (int)ft_strlen(str) - 1;
-	ret = ft_calloc(len + 2, sizeof(char));
-	ret = ft_strdup(str);
-	ret[len + 1] = '"';
-	ret[len + 2] = '"';
+	ret = ft_calloc(len + 3, sizeof(char));
+	while (str[i])
+	{
+		ret[i] = str[i];
+		i++;
+	}
+	ret[len] = '"';
+	ret[len+ 1] = '"';
 	free(str);
 	return (ret);
 }
@@ -55,7 +60,7 @@ static int	__qs_char(int old_state)
 	return (NO);
 }
 
-static int	__qs(char c, int reset)
+int	__qs(char c, int reset)
 {
 	static int	state;
 	int			old_state;

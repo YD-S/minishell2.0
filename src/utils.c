@@ -6,7 +6,7 @@ void	ft_check_cmd(char *prompt)
 	int	state;
 	int	i;
 
-	quote_state('\0');
+	__qs('\0', 1);
 	state = NO;
 	i = 0;
 	while (prompt[i])
@@ -63,7 +63,6 @@ char	**ft_cmdtrim(char *prompt)
 	j = 0;
 	k = 0;
 	ret = NULL;
-	prompt = ft_add_quote(prompt);
 	while (i < (int)ft_strlen(prompt))
 	{
 		qs = quote_state(prompt[i]);
@@ -81,7 +80,6 @@ char	**ft_cmdtrim(char *prompt)
 		}
 		i++;
 	}
-	ret = ft_charpp_del_back(ret);
 	return (ret);
 }
 
