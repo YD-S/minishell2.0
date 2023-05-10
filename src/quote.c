@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 21:29:40 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/09 01:10:40 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/05/09 20:08:41 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ char	*ft_add_quote(char *str)
 {
 	char	*ret;
 	int		len;
-	int i = 0;
+	int		i;
 
+	i = 0;
 	len = (int)ft_strlen(str) - 1;
 	ret = ft_calloc(len + 3, sizeof(char));
 	while (str[i])
@@ -26,14 +27,44 @@ char	*ft_add_quote(char *str)
 		i++;
 	}
 	ret[len] = '"';
-	ret[len+ 1] = '"';
+	ret[len + 1] = '"';
 	free(str);
+	return (ret);
+}
+
+char	*ft_dq(char *prompt, int i)
+{
+	int		len;
+	char	*ret;
+
+	len = ft_strclen(prompt, DQ, i + 1);
+	ret = ft_substr(prompt, i, len + 2);
+	return (ret);
+}
+
+char	*ft_sq(char *prompt, int i)
+{
+	int		len;
+	char	*ret;
+
+	len = ft_strclen(prompt, SQ, i + 1);
+	ret = ft_substr(prompt, i, len + 2);
+	return (ret);
+}
+
+char	*ft_noq(char *prompt, int i)
+{
+	int		len;
+	char	*ret;
+
+	len = ft_strclen(prompt, ' ', i);
+	ret = ft_substr(prompt, i, len);
 	return (ret);
 }
 
 static int	__qs_dq(int old_state)
 {
-	if (old_state == SQI || old_state == SQO || old_state == SQC)
+	if (old_state == SQI || old_state == SQO)
 		return (SQI);
 	else if (old_state == DQI || old_state == DQO)
 		return (DQC);
@@ -42,7 +73,7 @@ static int	__qs_dq(int old_state)
 
 static int	__qs_sq(int old_state)
 {
-	if (old_state == DQI || old_state == DQO || old_state == DQC)
+	if (old_state == DQI || old_state == DQO)
 		return (DQI);
 	else if (old_state == SQO || old_state == SQI)
 		return (SQC);

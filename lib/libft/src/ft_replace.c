@@ -6,20 +6,31 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 22:35:56 by ysingh            #+#    #+#             */
-/*   Updated: 2023/04/19 22:35:56 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/05/10 00:31:21 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char *ft_replace(char *str, int start, int end, char *replace)
+int ft_get_index(char *str, char *index)
+{
+	int i = 0;
+	if(!index || !*index)
+		return((int)ft_strlen(str));
+	while (str + i != index || !*(str + i)){
+		i++;
+	}
+	return (i);
+}
+
+char *ft_replace(char *str, char *start, char *end, char *replace)
 {
 	char *left;
 	char *right;
 	char *final;
 
-	left = ft_substr(str, 0, start);
-	right = ft_substr(str, end + 1, ft_strlen(str) - (end + 1));
+	left = ft_substr(str, 0, ft_get_index(str, start));
+	right = ft_substr(str, ft_get_index(str, end), ft_strlen(str));
 	final = ft_strjoin(left, replace);
 	free(left);
 	left = ft_strjoin(final, right);

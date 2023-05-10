@@ -14,6 +14,7 @@ void	ft_init_global(char **envp)
 		envp++;
 	}
 	ft_add_dollar();
+	g_global.flag = 0;
 	g_global.path = ft_get_env("$PATH");
 	g_global.exit_status = 0;
 	g_global.heredoc_out = NULL;

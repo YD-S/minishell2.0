@@ -17,31 +17,58 @@ int	main(int argc, char **argv, char **envp)
 	}
 }
 
-char	*ft_get_var(char *cmd)
+t_envp	*ft_get_node(char *str)
 {
-	char	*cpy;
-	char	*str;
 	t_list	*list;
-	t_envp	*var;
-	char	*temp;
+	t_envp	*node;
 
-	printf("%s\n", cmd);
-	cpy = ft_strdup(cmd);
-	if (cmd[0] == SQ && cmd[ft_strlen(cmd) - 1] == SQ)
-		return (cpy);
 	list = g_global.envp;
 	while (list)
 	{
-		var = list->content;
-		str = cpy;
-		while (ft_strnstr_perso(str, var->key, ft_strlen(str)))
-		{
-			temp = ft_strnstr_perso(str, var->key, ft_strlen(str));
-			cpy = ft_replace(cpy, temp - str, (int)ft_strlen(var->key) + (temp
-						- str) - 1, var->value);
-			str = temp + ft_strlen(var->key);
-		}
+		node = list->content;
+		if (!ft_strcmp(str, node->key))
+			return (node);
 		list = list->next;
+	}
+	return (NULL);
+}
+
+char	*ft_get_var(char *cmd)
+{
+	char	*cpy;
+	char	*aux;
+	char	*aux2;
+	t_envp	*var;
+	int		i;
+	int		j;
+
+	i = 0;
+	cpy = ft_strdup(cmd);
+	if ((cmd[0] == SQ && cmd[ft_strlen(cmd) - 1] == SQ) || !ft_strchr(cpy, '$'))
+		return (cpy);
+	while (cpy[i])
+	{
+		aux = ft_strchr(cpy + i, '$');
+		if (!aux)
+			break ;
+		j = ft_get_index(cpy, ft_strchr(cpy + i, '$'));
+		if (ft_isspace(aux[1]) || aux[1] == '\0' || aux[1] == '$'
+			|| aux[1] == '=' || aux[1] == '\"' || aux[1] == '\''
+			|| aux[1] == '?' || aux[1] == '|')
+		{
+			i++;
+			continue ;
+		}
+		aux2 = ft_strchrs(aux + 1, " $=\n\t?\'\"|");
+		var = ft_get_node(ft_substr(cpy, ft_get_index(cpy, aux),
+					ft_get_index(cpy, aux2) - ft_get_index(cpy, aux)));
+		if (!var)
+			cpy = ft_replace(cpy, aux, aux2, "");
+		else
+		{
+			cpy = ft_replace(cpy, aux, aux2, var->value);
+			i = j + (int)ft_strlen(var->value);
+		}
 	}
 	return (cpy);
 }

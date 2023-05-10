@@ -55,18 +55,15 @@ char	**ft_str_add_back(char **str, char *add)
 char	**ft_cmdtrim(char *prompt)
 {
 	char	**ret;
-	int		qs;
-	int		j;
-	int		k;
+	char	*aux;
 	int		i;
 
+	//int qs;
 	i = 0;
-	j = 0;
-	k = 0;
 	ret = NULL;
 	while (i < (int)ft_strlen(prompt))
 	{
-		qs = quote_state(prompt[i]);
+		/*	qs = quote_state(prompt[i]);
 		if (qs == NO && prompt[i] == ' ')
 			j++;
 		else if (qs == NO || qs == SQI || qs == DQI)
@@ -76,12 +73,51 @@ char	**ft_cmdtrim(char *prompt)
 		{
 			ret = ft_str_add_back(ret, ft_substr(prompt, j, k + (qs == SQC
 							|| qs == DQC) * 2));
-			j += k + (qs == SQC || qs == DQC) * 2;
+			j += k + (qs == SQC || qs == DQC || qs == NO) * 2;
 			k = 0;
 		}
 		i++;
+		*/
+		while (prompt[i] == ' ')
+			i++;
+		if (prompt[i] == DQ)
+		{
+			aux = ft_dq(prompt, i);
+			i += ft_strlen(aux);
+		}
+		else if (prompt[i] == SQ)
+		{
+			aux = ft_sq(prompt, i);
+			i += ft_strlen(aux);
+		}
+		else
+		{
+			aux = ft_noq(prompt, i);
+			i += ft_strlen(aux);
+		}
+		ret = ft_str_add_back(ret, aux);
 	}
 	return (ret);
+}
+
+char	*ft_strchrs(const char *str, const char *chrs)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (chrs[j])
+		{
+			if (str[i] == chrs[j])
+				return ((char *)str + i);
+			j++;
+		}
+		i++;
+	}
+	return (NULL);
 }
 
 char	*ft_strnstr_perso(const char *haystack, const char *needle, size_t len)

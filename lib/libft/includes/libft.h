@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lperrin <lperrin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:15:44 by ysingh            #+#    #+#             */
-/*   Updated: 2023/02/01 15:24:06 by lperrin          ###   ########.fr       */
+/*   Updated: 2023/05/09 23:28:53 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ t_list				*ft_lstmap(t_list *lst,
 int ft_strcmp(const char *s1, const char *s2);
 int ft_charpplen(char **str);
 void ft_charppfree(char **str);
-char *ft_replace(char *str, int start, int end, char *replace);
+char *ft_replace(char *str, char *start, char *end, char *replace);
 char **ft_charpp_del_back(char **str);
+int	ft_strclen(char *str, char c, int start);
+int ft_isspace(char c);
+int ft_get_index(char *str, char *index);
 #endif

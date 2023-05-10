@@ -43,6 +43,7 @@ typedef struct s_global
 	int		exit_status;
 	char	*heredoc_out;
 	char	*user;
+	int		flag;
 }			t_global;
 
 t_global	g_global;
@@ -66,5 +67,9 @@ void		ft_add_dollar(void);
 void		quote_reset(void);
 char		*ft_add_quote(char *str);
 int			__qs(char c, int reset);
+char		*ft_dq(char *prompt, int i);
+char		*ft_sq(char *prompt, int i);
+char		*ft_noq(char *prompt, int i);
+char		*ft_strchrs(const char *str, const char *chrs);
 
 #endif // MINISHELL_H
