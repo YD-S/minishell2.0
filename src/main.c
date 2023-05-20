@@ -30,7 +30,7 @@ t_envp	*ft_get_node(char *str)
 			return (node);
 		list = list->next;
 	}
-	return (NULL);
+	return (free(str), NULL);
 }
 
 char	*ft_get_var(char *cmd)
