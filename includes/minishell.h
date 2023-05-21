@@ -71,5 +71,5 @@ char		*ft_dq(char *prompt, int i);
 char		*ft_sq(char *prompt, int i);
 char		*ft_noq(char *prompt, int i);
 char		*ft_strchrs(const char *str, const char *chrs);
-
+void free_all(t_envp *ptr);
 #endif // MINISHELL_H
