@@ -10,7 +10,6 @@ static void	printcustomascii(void)
 	printf("\033[0m                                \n");
 }
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
@@ -40,7 +39,7 @@ t_envp	*ft_get_node(char *str)
 	{
 		node = list->content;
 		if (!ft_strcmp(str, node->key))
-			return (node);
+			return (free(str), node);
 		list = list->next;
 	}
 	return (free(str), NULL);
@@ -101,10 +100,9 @@ char	**ft_expand_vars(char **cmd)
 	return (ret);
 }
 
-
 void	ft_parser(char *prompt)
 {
-	char **cmd;
+	char	**cmd;
 
 	cmd = ft_cmdtrim(prompt);
 	for (int i = 0; i < ft_charpplen(cmd); i++)

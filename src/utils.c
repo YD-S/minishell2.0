@@ -48,7 +48,7 @@ char	**ft_str_add_back(char **str, char *add)
 	while (len--)
 		ret[len] = str[len];
 	ret[temp_len] = add;
-	free(str);
+	ft_charppfree(str);
 	return (ret);
 }
 
