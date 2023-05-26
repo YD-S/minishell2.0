@@ -36,5 +36,6 @@ char *ft_replace(char *str, char *start, char *end, char *replace)
 	left = ft_strjoin(final, right);
 	free(right);
 	free(str);
+    free(final);
 	return (left);
 }

@@ -46,9 +46,10 @@ char	**ft_str_add_back(char **str, char *add)
 	temp_len = len;
 	ret = ft_calloc(sizeof(char *), len + 2);
 	while (len--)
-		ret[len] = str[len];
-	ret[temp_len] = add;
+		ret[len] = ft_strdup(str[len]);
+	ret[temp_len] = ft_strdup(add);
 	ft_charppfree(str);
+    free(add);
 	return (ret);
 }
 

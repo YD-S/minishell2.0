@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_check_cmd(line);
 		ft_parser(line);
 		free(line);
-		system("leaks -q Minishell");
+        system("leaks -q Minishell");
 	}
 }
 
@@ -57,7 +57,7 @@ char	*ft_get_var(char *cmd)
 	i = 0;
 	cpy = ft_strdup(cmd);
 	if ((cmd[0] == SQ && cmd[ft_strlen(cmd) - 1] == SQ) || !ft_strchr(cpy, '$'))
-		return (cpy);
+		return (ft_printf("Returned\n"), cpy);
 	while (cpy[i])
 	{
 		aux = ft_strchr(cpy + i, '$');
@@ -88,14 +88,18 @@ char	*ft_get_var(char *cmd)
 char	**ft_expand_vars(char **cmd)
 {
 	char	**ret;
+   // char    *str;
 	int		i;
 
 	i = -1;
 	ret = NULL;
 	if (!cmd)
 		return (NULL);
-	while (cmd[++i])
+	while (cmd[++i]){
+        //str = ft_get_var(cmd[i]);
 		ret = ft_str_add_back(ret, ft_get_var(cmd[i]));
+        //free(str);
+    }
 	ft_charppfree(cmd);
 	return (ret);
 }
@@ -110,4 +114,5 @@ void	ft_parser(char *prompt)
 	cmd = ft_expand_vars(cmd);
 	for (int i = 0; i < ft_charpplen(cmd); i++)
 		printf("after: %s\n", cmd[i]);
+    ft_charppfree(cmd);
 }
