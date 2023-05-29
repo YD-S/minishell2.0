@@ -20,6 +20,10 @@
 # include <signal.h>
 # include <stdio.h>
 # include <sys/types.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <dirent.h>
+# include <sys/ioctl.h>
 
 //Colors Start
 # define FRED "\033[0;31m"
@@ -35,6 +39,13 @@ typedef struct s_envp
 	char	*key;
 	char	*value;
 }			t_envp;
+
+typedef struct s_strings
+{
+	char	*cpy;
+	char	*aux;
+	char	*aux2;
+}			t_strings;
 
 typedef struct s_global
 {
@@ -72,4 +83,6 @@ char		*ft_sq(char *prompt, int i);
 char		*ft_noq(char *prompt, int i);
 char		*ft_strchrs(const char *str, const char *chrs);
 void		free_all(t_envp *ptr);
+int			wordlen(char *prompt, int i);
+void		handle_sigint(int sig);
 #endif // MINISHELL_H

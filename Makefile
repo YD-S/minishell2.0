@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -MD -g
 
 NAME = Minishell
 SRC_DIR = src
-SRC = main.c utils.c init.c prints.c exit.c quote.c
+SRC = main.c utils.c init.c prints.c exit.c quote.c signal.c
 BUILD_DIR = build
 INCLUDE_DIR = includes
 INCLUDES = -I./$(INCLUDE_DIR) -I./$(LIB_DIR)/libft/includes

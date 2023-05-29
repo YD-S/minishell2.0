@@ -20,12 +20,14 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_global(envp);
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
+		//signal(SIGINT, handle_sigint);
 		line = ft_readline();
 		add_history(line);
 		ft_check_cmd(line);
 		ft_parser(line);
 		free(line);
-        system("leaks -q Minishell");
+		system("leaks -q Minishell");
 	}
 }
 
@@ -47,59 +49,54 @@ t_envp	*ft_get_node(char *str)
 
 char	*ft_get_var(char *cmd)
 {
-	char	*cpy;
-	char	*aux;
-	char	*aux2;
+	t_strings strings;
 	t_envp	*var;
 	int		i;
 	int		j;
 
 	i = 0;
-	cpy = ft_strdup(cmd);
-	if ((cmd[0] == SQ && cmd[ft_strlen(cmd) - 1] == SQ) || !ft_strchr(cpy, '$'))
-		return (ft_printf("Returned\n"), cpy);
-	while (cpy[i])
+
+	strings.cpy = ft_strdup(cmd);
+	if ((cmd[0] == SQ && cmd[ft_strlen(cmd) - 1] == SQ) || !ft_strchr(strings.cpy, '$'))
+		return (ft_printf("Returned\n"), strings.cpy);
+	while (strings.cpy[i])
 	{
-		aux = ft_strchr(cpy + i, '$');
-		if (!aux)
+		strings.aux = ft_strchr(strings.cpy + i, '$');
+		if (!strings.aux)
 			break ;
-		j = ft_get_index(cpy, ft_strchr(cpy + i, '$'));
-		if (ft_isspace(aux[1]) || aux[1] == '\0' || aux[1] == '$'
-			|| aux[1] == '=' || aux[1] == '\"' || aux[1] == '\''
-			|| aux[1] == '?' || aux[1] == '|')
+		j = ft_get_index(strings.cpy, ft_strchr(strings.cpy + i, '$'));
+		if (ft_isspace(strings.aux[1]) || strings.aux[1] == '\0' || strings.aux[1] == '$'
+			|| strings.aux[1] == '=' || strings.aux[1] == '\"' || strings.aux[1] == '\''
+			|| strings.aux[1] == '?' || strings.aux[1] == '|')
 		{
 			i++;
 			continue ;
 		}
-		aux2 = ft_strchrs(aux + 1, " $=\n\t?\'\"|");
-		var = ft_get_node(ft_substr(cpy, ft_get_index(cpy, aux),
-					ft_get_index(cpy, aux2) - ft_get_index(cpy, aux)));
+		strings.aux2 = ft_strchrs(strings.aux + 1, " $=\n\t?\'\"|");
+		var = ft_get_node(ft_substr(strings.cpy, ft_get_index(strings.cpy, strings.aux),
+					ft_get_index(strings.cpy, strings.aux2) - ft_get_index(strings.cpy, strings.aux)));
 		if (!var)
-			cpy = ft_replace(cpy, aux, aux2, "");
+			strings.cpy = ft_replace(strings.cpy, strings.aux, strings.aux2, "");
 		else
 		{
-			cpy = ft_replace(cpy, aux, aux2, var->value);
+			strings.cpy = ft_replace(strings.cpy, strings.aux, strings.aux2, var->value);
 			i = j + (int)ft_strlen(var->value);
 		}
 	}
-	return (cpy);
+	return (strings.cpy);
 }
 
 char	**ft_expand_vars(char **cmd)
 {
 	char	**ret;
-   // char    *str;
 	int		i;
 
 	i = -1;
 	ret = NULL;
 	if (!cmd)
 		return (NULL);
-	while (cmd[++i]){
-        //str = ft_get_var(cmd[i]);
+	while (cmd[++i])
 		ret = ft_str_add_back(ret, ft_get_var(cmd[i]));
-        //free(str);
-    }
 	ft_charppfree(cmd);
 	return (ret);
 }
@@ -112,7 +109,8 @@ void	ft_parser(char *prompt)
 	for (int i = 0; i < ft_charpplen(cmd); i++)
 		printf("before: %s\n", cmd[i]);
 	cmd = ft_expand_vars(cmd);
+	//cmd = ft_cmdsubsplit(cmd);
 	for (int i = 0; i < ft_charpplen(cmd); i++)
 		printf("after: %s\n", cmd[i]);
-    ft_charppfree(cmd);
+	ft_charppfree(cmd);
 }

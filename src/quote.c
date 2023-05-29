@@ -52,12 +52,25 @@ char	*ft_sq(char *prompt, int i)
 	return (ret);
 }
 
+int	wordlen(char *prompt, int i)
+{
+	int	len;
+
+	len = 0;
+	while (prompt[i] && prompt[i] != ' ' && prompt[i] != SQ && prompt[i] != DQ)
+	{
+		len++;
+		i++;
+	}
+	return (len);
+}
+
 char	*ft_noq(char *prompt, int i)
 {
 	int		len;
 	char	*ret;
 
-	len = ft_strclen(prompt, ' ', i);
+	len = wordlen(prompt, i);
 	ret = ft_substr(prompt, i, len);
 	return (ret);
 }

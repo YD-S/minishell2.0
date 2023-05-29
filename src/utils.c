@@ -49,7 +49,7 @@ char	**ft_str_add_back(char **str, char *add)
 		ret[len] = ft_strdup(str[len]);
 	ret[temp_len] = ft_strdup(add);
 	ft_charppfree(str);
-    free(add);
+	free(add);
 	return (ret);
 }
 
@@ -59,26 +59,10 @@ char	**ft_cmdtrim(char *prompt)
 	char	*aux;
 	int		i;
 
-	//int qs;
 	i = 0;
 	ret = NULL;
 	while (i < (int)ft_strlen(prompt))
 	{
-		/*	qs = quote_state(prompt[i]);
-		if (qs == NO && prompt[i] == ' ')
-			j++;
-		else if (qs == NO || qs == SQI || qs == DQI)
-			k++;
-		else if (((qs == SQO || qs == DQO) && k != 0) || qs == SQC || qs == DQC
-				|| i == (int)ft_strlen(prompt) - 1)
-		{
-			ret = ft_str_add_back(ret, ft_substr(prompt, j, k + (qs == SQC
-							|| qs == DQC) * 2));
-			j += k + (qs == SQC || qs == DQC || qs == NO) * 2;
-			k = 0;
-		}
-		i++;
-		*/
 		while (prompt[i] == ' ')
 			i++;
 		if (prompt[i] == DQ)
