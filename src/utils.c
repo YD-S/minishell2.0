@@ -53,6 +53,51 @@ char	**ft_str_add_back(char **str, char *add)
 	return (ret);
 }
 
+char *ft_red(char *prompt, int i)
+{
+	int		len = 0;
+	int aux = i;
+	char	*ret;
+
+	while(prompt[aux] == '<')
+	{
+		len++;
+		aux++;
+	}
+	ret = ft_substr(prompt, i, len);
+	return (ret);
+}
+
+char *ft_redback(char *prompt, int i)
+{
+	int		len = 0;
+	int aux = i;
+	char	*ret;
+
+	while(prompt[aux] == '>')
+	{
+		len++;
+		aux++;
+	}
+	ret = ft_substr(prompt, i, len);
+	return (ret);
+}
+
+char *ft_redpipe(char *prompt, int i)
+{
+	int		len = 0;
+	int aux = i;
+	char	*ret;
+
+	while(prompt[aux] == '|')
+	{
+		len++;
+		aux++;
+	}
+	ret = ft_substr(prompt, i, len);
+	return (ret);
+}
+
 char	**ft_cmdtrim(char *prompt)
 {
 	char	**ret;
@@ -74,6 +119,21 @@ char	**ft_cmdtrim(char *prompt)
 		{
 			aux = ft_sq(prompt, i);
 			i += ft_strlen(aux);
+		}
+		else if(prompt[i] == '<')
+		{
+			aux = ft_red(prompt, i);
+			i += strlen(aux);
+		}
+		else if(prompt[i] == '>')
+		{
+			aux = ft_redback(prompt, i);
+			i += strlen(aux);
+		}
+		else if(prompt[i] == '>')
+		{
+			aux = ft_redpipe(prompt, i);
+			i += strlen(aux);
 		}
 		else
 		{

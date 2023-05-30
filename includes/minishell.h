@@ -85,4 +85,5 @@ char		*ft_strchrs(const char *str, const char *chrs);
 void		free_all(t_envp *ptr);
 int			wordlen(char *prompt, int i);
 void		handle_sigint(int sig);
+void	handle_sigquit();
 #endif // MINISHELL_H

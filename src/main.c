@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_global(envp);
 	while (1)
 	{
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, handle_sigquit);
 		//signal(SIGINT, handle_sigint);
 		line = ft_readline();
 		add_history(line);
@@ -109,7 +109,6 @@ void	ft_parser(char *prompt)
 	for (int i = 0; i < ft_charpplen(cmd); i++)
 		printf("before: %s\n", cmd[i]);
 	cmd = ft_expand_vars(cmd);
-	//cmd = ft_cmdsubsplit(cmd);
 	for (int i = 0; i < ft_charpplen(cmd); i++)
 		printf("after: %s\n", cmd[i]);
 	ft_charppfree(cmd);
