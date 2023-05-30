@@ -15,15 +15,15 @@
 # define SQC 6
 
 # include "libft.h"
+# include <dirent.h>
+# include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
-# include <sys/types.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <dirent.h>
 # include <sys/ioctl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 //Colors Start
 # define FRED "\033[0;31m"
@@ -85,5 +85,5 @@ char		*ft_strchrs(const char *str, const char *chrs);
 void		free_all(t_envp *ptr);
 int			wordlen(char *prompt, int i);
 void		handle_sigint(int sig);
-void	handle_sigquit();
+void		handle_sigquit(void);
 #endif // MINISHELL_H

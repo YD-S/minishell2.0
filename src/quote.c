@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 21:29:40 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/09 20:08:41 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/05/30 17:56:11 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	wordlen(char *prompt, int i)
 	int	len;
 
 	len = 0;
-	while (prompt[i] && prompt[i] != ' ' && prompt[i] != SQ && prompt[i] != DQ)
+	while (prompt[i] && prompt[i] != ' ' && prompt[i] != SQ && prompt[i] != DQ
+		&& prompt[i] != '<' && prompt[i] != '>' && prompt[i] != '|')
 	{
 		len++;
 		i++;

@@ -53,13 +53,15 @@ char	**ft_str_add_back(char **str, char *add)
 	return (ret);
 }
 
-char *ft_red(char *prompt, int i)
+char	*ft_red(char *prompt, int i)
 {
-	int		len = 0;
-	int aux = i;
+	int		len;
+	int		aux;
 	char	*ret;
 
-	while(prompt[aux] == '<')
+	len = 0;
+	aux = i;
+	while (prompt[aux] == '<')
 	{
 		len++;
 		aux++;
@@ -68,13 +70,15 @@ char *ft_red(char *prompt, int i)
 	return (ret);
 }
 
-char *ft_redback(char *prompt, int i)
+char	*ft_redback(char *prompt, int i)
 {
-	int		len = 0;
-	int aux = i;
+	int		len;
+	int		aux;
 	char	*ret;
 
-	while(prompt[aux] == '>')
+	len = 0;
+	aux = i;
+	while (prompt[aux] == '>')
 	{
 		len++;
 		aux++;
@@ -83,13 +87,15 @@ char *ft_redback(char *prompt, int i)
 	return (ret);
 }
 
-char *ft_redpipe(char *prompt, int i)
+char	*ft_redpipe(char *prompt, int i)
 {
-	int		len = 0;
-	int aux = i;
+	int		len;
+	int		aux;
 	char	*ret;
 
-	while(prompt[aux] == '|')
+	len = 0;
+	aux = i;
+	while (prompt[aux] == '|')
 	{
 		len++;
 		aux++;
@@ -120,17 +126,17 @@ char	**ft_cmdtrim(char *prompt)
 			aux = ft_sq(prompt, i);
 			i += ft_strlen(aux);
 		}
-		else if(prompt[i] == '<')
+		else if (prompt[i] == '<')
 		{
 			aux = ft_red(prompt, i);
 			i += strlen(aux);
 		}
-		else if(prompt[i] == '>')
+		else if (prompt[i] == '>')
 		{
 			aux = ft_redback(prompt, i);
 			i += strlen(aux);
 		}
-		else if(prompt[i] == '>')
+		else if (prompt[i] == '|')
 		{
 			aux = ft_redpipe(prompt, i);
 			i += strlen(aux);

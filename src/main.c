@@ -49,15 +49,15 @@ t_envp	*ft_get_node(char *str)
 
 char	*ft_get_var(char *cmd)
 {
-	t_strings strings;
-	t_envp	*var;
-	int		i;
-	int		j;
+	t_strings	strings;
+	t_envp		*var;
+	int			i;
+	int			j;
 
 	i = 0;
-
 	strings.cpy = ft_strdup(cmd);
-	if ((cmd[0] == SQ && cmd[ft_strlen(cmd) - 1] == SQ) || !ft_strchr(strings.cpy, '$'))
+	if ((cmd[0] == SQ && cmd[ft_strlen(cmd) - 1] == SQ)
+		|| !ft_strchr(strings.cpy, '$'))
 		return (ft_printf("Returned\n"), strings.cpy);
 	while (strings.cpy[i])
 	{
@@ -65,21 +65,25 @@ char	*ft_get_var(char *cmd)
 		if (!strings.aux)
 			break ;
 		j = ft_get_index(strings.cpy, ft_strchr(strings.cpy + i, '$'));
-		if (ft_isspace(strings.aux[1]) || strings.aux[1] == '\0' || strings.aux[1] == '$'
-			|| strings.aux[1] == '=' || strings.aux[1] == '\"' || strings.aux[1] == '\''
+		if (ft_isspace(strings.aux[1]) || strings.aux[1] == '\0'
+			|| strings.aux[1] == '$' || strings.aux[1] == '='
+			|| strings.aux[1] == '\"' || strings.aux[1] == '\''
 			|| strings.aux[1] == '?' || strings.aux[1] == '|')
 		{
 			i++;
 			continue ;
 		}
 		strings.aux2 = ft_strchrs(strings.aux + 1, " $=\n\t?\'\"|");
-		var = ft_get_node(ft_substr(strings.cpy, ft_get_index(strings.cpy, strings.aux),
-					ft_get_index(strings.cpy, strings.aux2) - ft_get_index(strings.cpy, strings.aux)));
+		var = ft_get_node(ft_substr(strings.cpy, ft_get_index(strings.cpy,
+						strings.aux), ft_get_index(strings.cpy, strings.aux2)
+					- ft_get_index(strings.cpy, strings.aux)));
 		if (!var)
-			strings.cpy = ft_replace(strings.cpy, strings.aux, strings.aux2, "");
+			strings.cpy = ft_replace(strings.cpy, strings.aux, strings.aux2,
+					"");
 		else
 		{
-			strings.cpy = ft_replace(strings.cpy, strings.aux, strings.aux2, var->value);
+			strings.cpy = ft_replace(strings.cpy, strings.aux, strings.aux2,
+					var->value);
 			i = j + (int)ft_strlen(var->value);
 		}
 	}
