@@ -18,11 +18,13 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	printcustomascii();
 	ft_init_global(envp);
+	signal(SIGQUIT, handle_sigquit);
+	//signal(SIGINT, handle_sigint);
 	while (1)
 	{
-		signal(SIGQUIT, handle_sigquit);
-		//signal(SIGINT, handle_sigint);
 		line = ft_readline();
+		if(!line)
+			return (0);
 		add_history(line);
 		ft_check_cmd(line);
 		ft_parser(line);
