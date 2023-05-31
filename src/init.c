@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/31 18:58:54 by ysingh            #+#    #+#             */
+/*   Updated: 2023/05/31 19:10:13 by ysingh           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	ft_init_global(char **envp)
@@ -19,6 +31,23 @@ void	ft_init_global(char **envp)
 	g_global.exit_status = 0;
 	g_global.heredoc_out = NULL;
 	g_global.user = ft_get_env("$USER");
+}
+
+void	ft_add_dollar(void)
+{
+	t_list	*tmp;
+	t_envp	*env;
+	char	*key_temp;
+
+	tmp = g_global.envp;
+	while (tmp)
+	{
+		env = tmp->content;
+		key_temp = env->key;
+		env->key = ft_strjoin("$", env->key);
+		free(key_temp);
+		tmp = tmp->next;
+	}
 }
 
 char	*ft_get_env(char *key)

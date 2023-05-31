@@ -76,12 +76,13 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst,
 						void *(*f)(void *),
 						void (*del)(void *));
-int ft_strcmp(const char *s1, const char *s2);
-int ft_charpplen(char **str);
-void ft_charppfree(char **str);
-char *ft_replace(char *str, char *start, char *end, char *replace);
-char **ft_charpp_del_back(char **str);
-int	ft_strclen(char *str, char c, int start);
-int ft_isspace(char c);
-int ft_get_index(char *str, char *index);
+int					ft_strcmp(const char *s1, const char *s2);
+int					ft_charpplen(char **str);
+void				ft_charppfree(char **str);
+char				*ft_replace(char *str, char *start, char *end,
+						char *replace);
+char				**ft_charpp_del_back(char **str);
+int					ft_strclen(char *str, char c, int start);
+int					ft_isspace(char c);
+int					ft_get_index(char *str, char *index);
 #endif

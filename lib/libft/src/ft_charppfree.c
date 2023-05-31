@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_charppfree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 21:46:11 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/26 17:21:12 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/05/31 18:57:15 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_charppfree(char **str)
+void	ft_charppfree(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if(str)
+	if (str)
 	{
 		while (str[i])
 		{

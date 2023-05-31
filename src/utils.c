@@ -1,7 +1,91 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/31 19:09:06 by ysingh            #+#    #+#             */
+/*   Updated: 2023/05/31 23:29:35 by ysingh           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_check_cmd(char *prompt)
+int	ft_validate_redirect(char *str, int *i)
+{
+	int	count;
+
+	count = 0;
+	if (str[*i] == '>' && str[*i + 1] == '>')
+	{
+		count += 2;
+		*i += 1;
+	}
+	// else if (str[*i] == '>' && str[*i + 1] != '>')
+	// {
+	// 	count += 1;
+	// 	*i += 1;
+	// }
+	else if (str[*i] == '<' && str[*i + 1] == '<')
+	{
+		count += 2;
+		*i += 1;
+	}
+	// else if (str[*i] == '<' && str[*i + 1] != '<')
+	// {
+	// 	write(1, "4\n", 2);
+	// 	count += 1;
+	// 	*i += 1;
+	// }
+	// else if ((str[*i] != '<' || str[*i] != '>') && str[*i + 1] == ' ')
+	// 	{
+	// 		write(1, "5\n", 2);
+	// 		*i += 1;
+	// 	}
+	return (count);
+}
+
+int	ft_validate(char *str)
+{
+	int	i;
+	int	pflag;
+	int	rflag;
+	int	count;
+
+	rflag = 0;
+	pflag = 1;
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '|' && str[i] != '>' && str[i] != '<' && str[i] == ' ')
+			i++;
+		if (str[i] == '|' && rflag)
+			return (0);
+		if ((str[i] == '>' || str[i] == '<') && pflag)
+			return (0);
+		if (str[i] == '|' && pflag)
+			return (0);
+		if (str[i] == '|' && !pflag && !count)
+			pflag = 1;
+		if (str[i] == '>' || str[i] == '<')
+		{
+			count = ft_validate_redirect(str, &i);
+			printf("%d\n", count);
+			if (count > 2)
+				return (0);
+			rflag = 1;
+			pflag = 0;
+		}
+		if (str[i] != '|' && str[i] != '>' && str[i] != '<')
+			pflag = 0;
+		i++;
+	}
+	return (1);
+}
+
+int	ft_check_cmd(char *prompt)
 {
 	int	state;
 	int	i;
@@ -17,9 +101,10 @@ void	ft_check_cmd(char *prompt)
 	if (state != NO && state != SQC && state != DQC)
 	{
 		ft_printf("Quote Error\n");
-		exit(0);
+		return (0);
 	}
 	__qs('\0', 1);
+	return (ft_validate(prompt));
 }
 
 void	ft_print_lists(void)
@@ -50,104 +135,6 @@ char	**ft_str_add_back(char **str, char *add)
 	ret[temp_len] = ft_strdup(add);
 	ft_charppfree(str);
 	free(add);
-	return (ret);
-}
-
-char	*ft_red(char *prompt, int i)
-{
-	int		len;
-	int		aux;
-	char	*ret;
-
-	len = 0;
-	aux = i;
-	while (prompt[aux] == '<')
-	{
-		len++;
-		aux++;
-	}
-	ret = ft_substr(prompt, i, len);
-	return (ret);
-}
-
-char	*ft_redback(char *prompt, int i)
-{
-	int		len;
-	int		aux;
-	char	*ret;
-
-	len = 0;
-	aux = i;
-	while (prompt[aux] == '>')
-	{
-		len++;
-		aux++;
-	}
-	ret = ft_substr(prompt, i, len);
-	return (ret);
-}
-
-char	*ft_redpipe(char *prompt, int i)
-{
-	int		len;
-	int		aux;
-	char	*ret;
-
-	len = 0;
-	aux = i;
-	while (prompt[aux] == '|')
-	{
-		len++;
-		aux++;
-	}
-	ret = ft_substr(prompt, i, len);
-	return (ret);
-}
-
-char	**ft_cmdtrim(char *prompt)
-{
-	char	**ret;
-	char	*aux;
-	int		i;
-
-	i = 0;
-	ret = NULL;
-	while (i < (int)ft_strlen(prompt))
-	{
-		while (prompt[i] == ' ')
-			i++;
-		if (prompt[i] == DQ)
-		{
-			aux = ft_dq(prompt, i);
-			i += ft_strlen(aux);
-		}
-		else if (prompt[i] == SQ)
-		{
-			aux = ft_sq(prompt, i);
-			i += ft_strlen(aux);
-		}
-		else if (prompt[i] == '<')
-		{
-			aux = ft_red(prompt, i);
-			i += strlen(aux);
-		}
-		else if (prompt[i] == '>')
-		{
-			aux = ft_redback(prompt, i);
-			i += strlen(aux);
-		}
-		else if (prompt[i] == '|')
-		{
-			aux = ft_redpipe(prompt, i);
-			i += strlen(aux);
-		}
-		else
-		{
-			aux = ft_noq(prompt, i);
-			i += ft_strlen(aux);
-		}
-		ret = ft_str_add_back(ret, aux);
-	}
 	return (ret);
 }
 
@@ -190,19 +177,22 @@ char	*ft_strnstr_perso(const char *haystack, const char *needle, size_t len)
 	return (NULL);
 }
 
-void	ft_add_dollar(void)
+void	ft_check_pipe(char *str)
 {
-	t_list	*tmp;
-	t_envp	*env;
-	char	*key_temp;
+	int	i;
+	int	count;
 
-	tmp = g_global.envp;
-	while (tmp)
+	i = 0;
+	count = 0;
+	while (str[i])
 	{
-		env = tmp->content;
-		key_temp = env->key;
-		env->key = ft_strjoin("$", env->key);
-		free(key_temp);
-		tmp = tmp->next;
+		if (str[i] == '|')
+			count++;
+		i++;
+	}
+	if (count > 1)
+	{
+		ft_printf("syntax error near unexpected token `|'\n");
+		exit(0);
 	}
 }
