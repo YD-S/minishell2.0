@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:03 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/31 22:29:04 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/01 16:40:47 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	main(int argc, char **argv, char **envp)
 			free(line);
 			ft_putstr_fd("minishell: syntax error\n", 2);
 		}
-		system("leaks -q Minishell");
 	}
 }
 
@@ -90,7 +89,7 @@ char	*ft_get_var(char *cmd)
 		if (!mas.strs.aux)
 			break ;
 		mas.count.j = ft_get_index(mas.strs.cpy,
-									ft_strchr(mas.strs.cpy + mas.count.i, '$'));
+				ft_strchr(mas.strs.cpy + mas.count.i, '$'));
 		if (ft_isspace(mas.strs.aux[1]) || mas.strs.aux[1] == '\0'
 			|| mas.strs.aux[1] == '$' || mas.strs.aux[1] == '='
 			|| mas.strs.aux[1] == '\"' || mas.strs.aux[1] == '\''
