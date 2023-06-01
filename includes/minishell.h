@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/01 17:17:56 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/01 18:07:25 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,10 @@ char			*ft_call_red(char *prompt, int *i);
 char			*ft_call_redback(char *prompt, int *i);
 char			*ft_call_pipe(char *prompt, int *i);
 char			*ft_call_redpipe(char *prompt, int *i);
+int				ft_validate_redirect(char *str, int *i);
+int				ft_locate_firstpipe(char *str);
+void			set_pipe_redirect(int *pipe, int *redirect, int flag);
+int				ft_check_last_pipe(char *str);
+int				ft_validate(char *str);
+void			handle_eof(void);
 #endif // MINISHELL_H

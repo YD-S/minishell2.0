@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:03 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/01 17:16:27 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/01 18:21:16 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = ft_readline();
 		if (!line)
-			return (ft_putendl_fd("Exit", 2), 0);
+			return (handle_eof(), 0);
 		add_history(line);
 		if (ft_check_cmd(line))
 		{
@@ -89,7 +89,7 @@ char	*ft_get_var(char *cmd)
 		if (!mas.strs.aux)
 			break ;
 		mas.count.j = ft_get_index(mas.strs.cpy,
-									ft_strchr(mas.strs.cpy + mas.count.i, '$'));
+				ft_strchr(mas.strs.cpy + mas.count.i, '$'));
 		if (ft_isspace(mas.strs.aux[1]) || mas.strs.aux[1] == '\0'
 			|| mas.strs.aux[1] == '$' || mas.strs.aux[1] == '='
 			|| mas.strs.aux[1] == '\"' || mas.strs.aux[1] == '\''
