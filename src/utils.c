@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 19:09:06 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/31 23:29:35 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/01 16:52:49 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,72 +14,74 @@
 
 int	ft_validate_redirect(char *str, int *i)
 {
-	int	count;
+	if (str[*i] == '<')
+	{
+		if (str[*i + 1] == '<')
+			*i += 2;
+		else
+			*i += 1;
+	}
+	else if (str[*i] == '>')
+	{
+		if (str[*i + 1] == '>')
+			*i += 2;
+		else
+			*i += 1;
+	}
+	if (str[*i] == '<' || str[*i] == '>' || str[*i] == '|')
+		return (0);
+	return (1);
+}
 
-	count = 0;
-	if (str[*i] == '>' && str[*i + 1] == '>')
+int	ft_locate_firstpipe(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i += 1;
+	if (str[i] == '|')
+		return (0);
+	return (1);
+}
+
+void	set_pipe_redirect(int *pipe, int *redirect, int flag)
+{
+	if (flag == 1)
 	{
-		count += 2;
-		*i += 1;
+		*pipe = 1;
+		*redirect = 0;
 	}
-	// else if (str[*i] == '>' && str[*i + 1] != '>')
-	// {
-	// 	count += 1;
-	// 	*i += 1;
-	// }
-	else if (str[*i] == '<' && str[*i + 1] == '<')
+	else if (flag == 2)
 	{
-		count += 2;
-		*i += 1;
+		*redirect = 1;
+		*pipe = 0;
 	}
-	// else if (str[*i] == '<' && str[*i + 1] != '<')
-	// {
-	// 	write(1, "4\n", 2);
-	// 	count += 1;
-	// 	*i += 1;
-	// }
-	// else if ((str[*i] != '<' || str[*i] != '>') && str[*i + 1] == ' ')
-	// 	{
-	// 		write(1, "5\n", 2);
-	// 		*i += 1;
-	// 	}
-	return (count);
 }
 
 int	ft_validate(char *str)
 {
 	int	i;
-	int	pflag;
-	int	rflag;
-	int	count;
+	int	pipe;
+	int	redirect;
 
-	rflag = 0;
-	pflag = 1;
-	count = 0;
 	i = 0;
+	pipe = 0;
+	redirect = 0;
 	while (str[i])
 	{
-		if (str[i] != '|' && str[i] != '>' && str[i] != '<' && str[i] == ' ')
-			i++;
-		if (str[i] == '|' && rflag)
-			return (0);
-		if ((str[i] == '>' || str[i] == '<') && pflag)
-			return (0);
-		if (str[i] == '|' && pflag)
-			return (0);
-		if (str[i] == '|' && !pflag && !count)
-			pflag = 1;
-		if (str[i] == '>' || str[i] == '<')
+		if (str[i] == '|')
 		{
-			count = ft_validate_redirect(str, &i);
-			printf("%d\n", count);
-			if (count > 2)
+			if (pipe == 1)
 				return (0);
-			rflag = 1;
-			pflag = 0;
+			set_pipe_redirect(&pipe, &redirect, 1);
 		}
-		if (str[i] != '|' && str[i] != '>' && str[i] != '<')
-			pflag = 0;
+		if (str[i] == '<' || str[i] == '>')
+		{
+			if (redirect == 1 || !ft_validate_redirect(str, &i))
+				return (0);
+			set_pipe_redirect(&pipe, &redirect, 2);
+		}
 		i++;
 	}
 	return (1);
@@ -104,95 +106,7 @@ int	ft_check_cmd(char *prompt)
 		return (0);
 	}
 	__qs('\0', 1);
+	if (!ft_locate_firstpipe(prompt))
+		return (0);
 	return (ft_validate(prompt));
-}
-
-void	ft_print_lists(void)
-{
-	t_list	*tmp;
-	t_envp	*env;
-
-	tmp = g_global.envp;
-	while (tmp)
-	{
-		env = tmp->content;
-		tmp = tmp->next;
-	}
-	(void)env;
-}
-
-char	**ft_str_add_back(char **str, char *add)
-{
-	int		temp_len;
-	int		len;
-	char	**ret;
-
-	len = ft_charpplen(str);
-	temp_len = len;
-	ret = ft_calloc(sizeof(char *), len + 2);
-	while (len--)
-		ret[len] = ft_strdup(str[len]);
-	ret[temp_len] = ft_strdup(add);
-	ft_charppfree(str);
-	free(add);
-	return (ret);
-}
-
-char	*ft_strchrs(const char *str, const char *chrs)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (str[i])
-	{
-		j = 0;
-		while (chrs[j])
-		{
-			if (str[i] == chrs[j])
-				return ((char *)str + i);
-			j++;
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-char	*ft_strnstr_perso(const char *haystack, const char *needle, size_t len)
-{
-	unsigned int	i;
-
-	i = 0;
-	if (*needle == 0 || haystack == needle)
-		return ((char *)haystack);
-	i = ft_strlen(needle);
-	while (*haystack && i <= len)
-	{
-		if (!(ft_strncmp((char *)haystack, (char *)needle, i))
-			&& !ft_isalnum(*(haystack + i)) && *(haystack + i) != '_')
-			return ((char *)haystack);
-		haystack++;
-		len--;
-	}
-	return (NULL);
-}
-
-void	ft_check_pipe(char *str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (str[i] == '|')
-			count++;
-		i++;
-	}
-	if (count > 1)
-	{
-		ft_printf("syntax error near unexpected token `|'\n");
-		exit(0);
-	}
 }

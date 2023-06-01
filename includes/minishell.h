@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/31 22:11:40 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/01 16:52:52 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,6 @@ t_global		g_global;
 int				__quote_state(char c, int old_state);
 int				ft_check_cmd(char *prompt);
 void			ft_init_global(char **envp);
-// DEBUG
-void			ft_print_lists(void);
-// END DEBUG
 char			*ft_get_env(char *key);
 char			*ft_readline(void);
 int				quote_state(char c);
