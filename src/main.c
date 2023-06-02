@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:03 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/01 16:40:47 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/01 18:21:16 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	printcustomascii();
 	ft_init_global(envp);
-	signal(SIGQUIT, handle_sigquit);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, handle_sigint);
 	while (1)
 	{
 		line = ft_readline();
 		if (!line)
-			return (0);
+			return (handle_eof(), 0);
 		add_history(line);
 		if (ft_check_cmd(line))
 		{

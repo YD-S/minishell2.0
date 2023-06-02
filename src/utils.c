@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 19:09:06 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/01 16:52:49 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/01 19:25:54 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,18 @@ void	set_pipe_redirect(int *pipe, int *redirect, int flag)
 	}
 }
 
+int	ft_check_last_pipe(char *str)
+{
+	int	i;
+
+	i = ft_strlen(str) - 1;
+	while (str[i] == ' ' || str[i] == '\t')
+		i -= 1;
+	if (str[i] == '|' || str[i] == '<' || str[i] == '>')
+		return (0);
+	return (1);
+}
+
 int	ft_validate(char *str)
 {
 	int	i;
@@ -76,37 +88,14 @@ int	ft_validate(char *str)
 				return (0);
 			set_pipe_redirect(&pipe, &redirect, 1);
 		}
-		if (str[i] == '<' || str[i] == '>')
+		else if (str[i] == '<' || str[i] == '>')
 		{
-			if (redirect == 1 || !ft_validate_redirect(str, &i))
+			if (redirect == 1 || (quote_state(str[i]) == NO
+					&& !ft_validate_redirect(str, &i)))
 				return (0);
 			set_pipe_redirect(&pipe, &redirect, 2);
 		}
 		i++;
 	}
-	return (1);
-}
-
-int	ft_check_cmd(char *prompt)
-{
-	int	state;
-	int	i;
-
-	__qs('\0', 1);
-	state = NO;
-	i = 0;
-	while (prompt[i])
-	{
-		state = quote_state(prompt[i]);
-		i++;
-	}
-	if (state != NO && state != SQC && state != DQC)
-	{
-		ft_printf("Quote Error\n");
-		return (0);
-	}
-	__qs('\0', 1);
-	if (!ft_locate_firstpipe(prompt))
-		return (0);
-	return (ft_validate(prompt));
+	return (ft_check_last_pipe(str));
 }

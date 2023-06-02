@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:41 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/31 22:11:50 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/01 18:30:02 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,28 @@ char	**ft_expand_vars(char **cmd)
 		ret = ft_str_add_back(ret, ft_get_var(cmd[i]));
 	ft_charppfree(cmd);
 	return (ret);
+}
+
+int	ft_check_cmd(char *prompt)
+{
+	int	state;
+	int	i;
+
+	__qs('\0', 1);
+	state = NO;
+	i = 0;
+	while (prompt[i])
+	{
+		state = quote_state(prompt[i]);
+		i++;
+	}
+	if (state != NO && state != SQC && state != DQC)
+	{
+		ft_printf("Quote Error\n");
+		return (0);
+	}
+	__qs('\0', 1);
+	if (!ft_locate_firstpipe(prompt))
+		return (0);
+	return (ft_validate(prompt));
 }

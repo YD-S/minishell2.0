@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/01 16:52:52 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/01 18:07:25 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ char			**ft_expand_vars(char **cmd);
 char			*ft_strnstr_perso(const char *haystack, const char *needle,
 					size_t len);
 void			ft_add_dollar(void);
-void			quote_reset(void);
 char			*ft_add_quote(char *str);
 int				__qs(char c, int reset);
 char			*ft_dq(char *prompt, int i);
@@ -105,7 +104,6 @@ char			*ft_noq(char *prompt, int i);
 char			*ft_strchrs(const char *str, const char *chrs);
 int				wordlen_perso(char *prompt, int i);
 void			handle_sigint(int sig);
-void			handle_sigquit(int sig);
 char			*ft_get_var(char *cmd);
 char			*ft_red(char *prompt, int i);
 char			*ft_redback(char *prompt, int i);
@@ -117,4 +115,10 @@ char			*ft_call_red(char *prompt, int *i);
 char			*ft_call_redback(char *prompt, int *i);
 char			*ft_call_pipe(char *prompt, int *i);
 char			*ft_call_redpipe(char *prompt, int *i);
+int				ft_validate_redirect(char *str, int *i);
+int				ft_locate_firstpipe(char *str);
+void			set_pipe_redirect(int *pipe, int *redirect, int flag);
+int				ft_check_last_pipe(char *str);
+int				ft_validate(char *str);
+void			handle_eof(void);
 #endif // MINISHELL_H
