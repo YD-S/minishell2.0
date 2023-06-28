@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/28 15:32:58 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/28 15:34:07 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_pipe_redirect
 {
 	int			pipe;
 	int			re;
-} t_pipe_redirect
+} t_pipe_redirect;
 
 	typedef struct s_master
 {
