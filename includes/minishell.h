@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/01 18:07:25 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/28 15:32:58 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,13 @@ typedef struct s_count
 	int			j;
 }				t_count;
 
-typedef struct s_master
+typedef struct s_pipe_redirect
+{
+	int			pipe;
+	int			re;
+} t_pipe_redirect
+
+	typedef struct s_master
 {
 	t_strings	strs;
 	t_envp		*var;
@@ -115,10 +121,11 @@ char			*ft_call_red(char *prompt, int *i);
 char			*ft_call_redback(char *prompt, int *i);
 char			*ft_call_pipe(char *prompt, int *i);
 char			*ft_call_redpipe(char *prompt, int *i);
-int				ft_validate_redirect(char *str, int *i);
+int				ft_vr(char *str, int *i);
 int				ft_locate_firstpipe(char *str);
 void			set_pipe_redirect(int *pipe, int *redirect, int flag);
 int				ft_check_last_pipe(char *str);
 int				ft_validate(char *str);
 void			handle_eof(void);
+void	ft_init_count(t_pipe_redirect *count, int *i);
 #endif // MINISHELL_H

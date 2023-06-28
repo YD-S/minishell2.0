@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 19:07:42 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/31 19:08:13 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/28 15:30:33 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,11 @@ char	*ft_redpipe(char *prompt, int i)
 	}
 	ret = ft_substr(prompt, i, len);
 	return (ret);
+}
+
+void	ft_init_count(t_pipe_redirect *count, int *i)
+{
+	count->pipe = 0;
+	count->redirect = 0;
+	*i = 0;
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 19:09:06 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/01 19:25:54 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/28 15:33:45 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_validate_redirect(char *str, int *i)
+int	ft_vr(char *str, int *i)
 {
 	if (str[*i] == '<')
 	{
@@ -28,6 +28,8 @@ int	ft_validate_redirect(char *str, int *i)
 		else
 			*i += 1;
 	}
+	while (str[*i] == ' ' || str[*i] == '\t')
+		*i += 1;
 	if (str[*i] == '<' || str[*i] == '>' || str[*i] == '|')
 		return (0);
 	return (1);
@@ -57,6 +59,11 @@ void	set_pipe_redirect(int *pipe, int *redirect, int flag)
 		*redirect = 1;
 		*pipe = 0;
 	}
+	else if (flag == 3)
+	{
+		*redirect = 0;
+		*pipe = 0;
+	}
 }
 
 int	ft_check_last_pipe(char *str)
@@ -73,28 +80,28 @@ int	ft_check_last_pipe(char *str)
 
 int	ft_validate(char *str)
 {
-	int	i;
-	int	pipe;
-	int	redirect;
+	int				i;
+	t_pipe_redirect	count;
 
-	i = 0;
-	pipe = 0;
-	redirect = 0;
+	ft_init_count(&count, &i);
 	while (str[i])
 	{
 		if (str[i] == '|')
 		{
-			if (pipe == 1)
+			if (count.pipe == 1 || (quote_state(str[i]) == NO
+					&& !ft_locate_firstpipe(str)))
 				return (0);
-			set_pipe_redirect(&pipe, &redirect, 1);
+			set_pipe_redirect(&count.pipe, &count.re, 1);
 		}
 		else if (str[i] == '<' || str[i] == '>')
 		{
-			if (redirect == 1 || (quote_state(str[i]) == NO
-					&& !ft_validate_redirect(str, &i)))
+			if (count.re == 1 || (quote_state(str[i]) == NO && !ft_vr(str, &i)))
 				return (0);
-			set_pipe_redirect(&pipe, &redirect, 2);
+			set_pipe_redirect(&count.pipe, &count.re, 2);
 		}
+		else if (str[i] != ' ' && str[i] != '\t' && str[i] != '|'
+			&& str[i] != '<' && str[i] != '>')
+			set_pipe_redirect(&count.pipe, &count.re, 3);
 		i++;
 	}
 	return (ft_check_last_pipe(str));
