@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void call_signal(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_sigint);
+}
+
 void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)

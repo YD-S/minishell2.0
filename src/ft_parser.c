@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	ft_parser(char *prompt)
+char **ft_parser(char *prompt)
 {
 	char	**cmd;
 
@@ -22,7 +22,8 @@ void	ft_parser(char *prompt)
 	cmd = ft_expand_vars(cmd);
 	for (int i = 0; i < ft_charpplen(cmd); i++)
 		printf("after: %s\n", cmd[i]);
-	ft_charppfree(cmd);
+	free(prompt);
+	return(cmd);
 }
 
 char	*ft_call_noq(char *prompt, int *i)

@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/28 15:34:07 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/29 14:27:40 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_pipe_redirect
 typedef struct s_global
 {
 	t_list		*envp;
-	char		*path;
+	char		**path;
 	int			exit_status;
 	char		*heredoc_out;
 	char		*user;
@@ -97,7 +97,7 @@ char			*ft_readline(void);
 int				quote_state(char c);
 char			**ft_str_add_back(char **str, char *add);
 char			**ft_cmdtrim(char *prompt);
-void			ft_parser(char *promt);
+char			**ft_parser(char *promt);
 char			**ft_expand_vars(char **cmd);
 char			*ft_strnstr_perso(const char *haystack, const char *needle,
 					size_t len);
@@ -114,7 +114,6 @@ char			*ft_get_var(char *cmd);
 char			*ft_red(char *prompt, int i);
 char			*ft_redback(char *prompt, int i);
 char			*ft_redpipe(char *prompt, int i);
-void			printcustomascii(void);
 char			*ft_call_dq(char *prompt, int *i);
 char			*ft_call_sq(char *prompt, int *i);
 char			*ft_call_red(char *prompt, int *i);
@@ -128,4 +127,6 @@ int				ft_check_last_pipe(char *str);
 int				ft_validate(char *str);
 void			handle_eof(void);
 void	ft_init_count(t_pipe_redirect *count, int *i);
+void call_signal(void);
+void ft_error(char *str, char *line);
 #endif // MINISHELL_H

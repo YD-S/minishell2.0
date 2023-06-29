@@ -15,6 +15,7 @@
 void	ft_init_global(char **envp)
 {
 	t_envp	*env;
+	char *temp;
 
 	while (*envp)
 	{
@@ -27,7 +28,8 @@ void	ft_init_global(char **envp)
 	}
 	ft_add_dollar();
 	g_global.flag = 0;
-	g_global.path = ft_get_env("$PATH");
+	temp = ft_get_env("$PATH");
+	g_global.path = ft_split(temp, ':');
 	g_global.exit_status = 0;
 	g_global.heredoc_out = NULL;
 	g_global.user = ft_get_env("$USER");

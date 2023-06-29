@@ -6,39 +6,31 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:03 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/28 15:31:24 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/06/29 14:27:39 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv __attribute__((unused)), char **envp)
 {
 	char	*line;
+	char 	**cmds;
 
-	(void)argc;
-	(void)argv;
-	printcustomascii();
+	if (argc != 1)
+		exit(0);
 	ft_init_global(envp);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handle_sigint);
+	call_signal();
 	while (1)
 	{
 		line = ft_readline();
-		if (!line)
-			return (handle_eof(), 0);
 		add_history(line);
 		if (ft_check_cmd(line))
-		{
-			ft_parser(line);
-			free(line);
-		}
+			cmds = ft_parser(line);
 		else
-		{
-			free(line);
-			ft_putstr_fd("minishell: syntax error\n", 2);
-		}
+			ft_error("minishell syntax error\n", line);
 	}
+	ft_charppfree(cmds);
 }
 
 t_envp	*ft_get_node(char *str)
