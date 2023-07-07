@@ -6,24 +6,26 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:41 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/01 18:30:02 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/07 16:01:05 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **ft_parser(char *prompt)
+char	**ft_parser(char *prompt)
 {
 	char	**cmd;
 
 	cmd = ft_cmdtrim(prompt);
+	if (prompt[ft_strlen(prompt) - 1] == ' ')
+		cmd = ft_charpp_del_back(cmd);
 	for (int i = 0; i < ft_charpplen(cmd); i++)
 		printf("before: %s\n", cmd[i]);
 	cmd = ft_expand_vars(cmd);
 	for (int i = 0; i < ft_charpplen(cmd); i++)
 		printf("after: %s\n", cmd[i]);
 	free(prompt);
-	return(cmd);
+	return (cmd);
 }
 
 char	*ft_call_noq(char *prompt, int *i)

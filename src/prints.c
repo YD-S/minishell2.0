@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   prints.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 19:06:57 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/29 14:21:20 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/07 16:07:42 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_error(char *str, char *line)
+void	ft_error(char *str, char *line)
 {
 	free(line);
 	ft_putstr_fd(str, 2);
@@ -28,6 +28,6 @@ char	*ft_readline(void)
 	else
 		line = readline(FGREEN "minishell> " NONE);
 	if (!line)
-		 handle_eof();
+		handle_eof();
 	return (line);
 }

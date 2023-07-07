@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/06/29 14:27:40 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/07 16:02:58 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ typedef struct s_pipe_redirect
 {
 	int			pipe;
 	int			re;
-} t_pipe_redirect;
+}	t_pipe_redirect;
 
-	typedef struct s_master
+typedef struct s_master
 {
 	t_strings	strs;
 	t_envp		*var;
@@ -82,7 +82,7 @@ typedef struct s_global
 	t_list		*envp;
 	char		**path;
 	int			exit_status;
-	char		*heredoc_out;
+	char		**heredoc_out;
 	char		*user;
 	int			flag;
 }				t_global;
