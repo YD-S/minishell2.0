@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/07 16:02:58 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/11 18:48:24 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,44 @@ void			set_pipe_redirect(int *pipe, int *redirect, int flag);
 int				ft_check_last_pipe(char *str);
 int				ft_validate(char *str);
 void			handle_eof(void);
-void	ft_init_count(t_pipe_redirect *count, int *i);
-void call_signal(void);
-void ft_error(char *str, char *line);
+void			ft_init_count(t_pipe_redirect *count, int *i);
+void			call_signal(void);
+void			ft_error(char *str, char *line);
+
+typedef struct pipex
+{
+	char		**archive_lines;
+	int			lines;
+	char		**paths;
+	char		***args;
+	int			*n_args;
+	char		**infile;
+	int			*heredoc;
+	char		**outfile;
+	int			*outmode;
+	int			*command_not_found;
+	int			i;
+}	t_pipex;
+
+void			ft_open_in_file(t_pipex *p, int fd[2]);
+void			ft_open_out_file(t_pipex *p, int fd2[2]);
+void			ft_open_first_file(t_pipex *p, int *file);
+void			ft_open_first_out_file(t_pipex *p, int fd[2], int n_com);
+
+void			ft_reserve_memory(t_pipex *p, int cmd, int max_args);
+char			*ft_check_comm(char **paths, char *command);
+int				ft_count_pipes(char *argv[], int n);
+int				ft_count_max_args(char *argv[], int n, int i);
+void			ft_count_args(char *argv[], int n, t_pipex *p);
+
+void			ft_free_all(t_pipex *p);
+
+int				ft_do_commands(t_pipex *p, int argc);
+
+void			free_strs(char **result, int index);
+char			**ft_split_quote(char const *s, char c);
+
+void			ft_executer(char **cmds, char **paths);
+void			ft_main(char **argv, int argc, char **paths);
+
 #endif // MINISHELL_H
