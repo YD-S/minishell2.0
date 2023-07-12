@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/11 16:02:17 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:57:17 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	ft_do_first_comm(t_pipex *p, int fd[2], int n_com)
 		close(fd[0]);
 		if (p->infile[0])
 			close(file);
-		if (get_builtin(p->args[0][0]) != 0)
+		if (get_builtin(p->args[0][0]) == 0)
 		{
 			if (execve(p->paths[0], p->args[0], 0) == -1)
 				return (g_global.exit_status = 127, 0);

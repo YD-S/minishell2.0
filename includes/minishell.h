@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/11 18:48:24 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:50:30 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,20 @@ typedef struct pipex
 	int			i;
 }	t_pipex;
 
+typedef struct s_aux
+{
+	int			i;
+	int			pipes;
+	int			cmd;
+	int			args;
+}	t_aux;
+
 void			ft_open_in_file(t_pipex *p, int fd[2]);
 void			ft_open_out_file(t_pipex *p, int fd2[2]);
 void			ft_open_first_file(t_pipex *p, int *file);
 void			ft_open_first_out_file(t_pipex *p, int fd[2], int n_com);
 
-void			ft_reserve_memory(t_pipex *p, int cmd, int max_args);
+void			ft_reserve_mem(t_pipex *p, int cmd, int max_args);
 char			*ft_check_comm(char **paths, char *command);
 int				ft_count_pipes(char *argv[], int n);
 int				ft_count_max_args(char *argv[], int n, int i);
@@ -164,10 +172,12 @@ int				ft_do_commands(t_pipex *p, int argc);
 void			free_strs(char **result, int index);
 char			**ft_split_quote(char const *s, char c);
 
+void			ft_free_mem(t_pipex *p, int cmd);
+
 void			ft_executer(char **cmds);
 void			ft_main(char **argv, int argc);
-void execute_builtin(char **cmd);
-int get_builtin(char *cmd);
-void execute_echo(char **args);
+void			execute_builtin(char **cmd);
+int				get_builtin(char *cmd);
+void			execute_echo(char **args);
 
 #endif // MINISHELL_H

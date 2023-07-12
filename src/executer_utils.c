@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main_utils.c                                    :+:      :+:    :+:   */
+/*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:12:37 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/11 10:53:46 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:39:11 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_reserve_memory(t_pipex *p, int cmd, int max_args)
+void	ft_reserve_mem(t_pipex *p, int cmd, int max_args)
 {
 	int	i;
 
@@ -35,16 +35,18 @@ char	*ft_check_comm(char **paths, char *command)
 {
 	int		i;
 	char	*aux;
+	char	*aux2;
 
 	i = 0;
 	while (paths[i] != 0)
 	{
 		aux = ft_strjoin(paths[i], "/");
-		aux = ft_strjoin(aux, command);
+		aux2 = ft_strjoin(aux, command);
+		free(aux);
 		if (access(aux, F_OK) != -1 && access(aux, X_OK) != -1)
-		{
-			return (aux);
-		}
+			return (aux2);
+		else
+			free(aux2);
 		i++;
 	}
 	return (0);
