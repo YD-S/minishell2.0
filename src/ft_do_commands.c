@@ -23,8 +23,13 @@ int	ft_do_command(t_pipex *p, int fd[2], int fd2[2])
 	{
 		ft_open_in_file(p, fd);
 		ft_open_out_file(p, fd2);
-		if (execve(p->paths[p->i], p->args[p->i], 0) == -1)
-			return (g_global.exit_status = 127, 0);
+		if (get_builtin(p->paths[p->i]))
+		{
+			if (execve(p->paths[p->i], p->args[p->i], 0) == -1)
+				return (g_global.exit_status = 127, 0);
+		}
+		else
+			execute_builtin(p->args[p->i]);
 		return (g_global.exit_status = 0, 1);
 	}
 	else
@@ -56,9 +61,41 @@ int	ft_do_last_comm(t_pipex *p, int fd[2])
 		}
 	}
 	ft_open_in_file(p, fd);
-	if (execve(p->paths[p->i], p->args[p->i], 0) == -1)
-		return (g_global.exit_status = 127, 0);
+	if (get_builtin(p->paths[p->i]))
+	{
+		if (execve(p->paths[p->i], p->args[p->i], 0) == -1)
+			return (g_global.exit_status = 127, 0);
+	}
+	else
+		execute_builtin(p->args[p->i]);
 	return (g_global.exit_status = 0, 1);
+}
+
+int get_builtin(char *cmd)
+{
+	if(ft_strcmp(cmd, "echo") != 0 || ft_strcmp(cmd, "cd") != 0 || ft_strcmp(cmd, "pwd") != 0 || ft_strcmp(cmd, "unset") != 0 || ft_strcmp(cmd, "export") != 0 || ft_strcmp(cmd, "exit") != 0 || ft_strcmp(cmd, "env") != 0)
+		return (0);
+	else
+		return (1);
+}
+
+void execute_builtin(char **cmd)
+{
+
+	if(ft_strcmp(cmd[0], "echo") == 0)
+		execute_echo(cmd);
+	/*if(ft_strcmp(cmd[0], "cd") == 0)
+		execute_cd(cmd);
+	if(ft_strcmp(cmd[0], "pwd") == 0)
+		execute_pwd(cmd);
+	if(ft_strcmp(cmd[0], "unset") == 0)
+		execute_unset(cmd);
+	if(ft_strcmp(cmd[0], "export") == 0)
+		execute_export(cmd);
+	if(ft_strcmp(cmd[0], "exit") == 0)
+		execute_exit(cmd);
+	if(ft_strcmp(cmd[0], "env") == 0)
+		execute_env(cmd);*/
 }
 
 int	ft_do_first_comm(t_pipex *p, int fd[2], int n_com)
@@ -76,8 +113,13 @@ int	ft_do_first_comm(t_pipex *p, int fd[2], int n_com)
 		close(fd[0]);
 		if (p->infile[0])
 			close(file);
-		if (execve(p->paths[0], p->args[0], 0) == -1)
-			return (g_global.exit_status = 127, 0);
+		if (get_builtin(p->args[0][0]) != 0)
+		{
+			if (execve(p->paths[0], p->args[0], 0) == -1)
+				return (g_global.exit_status = 127, 0);
+		}
+		else
+			execute_builtin(p->args[0]);
 	}
 	else
 	{

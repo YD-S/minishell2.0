@@ -35,6 +35,7 @@
 # include <sys/ioctl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <errno.h>
 
 //Colors Start
 # define FRED "\033[0;31m"
@@ -84,7 +85,7 @@ typedef struct s_global
 	int			exit_status;
 	char		**heredoc_out;
 	char		*user;
-	int			flag;
+	char		*dir;
 }				t_global;
 
 t_global		g_global;
@@ -125,7 +126,7 @@ int				ft_locate_firstpipe(char *str);
 void			set_pipe_redirect(int *pipe, int *redirect, int flag);
 int				ft_check_last_pipe(char *str);
 int				ft_validate(char *str);
-void			handle_eof(void);
+void			handle_eof(char *line);
 void			ft_init_count(t_pipe_redirect *count, int *i);
 void			call_signal(void);
 void			ft_error(char *str, char *line);
@@ -163,7 +164,10 @@ int				ft_do_commands(t_pipex *p, int argc);
 void			free_strs(char **result, int index);
 char			**ft_split_quote(char const *s, char c);
 
-void			ft_executer(char **cmds, char **paths);
-void			ft_main(char **argv, int argc, char **paths);
+void			ft_executer(char **cmds);
+void			ft_main(char **argv, int argc);
+void execute_builtin(char **cmd);
+int get_builtin(char *cmd);
+void execute_echo(char **args);
 
 #endif // MINISHELL_H

@@ -21,13 +21,13 @@ void	ft_error(char *str, char *line)
 char	*ft_readline(void)
 {
 	char	*line;
-
+	ft_printf("%s@",g_global.dir);
 	if (ft_strcmp(g_global.user, "root") == 0 || ft_strcmp(g_global.user,
 			"admin") == 0)
 		line = readline(FRED "minishell$ " NONE);
 	else
 		line = readline(FGREEN "minishell> " NONE);
 	if (!line)
-		handle_eof();
+		handle_eof(line);
 	return (line);
 }

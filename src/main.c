@@ -12,6 +12,10 @@
 
 #include "minishell.h"
 
+void leaks(){
+	system("leaks -q Minishell");
+}
+
 int	main(int argc, char **argv __attribute__((unused)), char **envp)
 {
 	char	*line;
@@ -19,6 +23,7 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 
 	if (argc != 1)
 		exit(0);
+	atexit(leaks);
 	ft_init_global(envp);
 	call_signal();
 	while (1)
@@ -26,9 +31,15 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 		line = ft_readline();
 		add_history(line);
 		if (ft_check_cmd(line))
+		{
 			cmds = ft_parser(line);
+			ft_executer(cmds);
+		}
 		else
+		{
 			ft_error("minishell syntax error\n", line);
+			g_global.exit_status = 127;
+		}
 	}
 	ft_charppfree(cmds);
 }

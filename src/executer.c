@@ -19,16 +19,16 @@ void	free_strs(char **result, int index)
 	free(result);
 }
 
-void	ft_executer(char **cmds, char **paths)
+void	ft_executer(char **cmds)
 {
 	int	i;
 
 	i = ft_charpplen(cmds);
-	ft_main(cmds, i, paths);
+	ft_main(cmds, i);
 }
 
 
-void	ft_main(char **argv, int argc, char **paths)
+void	ft_main(char **argv, int argc)
 {
 	t_pipex	p;
 	int		i;
@@ -60,7 +60,7 @@ void	ft_main(char **argv, int argc, char **paths)
 		{
 			p.infile[cmd] = 0;
 		}
-		p.paths[cmd] = ft_check_comm(paths, argv[i]);
+		p.paths[cmd] = ft_check_comm(g_global.path, argv[i]);
 		p.args[cmd][args] = argv[i];
 		i++;
 		while (i < argc && strncmp(argv[i], "|\0", 2) != 0)
@@ -87,4 +87,5 @@ void	ft_main(char **argv, int argc, char **paths)
 		cmd++;
 	}
 	ft_do_commands(&p, pipes + 1);
+	ft_charppfree(argv);
 }

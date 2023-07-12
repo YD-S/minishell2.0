@@ -19,11 +19,7 @@ char	**ft_parser(char *prompt)
 	cmd = ft_cmdtrim(prompt);
 	if (prompt[ft_strlen(prompt) - 1] == ' ')
 		cmd = ft_charpp_del_back(cmd);
-	for (int i = 0; i < ft_charpplen(cmd); i++)
-		printf("before: %s\n", cmd[i]);
 	cmd = ft_expand_vars(cmd);
-	for (int i = 0; i < ft_charpplen(cmd); i++)
-		printf("after: %s\n", cmd[i]);
 	free(prompt);
 	return (cmd);
 }

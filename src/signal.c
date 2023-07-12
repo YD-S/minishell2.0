@@ -32,11 +32,12 @@ void	handle_sigint(int sig)
 	}
 }
 
-void	handle_eof(void)
+void	handle_eof(char *line)
 {
 	rl_on_new_line();
 	rl_redisplay();
 	ft_putstr_fd("exit", 1);
 	ft_putstr_fd("\n", 1);
+	free(line);
 	exit(0);
 }
