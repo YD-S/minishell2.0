@@ -6,13 +6,14 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:03 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/12 21:05:04 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:06:30 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void leaks(){
+void	leaks(void)
+{
 	system("leaks -q Minishell");
 }
 
