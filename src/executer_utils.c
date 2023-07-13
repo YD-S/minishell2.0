@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:12:37 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/12 20:39:11 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:45:46 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_check_comm(char **paths, char *command)
 		aux = ft_strjoin(paths[i], "/");
 		aux2 = ft_strjoin(aux, command);
 		free(aux);
-		if (access(aux, F_OK) != -1 && access(aux, X_OK) != -1)
+		if (access(aux2, F_OK) != -1 && access(aux2, X_OK) != -1)
 			return (aux2);
 		else
 			free(aux2);

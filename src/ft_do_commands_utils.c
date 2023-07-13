@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/11 16:02:44 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:11:28 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	ft_open_out_file(t_pipex *p, int fd2[2])
 
 void	ft_open_first_file(t_pipex *p, int *file)
 {
-	if (p->heredoc[p->i])
+	if (p->heredoc[0])
 		ft_heredoc(p, file);
 	else
 	{
