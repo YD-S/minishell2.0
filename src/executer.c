@@ -6,18 +6,18 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/12 21:05:01 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:53:53 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_executer(char **cmds)
+void	ft_executer(char **cmds, char **paths)
 {
 	int	i;
 
 	i = ft_charpplen(cmds);
-	ft_main(cmds, i);
+	ft_main(cmds, i, paths);
 }
 
 void	ft_separate_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
@@ -64,7 +64,7 @@ int	ft_separate_cmd2(t_pipex *p, t_aux *auxs, int argc, char **argv)
 	return (1);
 }
 
-void	ft_main(char **argv, int argc)
+void	ft_main(char **argv, int argc, char **paths)
 {
 	t_pipex	p;
 	t_aux	auxs;
@@ -77,7 +77,7 @@ void	ft_main(char **argv, int argc)
 	auxs.cmd = 0;
 	while (auxs.i < argc)
 	{
-		ft_separate_cmd(&p, &auxs, argv, g_global.path);
+		ft_separate_cmd(&p, &auxs, argv, paths);
 		while (auxs.i < argc && strncmp(argv[auxs.i], "|\0", 2) != 0)
 		{
 			if (!ft_separate_cmd2(&p, &auxs, argc, argv))
