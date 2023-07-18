@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:58:54 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/07 16:06:33 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/13 18:02:08 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_init_global(char **envp)
 		envp++;
 	}
 	ft_add_dollar();
-	g_global.dir = getcwd(g_global.dir,  sizeof(char*));
+	g_global.dir = getcwd(g_global.dir, sizeof(char *));
 	temp = ft_get_env("$PATH");
 	g_global.path = ft_split(temp, ':');
 	g_global.exit_status = 0;

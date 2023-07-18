@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/13 12:49:07 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:28:10 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,9 @@ typedef struct s_aux
 	int			args;
 }	t_aux;
 
-void			ft_open_in_file(t_pipex *p, int fd[2]);
+int				ft_open_in_file(t_pipex *p, int fd[2]);
 void			ft_open_out_file(t_pipex *p, int fd2[2]);
-void			ft_open_first_file(t_pipex *p, int *file);
+int				ft_open_first_file(t_pipex *p, int *file);
 void			ft_open_first_out_file(t_pipex *p, int fd[2], int n_com);
 
 void			ft_reserve_mem(t_pipex *p, int cmd, int max_args);
@@ -166,6 +166,7 @@ int				ft_count_max_args(char *argv[], int n, int i);
 void			ft_count_args(char *argv[], int n, t_pipex *p);
 
 void			ft_free_all(t_pipex *p);
+void			ft_write_error(char *type, char *error, char *obj);
 
 int				ft_do_commands(t_pipex *p, int argc);
 
@@ -179,5 +180,6 @@ void			ft_main(char **argv, int argc, char **paths);
 void			execute_builtin(char **cmd);
 int				get_builtin(char *cmd);
 void			execute_echo(char **args);
+void			execute_export(char **args);
 
 #endif // MINISHELL_H

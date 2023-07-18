@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/13 12:53:53 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:57:52 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	ft_separate_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 	{
 		p->infile[auxs->cmd] = 0;
 	}
-	p->paths[auxs->cmd] = ft_check_comm(paths, argv[auxs->i]);
+	if (!get_builtin(argv[auxs->i]))
+		p->paths[auxs->cmd] = ft_check_comm(paths, argv[auxs->i]);
+	else
+		p->paths[auxs->cmd] = argv[auxs->i];
 	p->args[auxs->cmd][auxs->args] = argv[auxs->i];
 	auxs->i++;
 }
@@ -88,6 +91,6 @@ void	ft_main(char **argv, int argc, char **paths)
 		auxs.cmd++;
 	}
 	ft_do_commands(&p, auxs.pipes + 1);
-	ft_charppfree(argv);
+	//ft_charppfree(argv);
 	ft_free_mem(&p, auxs.pipes + 1);
 }
