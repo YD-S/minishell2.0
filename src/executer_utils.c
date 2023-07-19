@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:12:37 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/13 17:45:46 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:50:06 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_check_comm(char **paths, char *command)
 			free(aux2);
 		i++;
 	}
-	return (0);
+	return (command);
 }
 
 int	ft_count_pipes(char *argv[], int n)

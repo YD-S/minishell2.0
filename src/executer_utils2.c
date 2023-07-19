@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 20:49:40 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/12 20:50:48 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:48:15 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,22 @@ void	ft_free_mem(t_pipex *p, int cmd)
 	free(p->heredoc);
 	free(p->outmode);
 	free(p->args);
+}
+
+void	ft_write_error(char *type, char *error, char *obj)
+{
+	if (ft_strcmp(type, "cmd") == 0)
+	{
+		write (2, "bash: ", 6);
+		write (2, obj, ft_strlen(obj));
+		write (2, ": command not found\n", 21);
+	}
+	else if (ft_strcmp(type, "file") == 0)
+	{
+		write (2, "bash: ", 6);
+		write (2, obj, ft_strlen(obj));
+		write (2, ": ", 2);
+		write (2, error, ft_strlen(error));
+		write (2, "\n", 1);
+	}
 }
