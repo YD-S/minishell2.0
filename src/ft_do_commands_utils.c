@@ -6,58 +6,39 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/18 17:44:53 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:46:38 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_heredoc(t_pipex *p, int *file)
+int	ft_open_in_file_yes(t_pipex *p)
 {
-	char	*line;
+	int	file;
 
-	*file = open("aux.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	while (1)
+	if (p->heredoc[p->i])
+		ft_heredoc(p, &file);
+	else
 	{
-		line = get_next_line(0);
-		if (ft_strcmp(line, p->infile[p->i]) == 0)
+		file = open(p->infile[p->i], O_RDONLY);
+		if (file == -1)
 		{
-			free(line);
-			break ;
+			ft_write_error("file", strerror(errno), p->infile[p->i]);
+			return (0);
 		}
-		write(*file, line, ft_strlen(line));
-		free(line);
+		if (dup2(file, STDIN_FILENO) == -1)
+			exit(EXIT_FAILURE);
+		close(file);
 	}
-	close(*file);
-	*file = open("aux.txt", O_RDONLY);
-	if (*file == -1)
-		ft_write_error("file", strerror(errno), "aux.txt");
-	if (dup2(*file, STDIN_FILENO) == -1)
-		exit(EXIT_FAILURE);
-	unlink("aux.txt");
-	close(*file);
+	return (1);
 }
 
 int	ft_open_in_file(t_pipex *p, int fd[2])
 {
-	int	file;
-
 	if (p->infile[p->i])
 	{
-		if (p->heredoc[p->i])
-			ft_heredoc(p, &file);
-		else
-		{
-			file = open(p->infile[p->i], O_RDONLY);
-			if (file == -1)
-			{
-				ft_write_error("file", strerror(errno), p->infile[p->i]);
-				return (0);
-			}
-			if (dup2(file, STDIN_FILENO) == -1)
-				exit(EXIT_FAILURE);
-			close(file);
-		}
+		if (!ft_open_in_file_yes(p))
+			return (0);
 	}
 	else
 	{

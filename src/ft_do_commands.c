@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/18 17:37:52 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:37:20 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,37 +79,6 @@ int	ft_do_last_comm(t_pipex *p, int fd[2])
 	else
 		execute_builtin(p->args[p->i]);
 	return (g_global.exit_status = 0, 1);
-}
-
-int	get_builtin(char *cmd)
-{
-	if (ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "cd") == 0
-		|| ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "unset") == 0
-		|| ft_strcmp(cmd, "export") == 0 || ft_strcmp(cmd, "exit") == 0
-		|| ft_strcmp(cmd, "env") == 0)
-		return (1);
-	else
-		return (0);
-}
-
-void	execute_builtin(char **cmd)
-{
-	if (ft_strcmp(cmd[0], "echo") == 0)
-		execute_echo(cmd);
-	if (ft_strcmp(cmd[0], "export") == 0)
-		execute_export(cmd);
-	/*if (ft_strcmp(cmd[0], "cd") == 0)
-		execute_cd(cmd);
-	if (ft_strcmp(cmd[0], "pwd") == 0)
-		execute_pwd(cmd);
-	if (ft_strcmp(cmd[0], "unset") == 0)
-		execute_unset(cmd);
-	if (ft_strcmp(cmd[0], "export") == 0)
-		execute_export(cmd);
-	if (ft_strcmp(cmd[0], "exit") == 0)
-		execute_exit(cmd);
-	if (ft_strcmp(cmd[0], "env") == 0)
-		execute_env(cmd);*/
 }
 
 int	ft_do_first_comm(t_pipex *p, int fd[2], int n_com)
