@@ -6,9 +6,11 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:47:17 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/19 17:47:20 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:58:08 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 int	get_builtin(char *cmd)
 {

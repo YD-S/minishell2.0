@@ -6,9 +6,11 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:46:28 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/19 17:46:30 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:56:16 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 void	ft_heredoc(t_pipex *p, int *file)
 {
