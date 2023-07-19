@@ -130,6 +130,7 @@ void			handle_eof(char *line);
 void			ft_init_count(t_pipe_redirect *count, int *i);
 void			call_signal(void);
 void			ft_error(char *str, char *line);
+void get_dir();
 
 typedef struct pipex
 {

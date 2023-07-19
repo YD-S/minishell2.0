@@ -24,7 +24,7 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 
 	if (argc != 1)
 		exit(0);
-	atexit(leaks);
+	//atexit(leaks);
 	ft_init_global(envp);
 	call_signal();
 	while (1)

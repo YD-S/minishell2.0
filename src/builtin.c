@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/18 12:12:26 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/20 00:52:12 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void get_dir()
+{
+	int i;
+	char *dir;
+	dir = getcwd(g_global.dir, sizeof(char *));
+	i = ft_strlen(dir);
+	if (dir == NULL)
+		ft_printf("Error: getcwd() failed\n");
+
+	while (dir[i] != '/')
+		i--;
+	i++;
+	g_global.dir = ft_substr(dir, i, ft_strlen(dir));
+}
 
 void	execute_echo(char **args)
 {

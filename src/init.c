@@ -27,7 +27,7 @@ void	ft_init_global(char **envp)
 		envp++;
 	}
 	ft_add_dollar();
-	g_global.dir = getcwd(g_global.dir, sizeof(char *));
+	get_dir();
 	temp = ft_get_env("$PATH");
 	g_global.path = ft_split(temp, ':');
 	g_global.exit_status = 0;
