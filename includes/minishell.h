@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/19 20:57:56 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/20 00:51:34 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void			handle_eof(char *line);
 void			ft_init_count(t_pipe_redirect *count, int *i);
 void			call_signal(void);
 void			ft_error(char *str, char *line);
-void get_dir();
+void			get_dir();
 
 typedef struct pipex
 {
