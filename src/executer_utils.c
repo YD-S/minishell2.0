@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:12:37 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/18 17:50:06 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:47:32 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_reserve_mem(t_pipex *p, int cmd, int max_args)
 	p->n_args = ft_calloc(sizeof(int), cmd);
 	p->heredoc = ft_calloc(sizeof(int), cmd);
 	p->outmode = ft_calloc(sizeof(int), cmd);
+	p->command_not_found = ft_calloc(sizeof(int), cmd);
 }
 
 char	*ft_check_comm(char **paths, char *command)
@@ -78,10 +79,10 @@ int	ft_count_max_args(char *argv[], int n, int i)
 		if (strncmp(argv[i], "|\0", 2) == 0)
 			args = 0;
 		else if (strncmp(argv[i], "<\0", 2) == 0 || strncmp(argv[i], "<<\0",
-					2) == 0)
+				2) == 0)
 			i += 1;
 		else if (strncmp(argv[i], ">\0", 2) == 0 || strncmp(argv[i], ">>\0",
-					2) == 0)
+				2) == 0)
 			i += 1;
 		else
 		{
@@ -106,10 +107,10 @@ void	ft_count_args(char *argv[], int n, t_pipex *p)
 		if (strncmp(argv[i], "|\0", 2) == 0)
 			pipes++;
 		else if (strncmp(argv[i], "<\0", 2) == 0 || strncmp(argv[i], "<<\0",
-					2) == 0)
+				2) == 0)
 			i += 1;
 		else if (strncmp(argv[i], ">\0", 2) == 0 || strncmp(argv[i], ">>\0",
-					2) == 0)
+				2) == 0)
 			i += 1;
 		else
 			p->n_args[pipes]++;
