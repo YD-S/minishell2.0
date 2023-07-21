@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/19 17:46:38 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:48:26 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_open_in_file(t_pipex *p, int fd[2])
 	}
 	else
 	{
-		if (p->command_not_found[p->i - 1] == 0)
+		if (p->i > 0 && p->command_not_found[p->i - 1] == 0)
 		{
 			if (dup2(fd[0], STDIN_FILENO) == -1)
 				exit(EXIT_FAILURE);
