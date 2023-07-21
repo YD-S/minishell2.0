@@ -122,8 +122,8 @@ int	ft_do_first_comm(t_pipex *p, int fd[2], int n_com)
 
 int	ft_do_commands(t_pipex *p, int n_com)
 {
-	int		fd[2];
-	int		fd2[2];
+	int	fd[2];
+	int	fd2[2];
 
 	pipe(fd);
 	if (!ft_do_first_comm(p, fd, n_com))

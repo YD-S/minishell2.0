@@ -122,10 +122,10 @@ void	ft_open_first_out_file(t_pipex *p, int fd[2], int n_com)
 	{
 		if (dup2(fd[1], STDOUT_FILENO) == -1)
 			exit(EXIT_FAILURE);
-		close (fd[1]);
+		close(fd[1]);
 	}
 	else
 	{
-		close (fd[1]);
+		close(fd[1]);
 	}
 }

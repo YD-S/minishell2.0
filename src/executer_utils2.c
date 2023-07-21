@@ -44,16 +44,16 @@ void	ft_write_error(char *type, char *error, char *obj)
 {
 	if (ft_strcmp(type, "cmd") == 0)
 	{
-		write (2, "bash: ", 6);
-		write (2, obj, ft_strlen(obj));
-		write (2, ": command not found\n", 21);
+		write(2, "bash: ", 6);
+		write(2, obj, ft_strlen(obj));
+		write(2, ": command not found\n", 21);
 	}
 	else if (ft_strcmp(type, "file") == 0)
 	{
-		write (2, "bash: ", 6);
-		write (2, obj, ft_strlen(obj));
-		write (2, ": ", 2);
-		write (2, error, ft_strlen(error));
-		write (2, "\n", 1);
+		write(2, "bash: ", 6);
+		write(2, obj, ft_strlen(obj));
+		write(2, ": ", 2);
+		write(2, error, ft_strlen(error));
+		write(2, "\n", 1);
 	}
 }

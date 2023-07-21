@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:58:54 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/13 18:02:08 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/21 10:57:56 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,25 @@ void	ft_init_global(char **envp)
 	g_global.exit_status = 0;
 	g_global.heredoc_out = NULL;
 	g_global.user = ft_get_env("$USER");
+}
+
+void	search_and_replace(t_list *head, const char *key, const char *new_value)
+{
+	t_list	*current;
+	t_envp	*env_node;
+
+	current = head;
+	while (current != NULL)
+	{
+		env_node = (t_envp *)current->content;
+		if (strcmp(env_node->key, key) == 0)
+		{
+			free(env_node->value);
+			env_node->value = strdup(new_value);
+			return ;
+		}
+		current = current->next;
+	}
 }
 
 void	ft_add_dollar(void)

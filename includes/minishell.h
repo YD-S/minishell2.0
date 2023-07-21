@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/20 00:51:34 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/21 10:57:28 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 
 # include "libft.h"
 # include <dirent.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -35,7 +36,6 @@
 # include <sys/ioctl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <errno.h>
 
 //Colors Start
 # define FRED "\033[0;31m"
@@ -69,7 +69,7 @@ typedef struct s_pipe_redirect
 {
 	int			pipe;
 	int			re;
-}	t_pipe_redirect;
+}				t_pipe_redirect;
 
 typedef struct s_master
 {
@@ -130,7 +130,8 @@ void			handle_eof(char *line);
 void			ft_init_count(t_pipe_redirect *count, int *i);
 void			call_signal(void);
 void			ft_error(char *str, char *line);
-void			get_dir();
+void			get_dir(void);
+void			search_and_replace(t_list *head, const char *key, const char *new_value);
 
 typedef struct pipex
 {
@@ -145,7 +146,7 @@ typedef struct pipex
 	int			*outmode;
 	int			*command_not_found;
 	int			i;
-}	t_pipex;
+}				t_pipex;
 
 typedef struct s_aux
 {
@@ -153,7 +154,7 @@ typedef struct s_aux
 	int			pipes;
 	int			cmd;
 	int			args;
-}	t_aux;
+}				t_aux;
 
 int				ft_open_in_file(t_pipex *p, int fd[2]);
 void			ft_open_out_file(t_pipex *p, int fd2[2]);

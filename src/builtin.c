@@ -6,21 +6,21 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/20 00:52:12 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/20 00:52:26 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void get_dir()
+void	get_dir(void)
 {
-	int i;
-	char *dir;
+	int		i;
+	char	*dir;
+
 	dir = getcwd(g_global.dir, sizeof(char *));
 	i = ft_strlen(dir);
 	if (dir == NULL)
 		ft_printf("Error: getcwd() failed\n");
-
 	while (dir[i] != '/')
 		i--;
 	i++;
@@ -55,22 +55,21 @@ void	execute_export(char **args)
 {
 	char	**var;
 	t_envp	*env;
+
 	//t_list	*aux_l;
 	//t_envp	*aux_e;
-
 	ft_printf("A:%s\n", args[1]);
-
 	var = ft_split(args[1], '=');
 	/*if (var[1])
 	{*/
-		env = ft_calloc(1, sizeof(t_envp));
-		env->key = ft_strjoin("$", var[0]);
-		//env->value = var[1];
-		ft_printf("V:%s\n", env->key);
-		ft_printf("B:%s\n", var[1]);
-		env->value = ft_strtrim(var[1], "\"\'");
-		ft_printf("V:%s\n", env->value);
-		/*aux_l = g_global.envp;
+	env = ft_calloc(1, sizeof(t_envp));
+	env->key = ft_strjoin("$", var[0]);
+	//env->value = var[1];
+	ft_printf("V:%s\n", env->key);
+	ft_printf("B:%s\n", var[1]);
+	env->value = ft_strtrim(var[1], "\"\'");
+	ft_printf("V:%s\n", env->value);
+	/*aux_l = g_global.envp;
 		ft_lstadd_back(&g_global.envp, ft_lstnew(env));
 		while (aux_l)
 		{

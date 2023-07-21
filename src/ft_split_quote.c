@@ -68,7 +68,7 @@ void	ft_take_quotes_word(char **strs, char const *s, int *word, int i[3])
 
 char	**ft_take_words_quote(char **strs, char const *s, char c, int *word)
 {
-	int		i[3];	
+	int	i[3];
 
 	i[0] = 0;
 	while (s[i[0]])
