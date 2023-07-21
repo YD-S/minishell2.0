@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_do_commands2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:47:17 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/19 20:58:08 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/21 14:52:06 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ void	execute_builtin(char **cmd)
 		execute_echo(cmd);
 	if (ft_strcmp(cmd[0], "export") == 0)
 		execute_export(cmd);
-	/*if (ft_strcmp(cmd[0], "cd") == 0)
-		execute_cd(cmd);
-	if (ft_strcmp(cmd[0], "pwd") == 0)
-		execute_pwd(cmd);
-	if (ft_strcmp(cmd[0], "unset") == 0)
-		execute_unset(cmd);
-	if (ft_strcmp(cmd[0], "export") == 0)
-		execute_export(cmd);
-	if (ft_strcmp(cmd[0], "exit") == 0)
-		execute_exit(cmd);
+	//if (ft_strcmp(cmd[0], "cd") == 0)
+	//	execute_cd(cmd);
+	//if (ft_strcmp(cmd[0], "pwd") == 0)
+	//	execute_pwd(cmd);
+	//if (ft_strcmp(cmd[0], "unset") == 0)
+	//	execute_unset(cmd);
+	//if (ft_strcmp(cmd[0], "export") == 0)
+	//	execute_export(cmd);
+	//if (ft_strcmp(cmd[0], "exit") == 0)
+	//	execute_exit(cmd);
 	if (ft_strcmp(cmd[0], "env") == 0)
-		execute_env(cmd);*/
+		execute_env();
 }

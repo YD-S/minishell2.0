@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/21 12:59:52 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/21 14:52:39 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,5 +187,6 @@ void			execute_builtin(char **cmd);
 int				get_builtin(char *cmd);
 void			execute_echo(char **args);
 void			execute_export(char **args);
+void			execute_env(void);
 
 #endif

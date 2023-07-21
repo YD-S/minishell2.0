@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/20 00:52:26 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/21 14:55:32 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,30 @@ void	execute_echo(char **args)
 	}
 	if (!option)
 		ft_printf("\n");
+}
+
+void	execute_env(void)
+{
+	t_list	*aux;
+	t_envp	*env;
+	int		i;
+
+	aux = g_global.envp;
+	while (aux)
+	{
+		i = 0;
+		env = aux->content;
+		if (env->key[i] == '$')
+				i++;
+		while (env->key[i])
+		{
+			ft_printf("%c", env->key[i]);
+			i++;
+		}
+		ft_printf("=");
+		ft_printf("%s\n", env->value);
+		aux = aux->next;
+	}
 }
 
 void	execute_export(char **args)
