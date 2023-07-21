@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/21 10:57:28 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/21 12:59:52 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ char			**ft_str_add_back(char **str, char *add);
 char			**ft_cmdtrim(char *prompt);
 char			**ft_parser(char *promt);
 char			**ft_expand_vars(char **cmd);
-char			*ft_strnstr_perso(const char *haystack, const char *needle,
-					size_t len);
 void			ft_add_dollar(void);
 char			*ft_add_quote(char *str);
 int				__qs(char c, int reset);
@@ -132,6 +130,7 @@ void			call_signal(void);
 void			ft_error(char *str, char *line);
 void			get_dir(void);
 void			search_and_replace(t_list *head, const char *key, const char *new_value);
+void			remove_quotes_in_array(char **str_array);
 
 typedef struct pipex
 {
@@ -189,4 +188,4 @@ int				get_builtin(char *cmd);
 void			execute_echo(char **args);
 void			execute_export(char **args);
 
-#endif // MINISHELL_H
+#endif

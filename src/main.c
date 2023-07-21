@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:03 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/21 11:00:49 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/21 11:08:17 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*ft_get_var(char *cmd)
 		if (!mas.strs.aux)
 			break ;
 		mas.count.j = ft_get_index(mas.strs.cpy,
-				ft_strchr(mas.strs.cpy + mas.count.i, '$'));
+									ft_strchr(mas.strs.cpy + mas.count.i, '$'));
 		if (ft_isspace(mas.strs.aux[1]) || mas.strs.aux[1] == '\0'
 			|| mas.strs.aux[1] == '$' || mas.strs.aux[1] == '='
 			|| mas.strs.aux[1] == '\"' || mas.strs.aux[1] == '\''

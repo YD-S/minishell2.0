@@ -100,7 +100,7 @@ int	ft_validate(char *str)
 			set_pipe_redirect(&count.pipe, &count.re, 2);
 		}
 		else if (str[i] != ' ' && str[i] != '\t' && str[i] != '|'
-			&& str[i] != '<' && str[i] != '>')
+				&& str[i] != '<' && str[i] != '>')
 			set_pipe_redirect(&count.pipe, &count.re, 3);
 		i++;
 	}
