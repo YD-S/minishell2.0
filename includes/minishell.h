@@ -43,6 +43,7 @@
 # define FYELLOW "\033[0;33m"
 # define FBLUE "\033[0;34m"
 # define FPURPLE "\033[0;35m"
+# define FWHITE "\033[0;97m"
 # define NONE "\033[0;37m"
 //Colors End
 
@@ -188,5 +189,6 @@ int				get_builtin(char *cmd);
 void			execute_echo(char **args);
 void			execute_export(char **args);
 void			execute_env(void);
+void			execute_cd(char **args);
 
 #endif

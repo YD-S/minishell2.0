@@ -29,14 +29,14 @@ void	execute_builtin(char **cmd)
 		execute_echo(cmd);
 	if (ft_strcmp(cmd[0], "export") == 0)
 		execute_export(cmd);
-	//if (ft_strcmp(cmd[0], "cd") == 0)
-	//	execute_cd(cmd);
+	if (ft_strcmp(cmd[0], "cd") == 0)
+		execute_cd(cmd);
 	//if (ft_strcmp(cmd[0], "pwd") == 0)
 	//	execute_pwd(cmd);
 	//if (ft_strcmp(cmd[0], "unset") == 0)
 	//	execute_unset(cmd);
-	//if (ft_strcmp(cmd[0], "export") == 0)
-	//	execute_export(cmd);
+	if (ft_strcmp(cmd[0], "export") == 0)
+		execute_export(cmd);
 	//if (ft_strcmp(cmd[0], "exit") == 0)
 	//	execute_exit(cmd);
 	if (ft_strcmp(cmd[0], "env") == 0)
