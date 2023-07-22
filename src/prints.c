@@ -22,12 +22,19 @@ char	*ft_readline(void)
 {
 	char	*line;
 
-	ft_printf("%s@", g_global.dir);
 	if (ft_strcmp(g_global.user, "root") == 0 || ft_strcmp(g_global.user,
 			"admin") == 0)
-		line = readline(FRED "minishell$ " NONE);
+	{
+		ft_printf(FPURPLE"%s", g_global.dir);
+		ft_printf(FYELLOW"@");
+		line = readline(FRED "minishell$ " FWHITE);
+	}
 	else
-		line = readline(FGREEN "minishell> " NONE);
+	{
+		ft_printf(FBLUE"%s", g_global.dir);
+		ft_printf(FYELLOW"@");
+		line = readline(FGREEN "minishell> " FWHITE);
+	}
 	if (!line)
 		handle_eof(line);
 	return (line);

@@ -17,7 +17,7 @@ void	get_dir(void)
 	int		i;
 	char	*dir;
 
-	dir = getcwd(g_global.dir, sizeof(char *));
+	dir = getcwd(NULL, sizeof(char *));
 	i = ft_strlen(dir);
 	if (dir == NULL)
 		ft_printf("Error: getcwd() failed\n");
@@ -72,6 +72,46 @@ void	execute_env(void)
 		ft_printf("=");
 		ft_printf("%s\n", env->value);
 		aux = aux->next;
+	}
+}
+
+void update_pwd(){
+	char *pwd;
+	char *oldpwd;
+
+	pwd = getcwd(NULL, sizeof(char *));
+	oldpwd = ft_get_env("$PWD");
+	search_and_replace(g_global.envp,"$OLDPWD", oldpwd);
+	search_and_replace(g_global.envp, "$PWD", pwd);
+}
+
+void execute_cd(char **args)
+{
+	char *path;
+
+	if (ft_charpplen(args) == 1)
+	{
+		path = ft_get_env("$HOME");
+		if (path == NULL)
+			ft_printf("Error: HOME not set\n");
+		else
+		{
+			chdir(path);
+			update_pwd();
+			get_dir();
+		}
+	}
+	else if (ft_charpplen(args) > 2)
+		ft_printf("Error: too many arguments\n");
+	else
+	{
+		if (chdir(args[1]) != -1)
+		{
+			update_pwd();
+			get_dir();
+		}
+		else
+			ft_printf("Error: %s: %s\n", args[1], strerror(errno));
 	}
 }
 
