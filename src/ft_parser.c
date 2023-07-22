@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:41 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/21 13:59:20 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/22 21:07:06 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	**ft_parser(char *prompt)
 	if (prompt[ft_strlen(prompt) - 1] == ' ')
 		cmd = ft_charpp_del_back(cmd);
 	cmd = ft_expand_vars(cmd);
-	remove_quotes_in_array(cmd);
 	free(prompt);
 	return (cmd);
 }
@@ -46,11 +45,11 @@ char	**ft_cmdtrim(char *prompt)
 	{
 		while (prompt[i] == ' ')
 			i++;
-		if (prompt[i] == DQ)
-			aux = ft_call_dq(prompt, &i);
-		else if (prompt[i] == SQ)
-			aux = ft_call_sq(prompt, &i);
-		else if (prompt[i] == '<')
+		//if (prompt[i] == DQ)
+		//	aux = ft_call_dq(prompt, &i);
+		//else if (prompt[i] == SQ)
+		//	aux = ft_call_sq(prompt, &i);
+		if (prompt[i] == '<')
 			aux = ft_call_red(prompt, &i);
 		else if (prompt[i] == '>')
 			aux = ft_call_redback(prompt, &i);

@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 21:29:40 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/31 19:06:03 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/22 21:06:09 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ int	wordlen_perso(char *prompt, int i)
 	int	len;
 
 	len = 0;
-	while (prompt[i] && prompt[i] != ' ' && prompt[i] != SQ && prompt[i] != DQ
-		&& prompt[i] != '<' && prompt[i] != '>' && prompt[i] != '|')
+	while (prompt[i] && prompt[i] != ' ' && prompt[i] != '<' && prompt[i] != '>' && prompt[i] != '|')
 	{
 		len++;
 		i++;

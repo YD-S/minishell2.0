@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/21 14:55:32 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/22 21:08:09 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	execute_env(void)
 		i = 0;
 		env = aux->content;
 		if (env->key[i] == '$')
-				i++;
+			i++;
 		while (env->key[i])
 		{
 			ft_printf("%c", env->key[i]);
@@ -75,33 +75,50 @@ void	execute_env(void)
 	}
 }
 
+int	search_var(char *key)
+{
+	t_envp	*aux;
+	t_list	*list;
+
+	list = g_global.envp;
+	while (list)
+	{
+		aux = list->content;
+		if (!ft_strcmp(aux->key, key))
+			return (1);
+		list = list->next;
+	}
+	return (0);
+}
+
 void	execute_export(char **args)
 {
-	char	**var;
-	t_envp	*env;
+	int		i;
+	char	*key;
+	char	*value;
+	t_envp	*new_var;
 
-	//t_list	*aux_l;
-	//t_envp	*aux_e;
-	ft_printf("A:%s\n", args[1]);
-	var = ft_split(args[1], '=');
-	/*if (var[1])
-	{*/
-	env = ft_calloc(1, sizeof(t_envp));
-	env->key = ft_strjoin("$", var[0]);
-	//env->value = var[1];
-	ft_printf("V:%s\n", env->key);
-	ft_printf("B:%s\n", var[1]);
-	env->value = ft_strtrim(var[1], "\"\'");
-	ft_printf("V:%s\n", env->value);
-	/*aux_l = g_global.envp;
-		ft_lstadd_back(&g_global.envp, ft_lstnew(env));
-		while (aux_l)
+	i = 1;
+	if (!args[i])
+		execute_env();
+	if (ft_strchr(args[i], '='))
+	{
+		key = ft_substr(args[i], 0, ft_strchr(args[i], '=') - args[i]);
+		key = ft_strjoin("$", key);
+		value = ft_substr(args[i], ft_strchr(args[i], '=') - args[i] + 1,
+				ft_strlen(args[i]) - ft_strlen(key));
+		if (!search_var(key))
 		{
-			aux_e = aux_l->content;
-			ft_printf("%s\n", aux_e->key);
-			if (ft_strcmp(aux_e->key, var[0]) == 0)
-				del_env();
-			aux_l = aux_l->next;
-		}*/
-	//}
+			while (args[i])
+			{
+				new_var = ft_calloc(1, sizeof(t_envp));
+				new_var->key = key;
+				new_var->value = value;
+				ft_lstadd_back(&g_global.envp, ft_lstnew(new_var));
+				i++;
+			}
+		}
+		else
+			search_and_replace(g_global.envp, key, value);
+	}
 }

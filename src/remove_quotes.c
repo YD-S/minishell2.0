@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:01:30 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/21 13:05:23 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/22 19:40:26 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	remove_quotes(char **str)
 	if (length >= 2 && ((*str)[0] == '"' || (*str)[0] == '\'') && (*str)[length
 			- 1] == (*str)[0])
 	{
-		memmove(*str, *str + 1, length - 2);
+		ft_memmove(*str, *str + 1, length - 2);
 		(*str)[length - 2] = '\0';
 	}
 }
@@ -45,11 +45,10 @@ void	remove_nested_quotes(char **str)
 		if (*src == DQ && (*(src - 1) != '\\' || (src - 2 >= *str && *(src
 						- 2) == '\\')) && !count.i)
 			count.j = !count.j;
-		else if (*src == SQ && (*(src - 1) != '\\' || (src - 2 >= *str
-					&& *(src - 2) == '\\')) && !count.j)
+		else if (*src == SQ && (*(src - 1) != '\\' || (src - 2 >= *str && *(src
+							- 2) == '\\')) && !count.j)
 			count.i = !count.i;
-		if ((*src != DQ && !count.j) || (*src != SQ
-				&& !count.i))
+		if ((*src != DQ && !count.j) || (*src != SQ && !count.i))
 		{
 			*dest = *src;
 			dest++;
