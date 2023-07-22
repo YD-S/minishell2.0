@@ -57,7 +57,8 @@ int	wordlen_perso(char *prompt, int i)
 	int	len;
 
 	len = 0;
-	while (prompt[i] && prompt[i] != ' ' && prompt[i] != '<' && prompt[i] != '>' && prompt[i] != '|')
+	while (prompt[i] && prompt[i] != ' ' && prompt[i] != '<' && prompt[i] != '>'
+		&& prompt[i] != '|')
 	{
 		len++;
 		i++;

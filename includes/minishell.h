@@ -130,7 +130,8 @@ void			ft_init_count(t_pipe_redirect *count, int *i);
 void			call_signal(void);
 void			ft_error(char *str, char *line);
 void			get_dir(void);
-void			search_and_replace(t_list *head, const char *key, const char *new_value);
+void			search_and_replace(t_list *head, const char *key,
+					const char *new_value);
 void			remove_quotes_in_array(char **str_array);
 
 typedef struct pipex

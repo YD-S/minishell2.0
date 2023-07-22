@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/22 21:08:09 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/23 00:59:06 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ void	get_dir(void)
 	g_global.dir = ft_substr(dir, i, ft_strlen(dir));
 }
 
+void	print_args(char **args, int i)
+{
+	if (i < ft_charpplen(args) - 1)
+		ft_printf("%s ", args[i]);
+	else
+		ft_printf("%s", args[i]);
+}
+
 void	execute_echo(char **args)
 {
 	int	i;
@@ -34,15 +42,17 @@ void	execute_echo(char **args)
 
 	i = 1;
 	option = 0;
+	if (args[i] == NULL)
+		ft_printf("\n");
+	if (ft_strcmp(args[i], "$?") == 0)
+	{
+		ft_printf("%d\n", g_global.exit_status);
+		return ;
+	}
 	while (args[i])
 	{
 		if (ft_strcmp(args[i], "-n") != 0)
-		{
-			if (i < ft_charpplen(args) - 1)
-				ft_printf("%s ", args[i]);
-			else
-				ft_printf("%s", args[i]);
-		}
+			print_args(args, i);
 		else
 			option = 1;
 		i++;
@@ -75,19 +85,20 @@ void	execute_env(void)
 	}
 }
 
-void update_pwd(){
-	char *pwd;
-	char *oldpwd;
+void	update_pwd(void)
+{
+	char	*pwd;
+	char	*oldpwd;
 
 	pwd = getcwd(NULL, sizeof(char *));
 	oldpwd = ft_get_env("$PWD");
-	search_and_replace(g_global.envp,"$OLDPWD", oldpwd);
+	search_and_replace(g_global.envp, "$OLDPWD", oldpwd);
 	search_and_replace(g_global.envp, "$PWD", pwd);
 }
 
-void execute_cd(char **args)
+void	execute_cd(char **args)
 {
-	char *path;
+	char	*path;
 
 	if (ft_charpplen(args) == 1)
 	{

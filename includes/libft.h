@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:15:44 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/31 18:55:01 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/23 00:54:05 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ char				**ft_charpp_del_back(char **str);
 int					ft_strclen(char *str, char c, int start);
 int					ft_isspace(char c);
 int					ft_get_index(char *str, char *index);
+void				print_charpp(char **cmd);
 #endif
