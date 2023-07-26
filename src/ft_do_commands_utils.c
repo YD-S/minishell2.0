@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/26 15:41:47 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:04:12 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ int	ft_open_in_file(t_pipex *p, int fd[2])
 			close(fd[0]);
 		}
 		else
-		{
-			//ft_printf("ASD2");
 			close(fd[0]);
-		}
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/26 15:41:32 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:05:57 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,5 @@ void	ft_main(char **argv, int argc, char **paths)
 		auxs.cmd++;
 	}
 	ft_do_commands(&p, auxs.pipes + 1);
-	//ft_charppfree(argv);
 	ft_free_mem(&p, auxs.pipes + 1);
 }

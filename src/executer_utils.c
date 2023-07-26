@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:12:37 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/26 15:41:28 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:05:10 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ int	ft_count_max_args(char *argv[], int n, int i)
 		if (strncmp(argv[i], "|\0", 2) == 0)
 			args = 0;
 		else if (strncmp(argv[i], "<\0", 2) == 0 || strncmp(argv[i], "<<\0",
-					2) == 0)
+				2) == 0)
 			i += 1;
 		else if (strncmp(argv[i], ">\0", 2) == 0 || strncmp(argv[i], ">>\0",
-					2) == 0)
+				2) == 0)
 			i += 1;
 		else
 		{
@@ -107,10 +107,10 @@ void	ft_count_args(char *argv[], int n, t_pipex *p)
 		if (strncmp(argv[i], "|\0", 2) == 0)
 			pipes++;
 		else if (strncmp(argv[i], "<\0", 2) == 0 || strncmp(argv[i], "<<\0",
-					2) == 0)
+				2) == 0)
 			i += 1;
 		else if (strncmp(argv[i], ">\0", 2) == 0 || strncmp(argv[i], ">>\0",
-					2) == 0)
+				2) == 0)
 			i += 1;
 		else
 			p->n_args[pipes]++;

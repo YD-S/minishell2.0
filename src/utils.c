@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 19:09:06 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/21 18:08:32 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/26 16:34:13 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	ft_validate(char *str)
 			set_pipe_redirect(&count.pipe, &count.re, 2);
 		}
 		else if (str[i] != ' ' && str[i] != '\t' && str[i] != '|'
-				&& str[i] != '<' && str[i] != '>')
+			&& str[i] != '<' && str[i] != '>')
 			set_pipe_redirect(&count.pipe, &count.re, 3);
 		i++;
 	}

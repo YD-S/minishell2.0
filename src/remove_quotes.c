@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:01:30 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/22 19:40:26 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/26 16:34:34 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	remove_nested_quotes(char **str)
 						- 2) == '\\')) && !count.i)
 			count.j = !count.j;
 		else if (*src == SQ && (*(src - 1) != '\\' || (src - 2 >= *str && *(src
-							- 2) == '\\')) && !count.j)
+						- 2) == '\\')) && !count.j)
 			count.i = !count.i;
 		if ((*src != DQ && !count.j) || (*src != SQ && !count.i))
 		{

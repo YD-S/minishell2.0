@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/26 15:42:45 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:17:38 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,9 @@ void			ft_count_args(char *argv[], int n, t_pipex *p);
 
 void			ft_free_all(t_pipex *p);
 void			ft_write_error(char *type, char *error, char *obj);
+
+int				ft_do_last_comm(t_pipex *p, int fd[2]);
+int				ft_do_first_comm(t_pipex *p, int fd[2], int n_com);
 
 int				ft_do_commands(t_pipex *p, int argc);
 
