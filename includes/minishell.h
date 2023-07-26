@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/21 14:52:39 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/26 15:42:45 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ typedef struct pipex
 	int			*n_args;
 	char		**infile;
 	int			*heredoc;
-	char		**outfile;
+	char		**outfl;
 	int			*outmode;
 	int			*command_not_found;
 	int			i;

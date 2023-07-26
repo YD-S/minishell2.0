@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:12:37 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/21 13:47:32 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:41:28 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_reserve_mem(t_pipex *p, int cmd, int max_args)
 		i++;
 	}
 	p->infile = ft_calloc(sizeof(char *), cmd);
-	p->outfile = ft_calloc(sizeof(char *), cmd);
+	p->outfl = ft_calloc(sizeof(char *), cmd);
 	p->paths = ft_calloc(sizeof(char *), cmd);
 	p->n_args = ft_calloc(sizeof(int), cmd);
 	p->heredoc = ft_calloc(sizeof(int), cmd);
