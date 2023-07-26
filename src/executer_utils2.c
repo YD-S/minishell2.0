@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 20:49:40 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/21 13:47:44 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:41:29 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_free_mem(t_pipex *p, int cmd)
 		i++;
 	}
 	free(p->infile);
-	free(p->outfile);
+	free(p->outfl);
 	free(p->paths);
 	free(p->n_args);
 	free(p->heredoc);

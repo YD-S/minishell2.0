@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/21 13:48:26 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:04:12 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ int	ft_open_in_file(t_pipex *p, int fd[2])
 			close(fd[0]);
 		}
 		else
-		{
-			ft_printf("ASD2");
 			close(fd[0]);
-		}
 	}
 	return (1);
 }
@@ -61,14 +58,14 @@ void	ft_open_out_file(t_pipex *p, int fd2[2])
 {
 	int	file;
 
-	if (p->outfile[p->i])
+	if (p->outfl[p->i])
 	{
 		if (p->outmode[p->i])
-			file = open(p->outfile[p->i], O_WRONLY | O_APPEND);
+			file = open(p->outfl[p->i], O_WRONLY | O_APPEND);
 		else
-			file = open(p->outfile[p->i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			file = open(p->outfl[p->i], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (file == -1)
-			ft_write_error("file", strerror(errno), p->outfile[p->i]);
+			ft_write_error("file", strerror(errno), p->outfl[p->i]);
 		if (dup2(file, STDOUT_FILENO) == -1)
 			exit(EXIT_FAILURE);
 		close(file);
@@ -106,14 +103,17 @@ void	ft_open_first_out_file(t_pipex *p, int fd[2], int n_com)
 {
 	int	file;
 
-	if (p->outfile[0])
+	if (p->outfl[0])
 	{
 		if (p->outmode[p->i])
-			file = open(p->outfile[p->i], O_WRONLY | O_CREAT | O_APPEND, 0644);
+			file = open(p->outfl[p->i], O_WRONLY | O_CREAT | O_APPEND, 0644);
 		else
-			file = open(p->outfile[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			file = open(p->outfl[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (file == -1)
-			ft_write_error("file", strerror(errno), p->outfile[p->i]);
+		{
+			ft_write_error("file", strerror(errno), p->outfl[p->i]);
+			exit(EXIT_FAILURE);
+		}
 		if (dup2(file, STDOUT_FILENO) == -1)
 			exit(EXIT_FAILURE);
 		close(file);
@@ -125,7 +125,5 @@ void	ft_open_first_out_file(t_pipex *p, int fd[2], int n_com)
 		close(fd[1]);
 	}
 	else
-	{
 		close(fd[1]);
-	}
 }
