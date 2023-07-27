@@ -34,7 +34,7 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 		if (ft_check_cmd(line))
 		{
 			cmds = ft_parser(line);
-			ft_executer(cmds, g_global.path);
+			//ft_executer(cmds, g_global.path);
 		}
 		else
 		{

@@ -3,19 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:41 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/23 00:52:23 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/27 23:16:26 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char *ft_call_replace(char *prompt)
+{
+	char *start;
+	char *end;
+	char *replace;
+	int i;
+
+	i = 0;
+	while (prompt[i])
+	{
+		if (prompt[i] == '>' && prompt[i + 1] == '|')
+		{
+			replace = ">";
+			start = prompt + i;
+			end = prompt + i+2;
+			prompt = ft_replace(prompt,start, end, replace);
+		}
+		else if (prompt[i] == '<' && prompt[i + 1] == '>')
+		{
+			replace = "<";
+			start = prompt + i;
+			end = prompt + i+2;
+			prompt = ft_replace(prompt,start, end, replace);
+		}
+		i++;
+	}
+	return (prompt);
+}
+
 char	**ft_parser(char *prompt)
 {
 	char	**cmd;
 
+	ft_printf("prompt: %s\n", prompt);
+	prompt = ft_call_replace(prompt);
+	ft_printf("prompt: %s\n", prompt);
 	cmd = ft_cmdtrim(prompt);
 	if (prompt[ft_strlen(prompt) - 1] == ' ')
 		cmd = ft_charpp_del_back(cmd);

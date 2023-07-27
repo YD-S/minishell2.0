@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 19:09:06 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/26 16:34:13 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/27 22:54:41 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ int	ft_vr(char *str, int *i)
 {
 	if (str[*i] == '<')
 	{
-		if (str[*i + 1] == '<')
+		if (str[*i + 1] == '<' || str[*i + 1] == '>')
 			*i += 2;
 		else
 			*i += 1;
 	}
 	else if (str[*i] == '>')
 	{
-		if (str[*i + 1] == '>')
+		if (str[*i + 1] == '>' || str[*i + 1] == '|')
 			*i += 2;
 		else
 			*i += 1;
@@ -95,7 +95,7 @@ int	ft_validate(char *str)
 		}
 		else if (str[i] == '<' || str[i] == '>')
 		{
-			if (count.re == 1 && (quote_state(str[i]) == NO && !ft_vr(str, &i)))
+			if (count.re == 1 || (quote_state(str[i]) == NO && !ft_vr(str, &i)))
 				return (0);
 			set_pipe_redirect(&count.pipe, &count.re, 2);
 		}
