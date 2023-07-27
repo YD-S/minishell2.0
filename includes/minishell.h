@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/26 16:17:38 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:34:02 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,5 +194,6 @@ void			execute_echo(char **args);
 void			execute_export(char **args);
 void			execute_env(void);
 void			execute_cd(char **args);
+void			execute_exit(void);
 
 #endif

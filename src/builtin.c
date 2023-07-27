@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/26 16:36:45 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:36:01 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,4 +172,9 @@ void	execute_export(char **args)
 		else
 			search_and_replace(g_global.envp, key, value);
 	}
+}
+
+void	execute_exit(void)
+{
+	exit(EXIT_SUCCESS);
 }
