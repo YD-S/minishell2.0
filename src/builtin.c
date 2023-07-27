@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/26 16:36:45 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/27 11:36:01 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	get_dir(void)
 		i--;
 	i++;
 	g_global.dir = ft_substr(dir, i, ft_strlen(dir));
+	free(dir);
 }
 
 void	print_args(char **args, int i)
@@ -61,7 +62,7 @@ void	execute_echo(char **args)
 		ft_printf("\n");
 }
 
-void	execute_env(void)
+void	execute_env(int flag)
 {
 	t_list	*aux;
 	t_envp	*env;
@@ -70,6 +71,8 @@ void	execute_env(void)
 	aux = g_global.envp;
 	while (aux)
 	{
+		if(flag == 1)
+			ft_printf("declare -x ");
 		i = 0;
 		env = aux->content;
 		if (env->key[i] == '$')
@@ -151,7 +154,7 @@ void	execute_export(char **args)
 
 	i = 1;
 	if (!args[i])
-		execute_env();
+		execute_env(1);
 	if (ft_strchr(args[i], '='))
 	{
 		key = ft_substr(args[i], 0, ft_strchr(args[i], '=') - args[i]);
@@ -172,4 +175,9 @@ void	execute_export(char **args)
 		else
 			search_and_replace(g_global.envp, key, value);
 	}
+}
+
+void	execute_exit(void)
+{
+	exit(EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_do_commands2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:47:17 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/22 20:09:11 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/07/27 14:07:32 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	get_builtin(char *cmd)
 {
+	if (!cmd)
+		return (2);
 	if (ft_strcmp(cmd, "echo") == 0 || ft_strcmp(cmd, "cd") == 0
 		|| ft_strcmp(cmd, "pwd") == 0 || ft_strcmp(cmd, "unset") == 0
 		|| ft_strcmp(cmd, "export") == 0 || ft_strcmp(cmd, "exit") == 0
@@ -37,8 +39,8 @@ void	execute_builtin(char **cmd)
 	//	execute_unset(cmd);
 	if (ft_strcmp(cmd[0], "export") == 0)
 		execute_export(cmd);
-	//if (ft_strcmp(cmd[0], "exit") == 0)
-	//	execute_exit(cmd);
+	if (ft_strcmp(cmd[0], "exit") == 0)
+		execute_exit();
 	if (ft_strcmp(cmd[0], "env") == 0)
-		execute_env();
+		execute_env(0);
 }

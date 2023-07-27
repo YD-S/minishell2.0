@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/26 16:05:57 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/07/27 14:18:22 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_executer(char **cmds, char **paths)
 
 void	ft_separate_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 {
+	char *temp;
 	auxs->args = 0;
 	if (strncmp(argv[auxs->i], "<\0", 2) == 0)
 	{
@@ -38,12 +39,19 @@ void	ft_separate_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 	{
 		p->infile[auxs->cmd] = 0;
 	}
-	if (!get_builtin(argv[auxs->i]))
-		p->paths[auxs->cmd] = ft_check_comm(paths, argv[auxs->i]);
-	else
-		p->paths[auxs->cmd] = argv[auxs->i];
-	p->args[auxs->cmd][auxs->args] = argv[auxs->i];
-	auxs->i++;
+	if (argv[auxs->i] && strncmp(argv[auxs->i], "|\0", 2) != 0)
+	{
+		if (!get_builtin(argv[auxs->i]))
+		{
+			temp = ft_strdup(argv[auxs->i]);
+			p->paths[auxs->cmd] = ft_check_comm(paths, temp);
+			free(temp);
+		}
+		else
+			p->paths[auxs->cmd] = ft_strdup(argv[auxs->i]);
+		p->args[auxs->cmd][auxs->args] = argv[auxs->i];
+		auxs->i++;
+	}
 }
 
 int	ft_separate_cmd2(t_pipex *p, t_aux *auxs, int argc, char **argv)
