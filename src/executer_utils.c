@@ -46,8 +46,7 @@ char	*ft_check_comm(char **paths, char *command)
 		free(aux);
 		if (access(aux2, F_OK) != -1 && access(aux2, X_OK) != -1)
 			return (aux2);
-		else
-			free(aux2);
+		free(aux2);
 		i++;
 	}
 	return (command);

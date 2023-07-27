@@ -39,7 +39,7 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 		else
 		{
 			ft_error("minishell syntax error\n", line);
-			g_global.exit_status = 127;
+			g_global.exit_status = 258;
 		}
 		ft_charppfree(cmds);
 	}
