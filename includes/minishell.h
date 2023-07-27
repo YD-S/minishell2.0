@@ -192,7 +192,7 @@ void			execute_builtin(char **cmd);
 int				get_builtin(char *cmd);
 void			execute_echo(char **args);
 void			execute_export(char **args);
-void			execute_env(void);
+void			execute_env(int flag);
 void			execute_cd(char **args);
 void			execute_exit(void);
 

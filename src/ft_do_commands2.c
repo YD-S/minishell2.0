@@ -42,5 +42,5 @@ void	execute_builtin(char **cmd)
 	if (ft_strcmp(cmd[0], "exit") == 0)
 		execute_exit();
 	if (ft_strcmp(cmd[0], "env") == 0)
-		execute_env();
+		execute_env(0);
 }

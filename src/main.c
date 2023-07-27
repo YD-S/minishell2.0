@@ -41,8 +41,8 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 			ft_error("minishell syntax error\n", line);
 			g_global.exit_status = 127;
 		}
+		ft_charppfree(cmds);
 	}
-	ft_charppfree(cmds);
 }
 
 t_envp	*ft_get_node(char *str)

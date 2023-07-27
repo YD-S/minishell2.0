@@ -27,8 +27,8 @@ void	ft_free_mem(t_pipex *p, int cmd)
 	while (i < cmd)
 	{
 		free(p->args[i]);
-		if (p->paths[i])
-			free(p->paths[i]);
+		//if (p->paths[i])
+		//	free(p->paths[i]);
 		i++;
 	}
 	free(p->infile);
