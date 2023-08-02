@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/27 11:36:01 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:44:09 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ void	execute_export(char **args)
 	t_envp	*new_var;
 
 	i = 1;
+	write(1, "1", 1);
 	if (!args[i])
 		execute_env(1);
 	if (ft_strchr(args[i], '='))

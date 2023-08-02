@@ -47,3 +47,6 @@
 *.mod*
 *.cmd
 .tmp_versions/
+
+.vscode/launch.json
+.vscode/tasks.json

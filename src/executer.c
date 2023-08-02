@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/27 14:18:22 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/02 13:36:08 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	ft_separate_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 		else
 			p->paths[auxs->cmd] = ft_strdup(argv[auxs->i]);
 		p->args[auxs->cmd][auxs->args] = argv[auxs->i];
-		auxs->i++;
 	}
+	auxs->i++;
 }
 
 int	ft_separate_cmd2(t_pipex *p, t_aux *auxs, int argc, char **argv)
@@ -81,11 +81,12 @@ void	ft_main(char **argv, int argc, char **paths)
 	t_aux	auxs;
 
 	auxs.pipes = ft_count_pipes(argv, argc - 1);
-	auxs.i = 1;
+	auxs.i = 0;
 	ft_reserve_mem(&p, auxs.pipes + 1, ft_count_max_args(argv, argc, auxs.i));
 	ft_count_args(argv, argc, &p);
 	auxs.i = 0;
 	auxs.cmd = 0;
+	//ft_printf("QWE%d %d", auxs.i, argc);
 	while (auxs.i < argc)
 	{
 		ft_separate_cmd(&p, &auxs, argv, paths);

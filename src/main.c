@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:03 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/24 16:11:07 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/02 12:16:12 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 		if (ft_check_cmd(line))
 		{
 			cmds = ft_parser(line);
-			//ft_executer(cmds, g_global.path);
+			ft_executer(cmds, g_global.path);
 		}
 		else
 		{
 			ft_error("minishell syntax error\n", line);
 			g_global.exit_status = 258;
 		}
-		ft_charppfree(cmds);
+		//ft_charppfree(cmds);
 	}
 }
 

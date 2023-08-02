@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:41 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/27 23:16:26 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/02 15:40:58 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *ft_call_replace(char *prompt)
+char	*ft_call_replace(char *prompt)
 {
-	char *start;
-	char *end;
-	char *replace;
-	int i;
+	char	*start;
+	char	*end;
+	char	*replace;
+	int		i;
 
 	i = 0;
 	while (prompt[i])
@@ -26,15 +26,15 @@ char *ft_call_replace(char *prompt)
 		{
 			replace = ">";
 			start = prompt + i;
-			end = prompt + i+2;
-			prompt = ft_replace(prompt,start, end, replace);
+			end = prompt + i + 2;
+			prompt = ft_replace(prompt, start, end, replace);
 		}
 		else if (prompt[i] == '<' && prompt[i + 1] == '>')
 		{
 			replace = "<";
 			start = prompt + i;
-			end = prompt + i+2;
-			prompt = ft_replace(prompt,start, end, replace);
+			end = prompt + i + 2;
+			prompt = ft_replace(prompt, start, end, replace);
 		}
 		i++;
 	}
@@ -52,6 +52,7 @@ char	**ft_parser(char *prompt)
 	if (prompt[ft_strlen(prompt) - 1] == ' ')
 		cmd = ft_charpp_del_back(cmd);
 	cmd = ft_expand_vars(cmd);
+	print_charpp(cmd);
 	free(prompt);
 	return (cmd);
 }
@@ -77,11 +78,11 @@ char	**ft_cmdtrim(char *prompt)
 	{
 		while (prompt[i] == ' ')
 			i++;
-		//if (prompt[i] == DQ)
-		//	aux = ft_call_dq(prompt, &i);
-		//else if (prompt[i] == SQ)
-		//	aux = ft_call_sq(prompt, &i);
-		if (prompt[i] == '<')
+		if (prompt[i] == DQ)
+			aux = ft_call_dq(prompt, &i);
+		else if (prompt[i] == SQ)
+			aux = ft_call_sq(prompt, &i);
+		else if (prompt[i] == '<')
 			aux = ft_call_red(prompt, &i);
 		else if (prompt[i] == '>')
 			aux = ft_call_redback(prompt, &i);
