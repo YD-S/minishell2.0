@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:03 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/02 12:16:12 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/02 19:04:24 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 
 	if (argc != 1)
 		exit(0);
-	//atexit(leaks);
+	atexit(leaks);
 	ft_init_global(envp);
 	call_signal();
 	while (1)

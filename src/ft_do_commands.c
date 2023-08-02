@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/02 17:45:25 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/02 19:33:18 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ int	ft_do_command2(t_pipex *p, int fd[2])
 	}
 	else
 	{
-		p->command_not_found[p->i] = 0;
+		//p->command_not_found[p->i] = 0;
 		//execute_builtin(p->args[p->i]);
+		//close(fd[1]);
 		exit(EXIT_SUCCESS);
 	}
 	return (g_global.exit_status = 0, 1);
@@ -73,11 +74,14 @@ int	ft_do_commands(t_pipex *p, int n_com)
 		p->i = 1;
 		while (p->i < n_com - 1)
 		{
-			pipe(fd2);
-			if (!ft_do_command(p, fd, fd2))
-				exit(EXIT_FAILURE);
-			fd[0] = fd2[0];
-			p->i++;
+			if (!get_builtin(p->args[p->i][0]))
+			{
+				pipe(fd2);
+				if (!ft_do_command(p, fd, fd2))
+					exit(EXIT_FAILURE);
+				fd[0] = fd2[0];
+				p->i++;
+			}
 		}
 		if (n_com > 1)
 		{

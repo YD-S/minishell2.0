@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:07:23 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/02 18:30:14 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/02 19:25:12 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_do_last_comm2(t_pipex *p, int fd[2])
 	}
 	else
 	{
-		p->command_not_found[p->i] = 0;
+		//p->command_not_found[p->i] = 0;
 		//execute_builtin(p->args[p->i]);
 		exit(EXIT_SUCCESS);
 	}
@@ -57,20 +57,23 @@ int	ft_do_last_comm(t_pipex *p, int fd[2])
 {
 	pid_t	pid;
 
-	pid = fork();
-	if (pid == -1)
-		exit(EXIT_FAILURE);
-	else if (pid == 0)
+	if (!get_builtin(p->args[p->i][0]))
 	{
-		ft_last_outfile(p);
-		if (!ft_do_last_comm2(p, fd))
-			return (0);
-	}
-	else
-	{
-		while (waitpid(pid, NULL, 0) != pid)
-			;
-		close(fd[1]);
+		pid = fork();
+		if (pid == -1)
+			exit(EXIT_FAILURE);
+		else if (pid == 0)
+		{
+			ft_last_outfile(p);
+			if (!ft_do_last_comm2(p, fd))
+				return (0);
+		}
+		else
+		{
+			while (waitpid(pid, NULL, 0) != pid)
+				;
+			close(fd[1]);
+		}
 	}
 	return (g_global.exit_status = 0, 1);
 }
@@ -93,10 +96,10 @@ int	ft_do_first_comm2(t_pipex *p, int fd[2], int file, int n_com)
 	{
 		if (p->args[0][0])
 		{
-			p->command_not_found[p->i] = 0;
+			//p->command_not_found[p->i] = 0;
 			//execute_builtin(p->args[0]);
-			exit(EXIT_SUCCESS);
 		}
+		exit(EXIT_SUCCESS);
 	}
 	return (g_global.exit_status = 0, 1);
 }
@@ -105,25 +108,32 @@ int	ft_do_first_comm(t_pipex *p, int fd[2], int n_com)
 {
 	pid_t	pid;
 	int		file;
+	int		do_first;
 
-	pid = fork();
-	if (pid == -1)
-		exit(EXIT_FAILURE);
-	else if (pid == 0)
+	if (!get_builtin(p->args[0][0]))
 	{
-		if (ft_open_first_file(p, &file))
+		pid = fork();
+		if (pid == -1)
+			exit(EXIT_FAILURE);
+		else if (pid == 0)
 		{
-			if (!ft_do_first_comm2(p, fd, file, n_com))
-				return (0);
+			if (ft_open_first_file(p, &file))
+			{
+				do_first = ft_do_first_comm2(p, fd, file, n_com);
+				if (!do_first)
+					return (g_global.exit_status = 127, 0);
+				else if (do_first == 2)
+					return (g_global.exit_status = 0, 1);
+			}
+			else
+				return (g_global.exit_status = 127, 0);
 		}
 		else
-			return (g_global.exit_status = 127, 0);
-	}
-	else
-	{
-		while (waitpid(pid, NULL, 0) != pid)
-			;
-		close(fd[1]);
+		{
+			while (waitpid(pid, NULL, 0) != pid)
+				;
+			close(fd[1]);
+		}
 	}
 	return (g_global.exit_status = 0, 1);
 }
