@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/02 13:36:08 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/02 18:33:36 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_executer(char **cmds, char **paths)
 
 void	ft_separate_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 {
-	char *temp;
+	char	*temp;
+
 	auxs->args = 0;
 	if (strncmp(argv[auxs->i], "<\0", 2) == 0)
 	{
@@ -84,9 +85,8 @@ void	ft_main(char **argv, int argc, char **paths)
 	auxs.i = 0;
 	ft_reserve_mem(&p, auxs.pipes + 1, ft_count_max_args(argv, argc, auxs.i));
 	ft_count_args(argv, argc, &p);
-	auxs.i = 0;
+	//auxs.i = 0;
 	auxs.cmd = 0;
-	//ft_printf("QWE%d %d", auxs.i, argc);
 	while (auxs.i < argc)
 	{
 		ft_separate_cmd(&p, &auxs, argv, paths);
@@ -99,6 +99,7 @@ void	ft_main(char **argv, int argc, char **paths)
 		p.args[auxs.cmd][++auxs.args] = 0;
 		auxs.cmd++;
 	}
-	ft_do_commands(&p, auxs.pipes + 1);
+	if (p.paths[0])
+		ft_do_commands(&p, auxs.pipes + 1);
 	ft_free_mem(&p, auxs.pipes + 1);
 }

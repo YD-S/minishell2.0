@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/02 15:44:09 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/02 18:02:45 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	execute_env(int flag)
 	aux = g_global.envp;
 	while (aux)
 	{
-		if(flag == 1)
+		if (flag == 1)
 			ft_printf("declare -x ");
 		i = 0;
 		env = aux->content;
@@ -156,7 +156,7 @@ void	execute_export(char **args)
 	write(1, "1", 1);
 	if (!args[i])
 		execute_env(1);
-	if (ft_strchr(args[i], '='))
+	else if (ft_strchr(args[i], '='))
 	{
 		key = ft_substr(args[i], 0, ft_strchr(args[i], '=') - args[i]);
 		key = ft_strjoin("$", key);

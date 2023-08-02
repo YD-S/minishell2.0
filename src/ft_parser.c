@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:41 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/02 15:40:58 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/02 18:22:23 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,11 @@ char	**ft_parser(char *prompt)
 {
 	char	**cmd;
 
-	ft_printf("prompt: %s\n", prompt);
 	prompt = ft_call_replace(prompt);
-	ft_printf("prompt: %s\n", prompt);
 	cmd = ft_cmdtrim(prompt);
 	if (prompt[ft_strlen(prompt) - 1] == ' ')
 		cmd = ft_charpp_del_back(cmd);
 	cmd = ft_expand_vars(cmd);
-	print_charpp(cmd);
 	free(prompt);
 	return (cmd);
 }
