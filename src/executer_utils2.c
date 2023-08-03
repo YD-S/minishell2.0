@@ -26,7 +26,7 @@ void	ft_free_mem(t_pipex *p, int cmd)
 	i = 0;
 	while (i < cmd)
 	{
-		free(p->args[i]);
+		ft_charppfree((p->args[i]));
 		if (cmd > 1 || (cmd == 1 && !p->command_not_found[0]))
 			free(p->paths[i]);
 		free(p->infile[i]);

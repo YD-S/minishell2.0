@@ -95,7 +95,7 @@ int	ft_validate(char *str)
 		}
 		else if (str[i] == '<' || str[i] == '>')
 		{
-			if (count.re == 1 || (quote_state(str[i]) == NO && !ft_vr(str, &i)))
+			if (count.re == 1 && (quote_state(str[i]) == NO && !ft_vr(str, &i)))
 				return (0);
 			set_pipe_redirect(&count.pipe, &count.re, 2);
 		}

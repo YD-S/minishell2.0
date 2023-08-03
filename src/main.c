@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:03 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/03 13:25:59 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:02:55 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 		{
 			cmds = ft_parser(line);
 			ft_executer(cmds, g_global.path);
-			/*if (cmds && cmds[0])
-				ft_charppfree(cmds);*/
+			/*if (cmds && cmds[0])*/
+				ft_charppfree(cmds);
 		}
 		else
 		{

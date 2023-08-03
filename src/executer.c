@@ -25,7 +25,7 @@ void	ft_separate_1st_cmd2(t_pipex *p, t_aux *auxs, char **argv)
 	auxs->args = 0;
 	if (strncmp(argv[auxs->i], "<\0", 2) == 0)
 	{
-		p->infile[auxs->cmd] = argv[auxs->i + 1];
+		p->infile[auxs->cmd] = ft_strdup(argv[auxs->i + 1]);
 		auxs->i += 2;
 	}
 	else if (strncmp(argv[auxs->i], "<<\0", 3) == 0)
@@ -55,7 +55,7 @@ void	ft_separate_1st_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 		}
 		else
 			p->paths[auxs->cmd] = ft_strdup(argv[auxs->i]);
-		p->args[auxs->cmd][auxs->args] = argv[auxs->i];
+		p->args[auxs->cmd][auxs->args] = ft_strdup(argv[auxs->i]);
 	}
 	auxs->i++;
 }
@@ -64,17 +64,17 @@ int	ft_separate_cmds(t_pipex *p, t_aux *auxs, int argc, char **argv)
 {
 	if (strncmp(argv[auxs->i], ">\0", 2) == 0)
 	{
-		p->outfl[auxs->cmd] = argv[auxs->i + 1];
+		p->outfl[auxs->cmd] = ft_strdup(argv[auxs->i + 1]);
 		auxs->i += 2;
 	}
 	else if (strncmp(argv[auxs->i], ">>\0", 3) == 0)
 	{
-		p->outfl[auxs->cmd] = argv[auxs->i + 1];
+		p->outfl[auxs->cmd] = ft_strdup(argv[auxs->i + 1]);
 		p->outmode[auxs->cmd] = 1;
 		auxs->i += 2;
 	}
 	if (auxs->i < argc && strncmp(argv[auxs->i], "|\0", 2) != 0)
-		p->args[auxs->cmd][++auxs->args] = argv[auxs->i];
+		p->args[auxs->cmd][++auxs->args] = ft_strdup(argv[auxs->i]);
 	else
 		return (0);
 	auxs->i++;
