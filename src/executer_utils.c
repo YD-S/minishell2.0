@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:12:37 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/02 13:05:06 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/03 12:07:19 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_reserve_mem(t_pipex *p, int cmd, int max_args)
 	p->command_not_found = ft_calloc(sizeof(int), cmd);
 }
 
-char	*ft_check_comm(char **paths, char *command)
+char	*ft_check_comm(char **paths, char *command, t_pipex *p, int cmd)
 {
 	int		i;
 	char	*aux;
@@ -49,6 +49,7 @@ char	*ft_check_comm(char **paths, char *command)
 		free(aux2);
 		i++;
 	}
+	p->command_not_found[cmd] = 1;
 	return (command);
 }
 

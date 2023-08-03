@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:47:17 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/27 14:07:32 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/03 12:24:59 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ void	execute_builtin(char **cmd)
 	//	execute_pwd(cmd);
 	//if (ft_strcmp(cmd[0], "unset") == 0)
 	//	execute_unset(cmd);
-	if (ft_strcmp(cmd[0], "export") == 0)
-		execute_export(cmd);
 	if (ft_strcmp(cmd[0], "exit") == 0)
 		execute_exit();
 	if (ft_strcmp(cmd[0], "env") == 0)

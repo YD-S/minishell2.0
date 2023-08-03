@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:46:28 by alvalope          #+#    #+#             */
-/*   Updated: 2023/07/27 13:43:28 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:46:47 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,10 @@ void	ft_heredoc(t_pipex *p, int *file)
 	close(*file);
 }
 
-void	ft_heredocs(t_pipex *p, int *file, char **delim)
+void	ft_heredocs2(char **delim, int delim_count, int delims, int file)
 {
 	char	*line;
-	int		delims;
-	int		delim_count;
-	int		i;
 
-	p->i = p->i;
-	delims = ft_charpplen(delim);
-	*file = open("aux.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	delim_count = 0;
 	while (1)
 	{
 		line = get_next_line(0);
@@ -61,17 +54,28 @@ void	ft_heredocs(t_pipex *p, int *file, char **delim)
 			free(line);
 			break ;
 		}
-		i = 0;
-		while (i < delims)
+		while (delims > 0)
 		{
-			if (ft_strcmp(line, delim[i]) == 0)
+			if (ft_strcmp(line, delim[delims]) == 0)
 				break ;
-			i++;
+			delims--;
 		}
-		if (delim_count == delims - 1 && i == delims)
-			write(*file, line, ft_strlen(line));
+		if (delim_count == delims - 1 && delims == 0)
+			write(file, line, ft_strlen(line));
 		free(line);
 	}
+}
+
+void	ft_heredocs(t_pipex *p, int *file, char **delim)
+{	
+	int		delims;
+	int		delim_count;
+
+	p->i = p->i;
+	delims = ft_charpplen(delim);
+	*file = open("aux.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	delim_count = 0;
+	ft_heredocs2(delim, delim_count, delims, *file);
 	close(*file);
 	*file = open("aux.txt", O_RDONLY);
 	if (*file == -1)

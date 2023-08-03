@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/02 19:33:18 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:44:51 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,7 @@ int	ft_do_command2(t_pipex *p, int fd[2])
 			return (g_global.exit_status = 127, 0);
 	}
 	else
-	{
-		//p->command_not_found[p->i] = 0;
-		//execute_builtin(p->args[p->i]);
-		//close(fd[1]);
 		exit(EXIT_SUCCESS);
-	}
 	return (g_global.exit_status = 0, 1);
 }
 
@@ -59,35 +54,48 @@ int	ft_do_command(t_pipex *p, int fd[2], int fd2[2])
 	return (g_global.exit_status = 0, 1);
 }
 
-int	ft_do_commands(t_pipex *p, int n_com)
+void	ft_do_commands2(t_pipex *p, int n_com)
 {
 	int	fd[2];
 	int	fd2[2];
 
+	pipe(fd);
+	if (!ft_do_first_comm(p, fd, n_com))
+		exit(EXIT_FAILURE);
+	p->i = 1;
+	while (p->i < n_com - 1)
+	{
+		if (!get_builtin(p->args[p->i][0]))
+		{
+			pipe(fd2);
+			if (!ft_do_command(p, fd, fd2))
+				exit(EXIT_FAILURE);
+			fd[0] = fd2[0];
+		}
+		p->i++;
+	}
+	if (n_com > 1)
+	{
+		if (!ft_do_last_comm(p, fd))
+			exit(EXIT_FAILURE);
+	}
+}
+
+int	ft_do_commands(t_pipex *p, int n_com)
+{
 	if (n_com == 1 && get_builtin(p->args[0][0]))
 		execute_builtin(p->args[0]);
+	else if (n_com == 1 && p->command_not_found[0])
+	{
+		if (execve(p->paths[0], p->args[0], 0) == -1)
+		{
+			ft_write_error("cmd", strerror(errno), p->args[0][0]);
+			return (g_global.exit_status = 127, 0);
+		}
+	}
 	else
 	{
-		pipe(fd);
-		if (!ft_do_first_comm(p, fd, n_com))
-			exit(EXIT_FAILURE);
-		p->i = 1;
-		while (p->i < n_com - 1)
-		{
-			if (!get_builtin(p->args[p->i][0]))
-			{
-				pipe(fd2);
-				if (!ft_do_command(p, fd, fd2))
-					exit(EXIT_FAILURE);
-				fd[0] = fd2[0];
-				p->i++;
-			}
-		}
-		if (n_com > 1)
-		{
-			if (!ft_do_last_comm(p, fd))
-				exit(EXIT_FAILURE);
-		}
+		ft_do_commands2(p, n_com);
 	}
 	return (1);
 }

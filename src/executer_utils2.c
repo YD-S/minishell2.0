@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 20:49:40 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/02 13:06:54 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:05:34 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	ft_free_mem(t_pipex *p, int cmd)
 	while (i < cmd)
 	{
 		free(p->args[i]);
-		free(p->paths[i]);
+		if (cmd > 1 || (cmd == 1 && !p->command_not_found[0]))
+			free(p->paths[i]);
 		free(p->infile[i]);
 		free(p->outfl[i]);
 		i++;

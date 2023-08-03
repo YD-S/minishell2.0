@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/02 18:33:36 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/03 13:48:29 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ void	ft_executer(char **cmds, char **paths)
 	ft_main(cmds, i, paths);
 }
 
-void	ft_separate_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
+void	ft_separate_1st_cmd2(t_pipex *p, t_aux *auxs, char **argv)
 {
-	char	*temp;
-
 	auxs->args = 0;
 	if (strncmp(argv[auxs->i], "<\0", 2) == 0)
 	{
@@ -40,12 +38,19 @@ void	ft_separate_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 	{
 		p->infile[auxs->cmd] = 0;
 	}
+}
+
+void	ft_separate_1st_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
+{
+	char	*temp;
+
+	ft_separate_1st_cmd2(p, auxs, argv);
 	if (argv[auxs->i] && strncmp(argv[auxs->i], "|\0", 2) != 0)
 	{
 		if (!get_builtin(argv[auxs->i]))
 		{
 			temp = ft_strdup(argv[auxs->i]);
-			p->paths[auxs->cmd] = ft_check_comm(paths, temp);
+			p->paths[auxs->cmd] = ft_check_comm(paths, temp, p, auxs->cmd);
 			free(temp);
 		}
 		else
@@ -55,7 +60,7 @@ void	ft_separate_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 	auxs->i++;
 }
 
-int	ft_separate_cmd2(t_pipex *p, t_aux *auxs, int argc, char **argv)
+int	ft_separate_cmds(t_pipex *p, t_aux *auxs, int argc, char **argv)
 {
 	if (strncmp(argv[auxs->i], ">\0", 2) == 0)
 	{
@@ -85,14 +90,13 @@ void	ft_main(char **argv, int argc, char **paths)
 	auxs.i = 0;
 	ft_reserve_mem(&p, auxs.pipes + 1, ft_count_max_args(argv, argc, auxs.i));
 	ft_count_args(argv, argc, &p);
-	//auxs.i = 0;
 	auxs.cmd = 0;
 	while (auxs.i < argc)
 	{
-		ft_separate_cmd(&p, &auxs, argv, paths);
+		ft_separate_1st_cmd(&p, &auxs, argv, paths);
 		while (auxs.i < argc && strncmp(argv[auxs.i], "|\0", 2) != 0)
 		{
-			if (!ft_separate_cmd2(&p, &auxs, argc, argv))
+			if (!ft_separate_cmds(&p, &auxs, argc, argv))
 				break ;
 		}
 		auxs.i++;

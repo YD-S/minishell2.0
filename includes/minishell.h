@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/27 11:34:02 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/03 12:06:45 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ int				ft_open_first_file(t_pipex *p, int *file);
 void			ft_open_first_out_file(t_pipex *p, int fd[2], int n_com);
 
 void			ft_reserve_mem(t_pipex *p, int cmd, int max_args);
-char			*ft_check_comm(char **paths, char *command);
+char			*ft_check_comm(char **paths, char *command, t_pipex *p, int cmd);
 int				ft_count_pipes(char *argv[], int n);
 int				ft_count_max_args(char *argv[], int n, int i);
 void			ft_count_args(char *argv[], int n, t_pipex *p);
