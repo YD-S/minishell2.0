@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/03 13:48:29 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/03 22:16:55 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_executer(char **cmds, char **paths)
 
 void	ft_separate_1st_cmd2(t_pipex *p, t_aux *auxs, char **argv)
 {
-	auxs->args = 0;
 	if (strncmp(argv[auxs->i], "<\0", 2) == 0)
 	{
 		p->infile[auxs->cmd] = ft_strdup(argv[auxs->i + 1]);
@@ -38,12 +37,14 @@ void	ft_separate_1st_cmd2(t_pipex *p, t_aux *auxs, char **argv)
 	{
 		p->infile[auxs->cmd] = 0;
 	}
+	ft_check_outfile(p, auxs, argv);
 }
 
 void	ft_separate_1st_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 {
 	char	*temp;
 
+	auxs->args = 0;
 	ft_separate_1st_cmd2(p, auxs, argv);
 	if (argv[auxs->i] && strncmp(argv[auxs->i], "|\0", 2) != 0)
 	{
@@ -62,22 +63,17 @@ void	ft_separate_1st_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 
 int	ft_separate_cmds(t_pipex *p, t_aux *auxs, int argc, char **argv)
 {
-	if (strncmp(argv[auxs->i], ">\0", 2) == 0)
+	int	file;
+
+	file = -1;
+	while (auxs->i < argc && strncmp(argv[auxs->i], "|\0", 2) != 0)
 	{
-		p->outfl[auxs->cmd] = ft_strdup(argv[auxs->i + 1]);
-		auxs->i += 2;
+		if (!ft_check_in_out_files(p, auxs, argv, file))
+		{
+			p->args[auxs->cmd][++auxs->args] = ft_strdup(argv[auxs->i]);
+			auxs->i++;
+		}
 	}
-	else if (strncmp(argv[auxs->i], ">>\0", 3) == 0)
-	{
-		p->outfl[auxs->cmd] = ft_strdup(argv[auxs->i + 1]);
-		p->outmode[auxs->cmd] = 1;
-		auxs->i += 2;
-	}
-	if (auxs->i < argc && strncmp(argv[auxs->i], "|\0", 2) != 0)
-		p->args[auxs->cmd][++auxs->args] = ft_strdup(argv[auxs->i]);
-	else
-		return (0);
-	auxs->i++;
 	return (1);
 }
 
@@ -105,5 +101,7 @@ void	ft_main(char **argv, int argc, char **paths)
 	}
 	if (p.paths[0])
 		ft_do_commands(&p, auxs.pipes + 1);
+	else if (p.heredoc[0])
+		ft_do_heredoc(&p);
 	ft_free_mem(&p, auxs.pipes + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 12:12:37 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/03 12:07:19 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/03 22:19:36 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_reserve_mem(t_pipex *p, int cmd, int max_args)
 	p->command_not_found = ft_calloc(sizeof(int), cmd);
 }
 
-char	*ft_check_comm(char **paths, char *command, t_pipex *p, int cmd)
+char	*ft_check_comm(char **paths, char *comm, t_pipex *p, int cmd)
 {
 	int		i;
 	char	*aux;
@@ -42,7 +42,7 @@ char	*ft_check_comm(char **paths, char *command, t_pipex *p, int cmd)
 	while (paths[i] != 0)
 	{
 		aux = ft_strjoin(paths[i], "/");
-		aux2 = ft_strjoin(aux, command);
+		aux2 = ft_strjoin(aux, comm);
 		free(aux);
 		if (access(aux2, F_OK) != -1 && access(aux2, X_OK) != -1)
 			return (aux2);
@@ -50,7 +50,7 @@ char	*ft_check_comm(char **paths, char *command, t_pipex *p, int cmd)
 		i++;
 	}
 	p->command_not_found[cmd] = 1;
-	return (command);
+	return (comm);
 }
 
 int	ft_count_pipes(char *argv[], int n)
