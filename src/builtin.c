@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/03 13:45:05 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/03 22:53:51 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,14 @@ void	execute_echo(char **args)
 
 	i = 1;
 	option = 0;
-	if (args[i] == NULL)
-		ft_printf("\n");
-	if (ft_strcmp(args[i], "$?") == 0)
+	if (args[i] != NULL && ft_strcmp(args[i], "$?") == 0)
 	{
 		ft_printf("%d\n", g_global.exit_status);
 		return ;
 	}
 	while (args[i])
 	{
+		args[i] = ft_strtrim(args[i], "\"\'");
 		if (ft_strcmp(args[i], "-n") != 0)
 			print_args(args, i);
 		else
@@ -153,15 +152,14 @@ void	execute_export(char **args)
 	t_envp	*new_var;
 
 	i = 1;
-	write(1, "1", 1);
 	if (!args[i])
 		execute_env(1);
 	else if (ft_strchr(args[i], '='))
 	{
 		key = ft_substr(args[i], 0, ft_strchr(args[i], '=') - args[i]);
 		key = ft_strjoin("$", key);
-		value = ft_substr(args[i], ft_strchr(args[i], '=') - args[i] + 1,
-				ft_strlen(args[i]) - ft_strlen(key));
+		value = ft_strtrim(ft_substr(args[i], ft_strchr(args[i], '=') - args[i]
+					+ 1, ft_strlen(args[i]) - ft_strlen(key)), "\"\'");
 		if (!search_var(key))
 		{
 			while (args[i])

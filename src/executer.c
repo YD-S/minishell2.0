@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/03 22:16:55 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/03 23:00:17 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	ft_separate_1st_cmd2(t_pipex *p, t_aux *auxs, char **argv)
 	{
 		p->infile[auxs->cmd] = 0;
 	}
-	ft_check_outfile(p, auxs, argv);
+	if (argv[auxs->i])
+		ft_check_outfile(p, auxs, argv);
 }
 
 void	ft_separate_1st_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
@@ -68,7 +69,7 @@ int	ft_separate_cmds(t_pipex *p, t_aux *auxs, int argc, char **argv)
 	file = -1;
 	while (auxs->i < argc && strncmp(argv[auxs->i], "|\0", 2) != 0)
 	{
-		if (!ft_check_in_out_files(p, auxs, argv, file))
+		if (!ft_check_io_fl(p, auxs, argv, file))
 		{
 			p->args[auxs->cmd][++auxs->args] = ft_strdup(argv[auxs->i]);
 			auxs->i++;
