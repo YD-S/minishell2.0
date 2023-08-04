@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/04 11:39:07 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/04 15:29:37 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,15 @@ void	execute_cd(char **args)
 	}
 	else
 		ft_printf("Error: %s: %s\n", args[1], strerror(errno));
+}
+
+void	execute_pwd(void)
+{
+	char *pwd;
+
+	pwd = ft_get_env("$PWD");
+	if (pwd == NULL)
+		ft_printf("Error: PWD not set\n");
+	else
+		ft_printf("%s\n", pwd);
 }

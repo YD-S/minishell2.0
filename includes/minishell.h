@@ -133,6 +133,7 @@ void			get_dir(void);
 void			search_and_replace(t_list *head, const char *key,
 					const char *new_value);
 void			remove_quotes_in_array(char **str_array);
+void			execute_pwd(void);
 
 typedef struct pipex
 {
