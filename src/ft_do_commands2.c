@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:47:17 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/04 15:29:37 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/04 15:30:45 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	execute_builtin(char **cmd)
 		execute_cd(cmd);
 	if (ft_strcmp(cmd[0], "pwd") == 0)
 		execute_pwd();
-	//if (ft_strcmp(cmd[0], "unset") == 0)
-	//	execute_unset(cmd);
+	if (ft_strcmp(cmd[0], "unset") == 0)
+		execute_unset(cmd);
 	if (ft_strcmp(cmd[0], "exit") == 0)
 		execute_exit();
 	if (ft_strcmp(cmd[0], "env") == 0)

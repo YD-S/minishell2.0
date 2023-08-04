@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/04 10:43:44 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/04 15:30:37 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void			search_and_replace(t_list *head, const char *key,
 					const char *new_value);
 void			remove_quotes_in_array(char **str_array);
 void			execute_pwd(void);
+void			execute_unset(char **args);
 
 typedef struct pipex
 {

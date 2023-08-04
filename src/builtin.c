@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/04 15:29:37 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/04 15:50:41 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,63 @@ void	execute_pwd(void)
 		ft_printf("Error: PWD not set\n");
 	else
 		ft_printf("%s\n", pwd);
+}
+
+void free_env_node(void *content)
+{
+	t_envp *env_node;
+
+	env_node = (t_envp *)content;
+	free(env_node->key);
+	free(env_node->value);
+	free(env_node);
+}
+
+void ft_unset_env(char *arg)
+{
+	t_list	*current;
+	t_list 	*prev;
+	t_envp	*env_node;
+
+	if(arg == NULL)
+		return ;
+	if(ft_strcmp(arg, "$PATH") == 0)
+	{
+		ft_charppfree(g_global.path);
+		g_global.path = NULL;
+	}
+	current = g_global.envp;
+	prev = NULL;
+	while (current != NULL)
+	{
+		env_node = (t_envp *)current->content;
+		if (ft_strcmp(env_node->key, arg) == 0)
+		{
+			if (prev == NULL)
+				g_global.envp = current->next;
+			else
+				prev->next = current->next;
+			free_env_node(current->content);
+			free(current);
+			return ;
+		}
+		prev = current;
+		current = current->next;
+	}
+}
+
+void	execute_unset(char **args)
+{
+	int	i;
+	char *args_i;
+
+	i = 1;
+	while (args[i])
+	{
+		args_i = ft_strjoin("$",args[i]);
+		if (ft_get_env(args_i) != NULL)
+			ft_unset_env(args_i);
+		free(args_i);
+		i++;
+	}
 }

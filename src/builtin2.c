@@ -59,6 +59,7 @@ void	execute_export(char **args)
 	int		i;
 	char	*key;
 	char	*value;
+	char	*temp;
 	t_envp	*new_var;
 
 	i = 1;
@@ -83,6 +84,12 @@ void	execute_export(char **args)
 		}
 		else
 			search_and_replace(g_global.envp, key, value);
+	}
+	if(ft_strcmp(args[i], "$PATH") == 0)
+	{
+		temp = ft_get_env("$PATH");
+		g_global.path = ft_split(temp, ':');
+		free(temp);
 	}
 }
 
