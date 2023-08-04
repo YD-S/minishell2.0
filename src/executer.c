@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/03 23:00:17 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/04 10:48:02 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,30 @@ void	ft_executer(char **cmds, char **paths)
 	ft_main(cmds, i, paths);
 }
 
-void	ft_separate_1st_cmd2(t_pipex *p, t_aux *auxs, char **argv)
+int	ft_separate_1st_cmd2(t_pipex *p, t_aux *auxs, char **argv)
 {
 	if (strncmp(argv[auxs->i], "<\0", 2) == 0)
 	{
 		p->infile[auxs->cmd] = ft_strdup(argv[auxs->i + 1]);
 		auxs->i += 2;
+		return (1);
 	}
 	else if (strncmp(argv[auxs->i], "<<\0", 3) == 0)
 	{
 		p->heredoc[auxs->cmd] = 1;
 		p->infile[auxs->cmd] = ft_strjoin(argv[auxs->i + 1], "\n");
 		auxs->i += 2;
+		return (1);
 	}
-	else
+	/*else
 	{
 		p->infile[auxs->cmd] = 0;
-	}
+	}*/
 	if (argv[auxs->i])
-		ft_check_outfile(p, auxs, argv);
+	{
+		return (ft_check_outfile(p, auxs, argv));
+	}
+	return (0);
 }
 
 void	ft_separate_1st_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
@@ -46,7 +51,8 @@ void	ft_separate_1st_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 	char	*temp;
 
 	auxs->args = 0;
-	ft_separate_1st_cmd2(p, auxs, argv);
+	while (ft_separate_1st_cmd2(p, auxs, argv))
+		;
 	if (argv[auxs->i] && strncmp(argv[auxs->i], "|\0", 2) != 0)
 	{
 		if (!get_builtin(argv[auxs->i]))

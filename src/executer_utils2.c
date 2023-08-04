@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 20:49:40 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/03 22:26:54 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/04 10:46:19 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,22 @@ void	ft_write_error(char *type, char *error, char *obj)
 	}
 }
 
-void	ft_check_outfile(t_pipex *p, t_aux *auxs, char **argv)
+int	ft_check_outfile(t_pipex *p, t_aux *auxs, char **argv)
 {
 	if (strncmp(argv[auxs->i], ">\0", 2) == 0)
 	{
 		p->outfl[auxs->cmd] = ft_strdup(argv[auxs->i + 1]);
 		auxs->i += 2;
+		return (1);
 	}
 	else if (strncmp(argv[auxs->i], ">>\0", 3) == 0)
 	{
 		p->outfl[auxs->cmd] = ft_strdup(argv[auxs->i + 1]);
 		p->outmode[auxs->cmd] = 1;
 		auxs->i += 2;
+		return (1);
 	}
+	return (0);
 }
 
 int	ft_check_io_fl(t_pipex *p, t_aux *auxs, char **argv, int file)

@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/03 22:20:46 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/04 10:43:44 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void			ft_count_args(char *argv[], int n, t_pipex *p);
 
 void			ft_free_all(t_pipex *p);
 void			ft_write_error(char *type, char *error, char *obj);
-void			ft_check_outfile(t_pipex *p, t_aux *auxs, char **argv);
+int				ft_check_outfile(t_pipex *p, t_aux *auxs, char **argv);
 int				ft_check_io_fl(t_pipex *p, t_aux *auxs, char **argv, int file);
 
 int				ft_do_last_comm(t_pipex *p, int fd[2]);

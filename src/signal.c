@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 18:48:44 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/07 16:08:24 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/04 10:00:51 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ void	handle_sigint(int sig)
 	}
 }
 
-void free_env()
+void	free_env(void)
 {
-	t_list *list;
-	t_list *temp_list;
-	t_envp *node;
-	t_envp *temp;
+	t_list	*list;
+	t_list	*temp_list;
+	t_envp	*node;
+	t_envp	*temp;
 
 	list = g_global.envp;
-	while(list)
+	while (list)
 	{
 		node = list->content;
 		temp = node;
