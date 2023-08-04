@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/04 10:27:45 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/04 11:39:07 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,11 @@ void	execute_cd(char **args)
 	}
 	else if (ft_charpplen(args) > 2)
 		ft_printf("Error: too many arguments\n");
-	else
+	else if (chdir(args[1]) != -1)
 	{
-		if (chdir(args[1]) != -1)
-		{
-			update_pwd();
-			get_dir();
-		}
-		else
-			ft_printf("Error: %s: %s\n", args[1], strerror(errno));
+		update_pwd();
+		get_dir();
 	}
+	else
+		ft_printf("Error: %s: %s\n", args[1], strerror(errno));
 }
