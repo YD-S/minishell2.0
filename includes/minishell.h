@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/05 18:11:21 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/05 22:44:17 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,6 @@ void			get_dir(void);
 void			search_and_replace(t_list *head, const char *key,
 					const char *new_value);
 void			remove_quotes_in_array(char **str_array);
-void			execute_pwd(void);
-void			execute_unset(char **args);
 
 typedef struct pipex
 {
@@ -200,7 +198,9 @@ void			execute_echo(char **args);
 void			execute_export(char **args);
 void			execute_env(int flag);
 void			execute_cd(char **args);
-void			execute_exit(void);
+void			execute_exit(char **args);
 int				search_var(char *key);
+void			execute_pwd(void);
+void			execute_unset(char **args);
 
 #endif

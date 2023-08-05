@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:03 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/05 18:15:37 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/06 00:10:59 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 
 	if (argc != 1)
 		exit(0);
-	atexit(leaks);
 	ft_init_global(envp);
 	g_global.env = ft_charppdup(envp);
 	call_signal();
@@ -35,7 +34,7 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 		if (ft_check_cmd(line))
 		{
 			cmds = ft_parser(line);
-			//ft_executer(cmds, g_global.path);
+			ft_executer(cmds, g_global.path);
 			ft_charppfree(cmds);
 		}
 		else

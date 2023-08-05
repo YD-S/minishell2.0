@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:26:58 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/04 15:55:25 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/06 00:22:30 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	execute_env(int flag)
 		ft_printf("%s\n", env->value);
 		aux = aux->next;
 	}
+	g_global.exit_status = 0;
 }
 
 int	search_var(char *key)
@@ -91,9 +92,32 @@ void	execute_export(char **args)
 		else
 			search_and_replace(g_global.envp, key, value);
 	}
+	g_global.exit_status = 0;
 }
 
-void	execute_exit(void)
+void	execute_exit(char **args)
 {
-	exit(EXIT_SUCCESS);
+	int	i;
+
+	i = 0;
+	while (args[i])
+		i++;
+	if (i == 1)
+		exit(0);
+	else if (i == 2)
+	{
+		if (ft_isdigit(args[1][0]))
+			exit(ft_atoi(args[1]));
+		else
+		{
+			ft_printf("minishell: exit: %s: numeric argument required\n",
+				args[1]);
+			exit(255);
+		}
+	}
+	else
+	{
+		ft_printf("minishell: exit: too many arguments\n");
+		g_global.exit_status = 1;
+	}
 }

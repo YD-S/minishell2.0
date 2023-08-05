@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/05 23:59:48 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/06 00:18:45 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	execute_echo(char **args)
 	if (args[i] != NULL && ft_strcmp(args[i], "$?") == 0)
 	{
 		ft_printf("%d\n", g_global.exit_status);
+		g_global.exit_status = 0;
 		return ;
 	}
 	int j = 0;
@@ -67,6 +68,7 @@ void	execute_echo(char **args)
 	}
 	if (!option)
 		ft_printf("\n");
+	g_global.exit_status = 0;
 }
 
 void	update_pwd(void)
@@ -87,13 +89,17 @@ void	execute_cd(char **args)
 	if(search_var("$PWD") == 0 || ft_get_env("$PWD") == NULL)
 	{
 		ft_printf("Error: PWD not set\n");
+		g_global.exit_status = 1;
 		return ;
 	}
 	if (ft_charpplen(args) == 1 || ft_strcmp(args[1], "~") == 0)
 	{
 		path = ft_get_env("$HOME");
 		if (path == NULL)
+		{
 			ft_printf("Error: HOME not set\n");
+			g_global.exit_status = 1;
+		}
 		else
 		{
 			chdir(path);
@@ -101,15 +107,17 @@ void	execute_cd(char **args)
 			get_dir();
 		}
 	}
-	else if (ft_charpplen(args) > 2)
-		ft_printf("Error: too many arguments\n");
 	else if (ft_strcmp(args[1], "-") == 0)
 	{
 		path = ft_get_env("$OLDPWD");
 		if (path == NULL || search_var("$OLDPWD") == 0)
-			ft_printf("Error: OLDPWD not found\n");
+		{
+			ft_printf("Error: OLDPWD not set\n");
+			g_global.exit_status = 1;
+		}
 		else
 		{
+			ft_printf("%s\n", path);
 			chdir(path);
 			update_pwd();
 			get_dir();
@@ -121,7 +129,10 @@ void	execute_cd(char **args)
 		get_dir();
 	}
 	else
+	{
 		ft_printf("Error: %s: %s\n", args[1], strerror(errno));
+		g_global.exit_status = 1;
+	}
 }
 
 void	execute_pwd(void)
@@ -130,9 +141,13 @@ void	execute_pwd(void)
 
 	pwd = ft_get_env("$PWD");
 	if (pwd == NULL)
+	{
 		ft_printf("Error: PWD not set\n");
+		g_global.exit_status = 1;
+	}
 	else
 		ft_printf("%s\n", pwd);
+
 }
 
 void free_env_node(void *content)
@@ -192,4 +207,5 @@ void	execute_unset(char **args)
 		free(args_i);
 		i++;
 	}
+	g_global.exit_status = 0;
 }
