@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:03 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/03 22:49:18 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:11:21 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 
 	if (argc != 1)
 		exit(0);
-	//atexit(leaks);
+	atexit(leaks);
 	ft_init_global(envp);
+	g_global.env = ft_charppdup(envp);
 	call_signal();
 	while (1)
 	{

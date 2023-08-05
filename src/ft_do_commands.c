@@ -18,7 +18,7 @@ int	ft_do_command2(t_pipex *p, int fd[2])
 	{
 		if (ft_open_in_file(p, fd))
 		{
-			if (execve(p->paths[p->i], p->args[p->i], 0) == -1)
+			if (execve(p->paths[p->i], p->args[p->i], g_global.env) == -1)
 			{
 				ft_write_error("cmd", strerror(errno), p->args[p->i][0]);
 				return (g_global.exit_status = 127, 0);
@@ -87,7 +87,7 @@ int	ft_do_commands(t_pipex *p, int n_com)
 		execute_builtin(p->args[0]);
 	else if (n_com == 1 && p->command_not_found[0])
 	{
-		if (execve(p->paths[0], p->args[0], 0) == -1)
+		if (execve(p->paths[0], p->args[0], g_global.env) == -1)
 		{
 			ft_write_error("cmd", strerror(errno), p->args[0][0]);
 			return (g_global.exit_status = 127, 0);

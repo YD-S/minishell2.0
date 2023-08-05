@@ -17,7 +17,7 @@ int	ft_do_last_comm2(t_pipex *p, int fd[2])
 	if (!get_builtin(p->args[p->i][0]))
 	{
 		ft_open_in_file(p, fd);
-		if (execve(p->paths[p->i], p->args[p->i], 0) == -1)
+		if (execve(p->paths[p->i], p->args[p->i], g_global.env) == -1)
 		{
 			ft_write_error("cmd", strerror(errno), p->args[p->i][0]);
 			return (g_global.exit_status = 127, 0);
@@ -82,7 +82,7 @@ int	ft_do_first_comm2(t_pipex *p, int fd[2], int file, int n_com)
 		close(file);
 	if (!get_builtin(p->args[0][0]))
 	{
-		if (execve(p->paths[0], p->args[0], 0) == -1)
+		if (execve(p->paths[0], p->args[0], g_global.env) == -1)
 		{
 			ft_write_error("cmd", strerror(errno), p->args[0][0]);
 			return (g_global.exit_status = 127, 0);

@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/04 15:30:37 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/04 15:44:32 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_master
 typedef struct s_global
 {
 	t_list		*envp;
+	char		**env;
 	char		**path;
 	int			exit_status;
 	char		**heredoc_out;

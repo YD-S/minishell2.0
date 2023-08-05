@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:26:58 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/04 10:28:37 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/04 15:55:25 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,17 @@ void	execute_export(char **args)
 				new_var->key = key;
 				new_var->value = value;
 				ft_lstadd_back(&g_global.envp, ft_lstnew(new_var));
+				if(ft_strcmp(args[i], "$PATH") == 0)
+				{
+					temp = ft_get_env("$PATH");
+					g_global.path = ft_split(temp, ':');
+					free(temp);
+				}
 				i++;
 			}
 		}
 		else
 			search_and_replace(g_global.envp, key, value);
-	}
-	if(ft_strcmp(args[i], "$PATH") == 0)
-	{
-		temp = ft_get_env("$PATH");
-		g_global.path = ft_split(temp, ':');
-		free(temp);
 	}
 }
 
