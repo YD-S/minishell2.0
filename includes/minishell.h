@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/04 15:44:32 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/05 18:11:21 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,5 +201,6 @@ void			execute_export(char **args);
 void			execute_env(int flag);
 void			execute_cd(char **args);
 void			execute_exit(void);
+int				search_var(char *key);
 
 #endif

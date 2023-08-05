@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:01:30 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/26 16:34:34 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/06 00:03:23 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,33 +31,6 @@ void	init_all_things(t_count *count)
 	count->j = 0;
 }
 
-void	remove_nested_quotes(char **str)
-{
-	char	*src;
-	char	*dest;
-	t_count	count;
-
-	init_all_things(&count);
-	src = *str;
-	dest = *str;
-	while (*src != '\0')
-	{
-		if (*src == DQ && (*(src - 1) != '\\' || (src - 2 >= *str && *(src
-						- 2) == '\\')) && !count.i)
-			count.j = !count.j;
-		else if (*src == SQ && (*(src - 1) != '\\' || (src - 2 >= *str && *(src
-						- 2) == '\\')) && !count.j)
-			count.i = !count.i;
-		if ((*src != DQ && !count.j) || (*src != SQ && !count.i))
-		{
-			*dest = *src;
-			dest++;
-		}
-		src++;
-	}
-	*dest = '\0';
-}
-
 void	remove_quotes_in_array(char **str_array)
 {
 	int	i;
@@ -66,7 +39,6 @@ void	remove_quotes_in_array(char **str_array)
 	while (i < ft_charpplen(str_array))
 	{
 		remove_quotes(&str_array[i]);
-		remove_nested_quotes(&str_array[i]);
 		i++;
 	}
 }

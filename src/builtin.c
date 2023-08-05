@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/04 15:50:41 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/05 23:59:48 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,15 @@ void	get_dir(void)
 	char	*dir;
 
 	dir = getcwd(NULL, sizeof(char *));
-	i = ft_strlen(dir);
 	if (dir == NULL)
 		ft_printf("Error: getcwd() failed\n");
+	else if(ft_strcmp(dir, ft_get_env("$HOME")) == 0)
+	{
+		g_global.dir = ft_strdup("~");
+		free(dir);
+		return ;
+	}
+	i = ft_strlen(dir);
 	while (dir[i] != '/')
 		i--;
 	i++;
@@ -48,13 +54,15 @@ void	execute_echo(char **args)
 		ft_printf("%d\n", g_global.exit_status);
 		return ;
 	}
+	int j = 0;
 	while (args[i])
 	{
-		args[i] = ft_strtrim(args[i], "\"\'");
-		if (ft_strcmp(args[i], "-n") != 0)
-			print_args(args, i);
-		else
+		while (args[i][j] == '-')
+			j++;
+		if (args[i][j] == 'n')
 			option = 1;
+		else
+			print_args(args, i);
 		i++;
 	}
 	if (!option)
@@ -76,7 +84,12 @@ void	execute_cd(char **args)
 {
 	char	*path;
 
-	if (ft_charpplen(args) == 1)
+	if(search_var("$PWD") == 0 || ft_get_env("$PWD") == NULL)
+	{
+		ft_printf("Error: PWD not set\n");
+		return ;
+	}
+	if (ft_charpplen(args) == 1 || ft_strcmp(args[1], "~") == 0)
 	{
 		path = ft_get_env("$HOME");
 		if (path == NULL)
@@ -90,6 +103,18 @@ void	execute_cd(char **args)
 	}
 	else if (ft_charpplen(args) > 2)
 		ft_printf("Error: too many arguments\n");
+	else if (ft_strcmp(args[1], "-") == 0)
+	{
+		path = ft_get_env("$OLDPWD");
+		if (path == NULL || search_var("$OLDPWD") == 0)
+			ft_printf("Error: OLDPWD not found\n");
+		else
+		{
+			chdir(path);
+			update_pwd();
+			get_dir();
+		}
+	}
 	else if (chdir(args[1]) != -1)
 	{
 		update_pwd();
