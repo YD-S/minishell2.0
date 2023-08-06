@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/05 22:44:17 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/06 03:27:14 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,9 @@ void			get_dir(void);
 void			search_and_replace(t_list *head, const char *key,
 					const char *new_value);
 void			remove_quotes_in_array(char **str_array);
+void			printg_status(char *error, int status);
+int				check_pwd(void);
+void			do_cd(char *path, int flag);
 
 typedef struct pipex
 {
@@ -202,5 +205,8 @@ void			execute_exit(char **args);
 int				search_var(char *key);
 void			execute_pwd(void);
 void			execute_unset(char **args);
+void			assign_var(t_envp *var, char *arg);
+void			get_new_var(t_envp var);
+void			set_temp_path(void);
 
 #endif

@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -MD -g
 
 NAME = Minishell
 SRC_DIR = src
-SRC = main.c utils.c utils2.c init.c prints.c builtin.c builtin2.c quote.c signal.c ft_parser.c quote_state.c parser_utils.c calls.c ft_do_commands_utils.c ft_do_commands_utils2.c ft_do_commands.c ft_do_commands2.c ft_do_commands_first_last.c executer_utils.c executer_utils2.c executer.c ft_split_quote.c remove_quotes.c
+SRC = main.c utils.c utils2.c init.c prints.c builtin.c builtin2.c builtin3.c builtin_utils.c quote.c signal.c ft_parser.c quote_state.c parser_utils.c calls.c ft_do_commands_utils.c ft_do_commands_utils2.c ft_do_commands.c ft_do_commands2.c ft_do_commands_first_last.c executer_utils.c executer_utils2.c executer.c ft_split_quote.c remove_quotes.c
 BUILD_DIR = build
 INCLUDE_DIR = includes
 INCLUDES = -I ./$(INCLUDE_DIR) -I ./$(LIB_DIR)/libft/includes -I ~/.brew/opt/readline/include/

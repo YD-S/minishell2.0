@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 19:06:57 by ysingh            #+#    #+#             */
-/*   Updated: 2023/07/07 16:07:42 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/06 03:26:32 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ char	*ft_readline(void)
 	if (!line)
 		handle_eof(line);
 	return (line);
+}
+
+void	printg_status(char *error, int status)
+{
+	ft_printf("%s\n", error);
+	g_global.exit_status = status;
 }
