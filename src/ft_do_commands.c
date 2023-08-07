@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/03 13:44:51 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/07 03:13:43 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_do_commands2(t_pipex *p, int n_com)
 	int	fd2[2];
 
 	pipe(fd);
+	p->i = 0;
 	if (!ft_do_first_comm(p, fd, n_com))
 		exit(EXIT_FAILURE);
 	p->i = 1;
