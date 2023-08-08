@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/07 03:13:43 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/07 13:46:33 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,28 @@ void	ft_do_commands2(t_pipex *p, int n_com)
 
 int	ft_do_commands(t_pipex *p, int n_com)
 {
+	pid_t	pid;
+
 	if (n_com == 1 && get_builtin(p->args[0][0]))
 		execute_builtin(p->args[0]);
 	else if (n_com == 1 && p->command_not_found[0])
 	{
-		if (execve(p->paths[0], p->args[0], g_global.env) == -1)
+		pid = fork();
+		if (pid == -1)
+			exit(EXIT_FAILURE);
+		else if (pid == 0)
 		{
-			ft_write_error("cmd", strerror(errno), p->args[0][0]);
-			return (g_global.exit_status = 127, 0);
+			if (execve(p->paths[0], p->args[0], g_global.env) == -1)
+			{
+				ft_write_error("cmd", strerror(errno), p->args[0][0]);
+				return (g_global.exit_status = 127, 0);
+			}
+		}
+		else
+		{
+			while (waitpid(pid, NULL, 0) != pid)
+				;
+			//close(fd2[1]);
 		}
 	}
 	else
