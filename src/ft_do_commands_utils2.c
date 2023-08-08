@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:46:28 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/07 03:17:55 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/08 12:48:52 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ void	ft_heredoc(t_pipex *p, int *file)
 {
 	char	*line;
 
-	ft_printf("AA%s, %d", p->infile[0], p->i);
 	*file = open("aux.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	while (1)
 	{
-		line = get_next_line(0);
+		line = readline(FGREEN "> " FWHITE);
+		if (!line)
+			break ;
+		line = ft_strjoin(line, "\n");
 		if (ft_strcmp(line, p->infile[p->i]) == 0)
 		{
 			free(line);
