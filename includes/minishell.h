@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/07 03:04:18 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/08 13:06:04 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ char			**ft_split_quote(char const *s, char c);
 void			ft_free_mem(t_pipex *p, int cmd);
 
 void			ft_executer(char **cmds, char **paths);
-void			ft_main(char **argv, int argc, char **paths);
+void			ft_main(char **argv, int argc, char **paths, t_aux auxs);
 void			execute_builtin(char **cmd);
 int				get_builtin(char *cmd);
 void			execute_echo(char **args);
