@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/08 12:29:29 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/08 13:06:58 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	ft_executer(char **cmds, char **paths)
 {
-	int	i;
+	int		i;
+	t_aux	auxs;
 
+	auxs.i = 0;
 	i = ft_charpplen(cmds);
-	ft_main(cmds, i, paths);
+	auxs.pipes = ft_count_pipes(cmds, i - 1);
+	ft_main(cmds, i, paths, auxs);
 }
 
 int	ft_separate_1st_cmd2(t_pipex *p, t_aux *auxs, char **argv)
@@ -80,13 +83,10 @@ int	ft_separate_cmds(t_pipex *p, t_aux *auxs, int argc, char **argv)
 	return (1);
 }
 
-void	ft_main(char **argv, int argc, char **paths)
+void	ft_main(char **argv, int argc, char **paths, t_aux auxs)
 {
 	t_pipex	p;
-	t_aux	auxs;
 
-	auxs.pipes = ft_count_pipes(argv, argc - 1);
-	auxs.i = 0;
 	ft_reserve_mem(&p, auxs.pipes + 1, ft_count_max_args(argv, argc, auxs.i));
 	ft_count_args(argv, argc, &p);
 	auxs.cmd = 0;
@@ -103,7 +103,10 @@ void	ft_main(char **argv, int argc, char **paths)
 		auxs.cmd++;
 	}
 	if (p.paths[0])
-		ft_do_commands(&p, auxs.pipes + 1);
+	{
+		if (!ft_do_commands(&p, auxs.pipes + 1))
+			exit(EXIT_FAILURE);
+	}
 	else if (p.heredoc[0])
 		ft_do_heredoc(&p);
 	ft_free_mem(&p, auxs.pipes + 1);
