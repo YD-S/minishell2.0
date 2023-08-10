@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:47:17 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/10 11:26:01 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/10 11:44:26 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ void	check_builtin(t_pipex *p)
 {
 	if (ft_strcmp(p->args[0][0], "echo") == 0)
 	{
-		if (p->args[0][1][0] == DQ)
-			p->args[0][1] = ft_strtrim(p->args[0][1], "\"");
-		else if (p->args[0][1][0] == SQ)
-			p->args[0][1] = ft_strtrim(p->args[0][1], "'");
+		remove_quotes_in_array(p->args[0]);
 		execute_echo(p->args[0]);
 	}
 	if (ft_strcmp(p->args[0][0], "export") == 0)
