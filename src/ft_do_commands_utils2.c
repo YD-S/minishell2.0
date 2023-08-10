@@ -50,9 +50,7 @@ void	ft_heredocs2(char **delim, int delim_count, int delims, int file)
 		if (!line)
 			break ;
 		if (ft_strcmp(line, delim[delim_count]) == 0)
-		{
 			delim_count++;
-		}
 		if (ft_strcmp(line, delim[delims - 1]) == 0 && delim_count == delims)
 		{
 			free(line);

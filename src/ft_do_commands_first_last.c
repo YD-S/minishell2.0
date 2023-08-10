@@ -20,12 +20,13 @@ int	ft_do_last_comm2(t_pipex *p, int fd[2])
 		if (execve(p->paths[p->i], p->args[p->i], g_global.env) == -1)
 		{
 			ft_write_error("cmd", strerror(errno), p->args[p->i][0]);
-			return (g_global.exit_status = 127, 0);
+			g_global.exit_status = 127;
+			return (0);
 		}
 	}
 	else
 		exit(EXIT_SUCCESS);
-	return (g_global.exit_status = 0, 1);
+	return (1);
 }
 
 void	ft_last_outfile(t_pipex *p)
@@ -52,6 +53,7 @@ void	ft_last_outfile(t_pipex *p)
 int	ft_do_last_comm(t_pipex *p, int fd[2])
 {
 	pid_t	pid;
+	int		status;
 
 	if (!get_builtin(p->args[p->i][0]))
 	{
@@ -66,12 +68,14 @@ int	ft_do_last_comm(t_pipex *p, int fd[2])
 		}
 		else
 		{
-			while (waitpid(pid, NULL, 0) != pid)
+			while (waitpid(pid, &status, 0) != pid)
 				;
 			close(fd[1]);
+			if (WIFEXITED(status))
+				g_global.exit_status = WEXITSTATUS(status);
 		}
 	}
-	return (g_global.exit_status = 0, 1);
+	return (1);
 }
 
 int	ft_do_first_comm2(t_pipex *p, int fd[2], int file, int n_com)
@@ -85,18 +89,20 @@ int	ft_do_first_comm2(t_pipex *p, int fd[2], int file, int n_com)
 		if (execve(p->paths[0], p->args[0], g_global.env) == -1)
 		{
 			ft_write_error("cmd", strerror(errno), p->args[0][0]);
-			return (g_global.exit_status = 127, 0);
+			g_global.exit_status = 127;
+			return (0);
 		}
 	}
 	else
 		exit(EXIT_SUCCESS);
-	return (g_global.exit_status = 0, 1);
+	return (1);
 }
 
 int	ft_do_first_comm(t_pipex *p, int fd[2], int n_com)
 {
 	pid_t	pid;
 	int		file;
+	int		status;
 
 	if (!get_builtin(p->args[0][0]))
 	{
@@ -107,14 +113,19 @@ int	ft_do_first_comm(t_pipex *p, int fd[2], int n_com)
 		{
 			if (!ft_open_first_file(p, &file)
 				|| !ft_do_first_comm2(p, fd, file, n_com))
-				return (g_global.exit_status = 127, 0);
+			{
+				g_global.exit_status = 127;
+				return (0);
+			}
 		}
 		else
 		{
-			while (waitpid(pid, NULL, 0) != pid)
+			while (waitpid(pid, &status, 0) != pid)
 				;
 			close(fd[1]);
+			if (WIFEXITED(status))
+				g_global.exit_status = WEXITSTATUS(status);
 		}
 	}
-	return (g_global.exit_status = 0, 1);
+	return (1);
 }

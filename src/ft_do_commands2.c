@@ -28,10 +28,7 @@ int	get_builtin(char *cmd)
 void	check_builtin(t_pipex *p)
 {
 	if (ft_strcmp(p->args[0][0], "echo") == 0)
-	{
-		remove_quotes_in_array(p->args[0]);
 		execute_echo(p->args[0]);
-	}
 	if (ft_strcmp(p->args[0][0], "export") == 0)
 		execute_export(p->args[0]);
 	if (ft_strcmp(p->args[0][0], "cd") == 0)
@@ -49,6 +46,7 @@ void	check_builtin(t_pipex *p)
 void	execute_builtin(t_pipex *p, int fd[2])
 {
 	int	pid;
+	int	status;
 
 	if (p->outfl[0])
 	{
@@ -64,9 +62,11 @@ void	execute_builtin(t_pipex *p, int fd[2])
 		}
 		else
 		{
-			while (waitpid(pid, NULL, 0) != pid)
+			while (waitpid(pid, &status, 0) != pid)
 				;
 			close(fd[1]);
+			if (WIFEXITED(status))
+				g_global.exit_status = WEXITSTATUS(status);
 		}
 	}
 	else

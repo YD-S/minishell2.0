@@ -12,11 +12,6 @@
 
 #include "minishell.h"
 
-void	leaks(void)
-{
-	system("leaks -q Minishell");
-}
-
 int	main(int argc, char **argv __attribute__((unused)), char **envp)
 {
 	char	*line;
@@ -105,4 +100,10 @@ char	*ft_get_var(char *cmd)
 		ft_aux_get_var(&mas);
 	}
 	return (mas.strs.cpy);
+}
+
+void	do_exit(int status)
+{
+	free_env();
+	exit(status);
 }

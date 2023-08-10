@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/08 13:06:58 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/10 19:25:01 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_separate_1st_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 		if (!get_builtin(argv[auxs->i]))
 		{
 			temp = ft_strdup(argv[auxs->i]);
+			remove_quotes(&temp);
 			p->paths[auxs->cmd] = ft_check_comm(paths, temp, p, auxs->cmd);
 			free(temp);
 		}
@@ -93,15 +94,15 @@ void	ft_main(char **argv, int argc, char **paths, t_aux auxs)
 	while (auxs.i < argc)
 	{
 		ft_separate_1st_cmd(&p, &auxs, argv, paths);
-		while (auxs.i < argc && strncmp(argv[auxs.i], "|\0", 2) != 0)
+		while (auxs.i < argc && strncmp(argv[auxs.i++], "|\0", 2) != 0)
 		{
 			if (!ft_separate_cmds(&p, &auxs, argc, argv))
 				break ;
 		}
-		auxs.i++;
 		p.args[auxs.cmd][++auxs.args] = 0;
 		auxs.cmd++;
 	}
+	remove_quotes_in_array(*p.args);
 	if (p.paths[0])
 	{
 		if (!ft_do_commands(&p, auxs.pipes + 1))

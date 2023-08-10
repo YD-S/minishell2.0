@@ -12,41 +12,33 @@
 
 #include "minishell.h"
 
-void	ft_reserve_mem(t_pipex *p, int cmd, int max_args)
+char	*do_join(char *comm, char *paths)
 {
-	int	i;
+	char	*aux;
+	char	*aux2;
 
-	i = 0;
-	p->args = ft_calloc(sizeof(char **), cmd);
-	while (i < cmd)
-	{
-		p->args[i] = ft_calloc(sizeof(char *), max_args + 1);
-		i++;
-	}
-	p->infile = ft_calloc(sizeof(char *), cmd);
-	p->outfl = ft_calloc(sizeof(char *), cmd);
-	p->paths = ft_calloc(sizeof(char *), cmd);
-	p->n_args = ft_calloc(sizeof(int), cmd);
-	p->heredoc = ft_calloc(sizeof(int), cmd);
-	p->outmode = ft_calloc(sizeof(int), cmd);
-	p->command_not_found = ft_calloc(sizeof(int), cmd);
+	aux = ft_strjoin(paths, "/");
+	aux2 = ft_strjoin(aux, comm);
+	free(aux);
+	return (aux2);
 }
 
 char	*ft_check_comm(char **paths, char *comm, t_pipex *p, int cmd)
 {
 	int		i;
-	char	*aux;
 	char	*aux2;
 
 	i = 0;
+	if (!paths)
+	{
+		ft_printf("%s: No such file or directory\n", comm);
+		g_global.exit_status = 127;
+		return (NULL);
+	}
 	while (paths[i] != 0)
 	{
 		if (comm[0] != '/')
-		{
-			aux = ft_strjoin(paths[i], "/");
-			aux2 = ft_strjoin(aux, comm);
-			free(aux);
-		}
+			aux2 = do_join(comm, paths[i]);
 		else
 			aux2 = ft_strjoin("", comm);
 		if (access(aux2, F_OK) != -1 && access(aux2, X_OK) != -1)

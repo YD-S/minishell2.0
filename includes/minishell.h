@@ -133,11 +133,13 @@ void			ft_error(char *str, char *line);
 void			get_dir(void);
 void			search_and_replace(t_list *head, const char *key,
 					const char *new_value);
+void			remove_quotes(char **str);
 void			remove_quotes_in_array(char **str_array);
 void			printg_status(char *error, int status);
 int				check_pwd(void);
 void			do_cd(char *path, int flag);
 void			update_pwd(void);
+void			do_exit(int status);
 
 typedef struct pipex
 {

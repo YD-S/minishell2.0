@@ -21,20 +21,25 @@ int	ft_do_command2(t_pipex *p, int fd[2])
 			if (execve(p->paths[p->i], p->args[p->i], g_global.env) == -1)
 			{
 				ft_write_error("cmd", strerror(errno), p->args[p->i][0]);
-				return (g_global.exit_status = 127, 0);
+				g_global.exit_status = 127;
+				return (0);
 			}
 		}
 		else
-			return (g_global.exit_status = 127, 0);
+		{
+			g_global.exit_status = 127;
+			return (0);
+		}
 	}
 	else
 		exit(EXIT_SUCCESS);
-	return (g_global.exit_status = 0, 1);
+	return (1);
 }
 
 int	ft_do_command(t_pipex *p, int fd[2], int fd2[2])
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == -1)
@@ -47,11 +52,13 @@ int	ft_do_command(t_pipex *p, int fd[2], int fd2[2])
 	}
 	else
 	{
-		while (waitpid(pid, NULL, 0) != pid)
+		while (waitpid(pid, &status, 0) != pid)
 			;
 		close(fd2[1]);
+		if (WIFEXITED(status))
+			g_global.exit_status = WEXITSTATUS(status);
 	}
-	return (g_global.exit_status = 0, 1);
+	return (1);
 }
 
 void	ft_do_commands2(t_pipex *p, int n_com)
@@ -86,6 +93,7 @@ int	ft_do_commands(t_pipex *p, int n_com)
 {
 	pid_t	pid;
 	int		fd[2];
+	int		status;
 
 	if (n_com == 1 && get_builtin(p->args[0][0]))
 		execute_builtin(p, fd);
@@ -99,11 +107,17 @@ int	ft_do_commands(t_pipex *p, int n_com)
 			if (execve(p->paths[0], p->args[0], g_global.env) == -1)
 			{
 				ft_write_error("cmd", strerror(errno), p->args[0][0]);
-				return (g_global.exit_status = 127, 0);
+				free_env();
+				g_global.exit_status = 127;
+				return (0);
 			}
 		}
 		else
-			waitpid(pid, NULL, 0);
+		{
+			waitpid(pid, &status, 0);
+			if (WIFEXITED(status))
+				g_global.exit_status = WEXITSTATUS(status);
+		}
 	}
 	else
 		ft_do_commands2(p, n_com);

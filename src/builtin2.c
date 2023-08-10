@@ -82,10 +82,19 @@ void	execute_export(char **args)
 	g_global.exit_status = 0;
 }
 
-void	do_exit(int status)
+int	is_digit_in_array(char *num)
 {
-	free_env();
-	exit(status);
+	int	i;
+	int	res;
+
+	i = 0;
+	res = 0;
+	while (num[i])
+	{
+		res = ft_isdigit(num[i]);
+		i++;
+	}
+	return (res);
 }
 
 void	execute_exit(char **args)
@@ -99,13 +108,12 @@ void	execute_exit(char **args)
 		do_exit(0);
 	else if (i == 2)
 	{
-		if (ft_isdigit(args[1][0]))
+		if (is_digit_in_array(args[1]))
 			do_exit(ft_atoi(args[1]));
 		else
 		{
 			ft_printf("minishell: exit: %s: numeric argument required\n",
 				args[1]);
-			free_env();
 			do_exit(255);
 		}
 	}
