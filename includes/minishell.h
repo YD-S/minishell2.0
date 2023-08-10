@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/10 19:46:04 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/10 20:27:09 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ void			ft_free_mem(t_pipex *p, int cmd);
 
 void			ft_executer(char **cmds, char **paths);
 void			ft_main(char **argv, int argc, char **paths, t_aux auxs);
-void			execute_builtin(t_pipex *p, int fd[2]);
+void			execute_builtin(t_pipex *p, int fd[2], int status);
 int				get_builtin(char *cmd);
 void			execute_echo(char **args);
 void			execute_export(char **args);

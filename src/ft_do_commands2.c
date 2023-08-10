@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:47:17 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/10 11:44:26 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/10 20:27:14 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ void	check_builtin(t_pipex *p)
 		execute_env(0);
 }
 
-void	execute_builtin(t_pipex *p, int fd[2])
+void	execute_builtin(t_pipex *p, int fd[2], int status)
 {
 	int	pid;
-	int	status;
 
 	if (p->outfl[0])
 	{

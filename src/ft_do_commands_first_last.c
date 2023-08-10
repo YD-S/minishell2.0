@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:07:23 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/03 13:39:45 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/10 20:35:23 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int	ft_do_last_comm(t_pipex *p, int fd[2])
 
 int	ft_do_first_comm2(t_pipex *p, int fd[2], int file, int n_com)
 {
+	int	status;
+
 	ft_open_first_out_file(p, fd, n_com);
 	close(fd[0]);
 	if (p->infile[0])
@@ -94,7 +96,11 @@ int	ft_do_first_comm2(t_pipex *p, int fd[2], int file, int n_com)
 		}
 	}
 	else
+	{	
+		status = 0;
+		execute_builtin(p, fd, status);
 		exit(EXIT_SUCCESS);
+	}
 	return (1);
 }
 
@@ -104,28 +110,25 @@ int	ft_do_first_comm(t_pipex *p, int fd[2], int n_com)
 	int		file;
 	int		status;
 
-	if (!get_builtin(p->args[0][0]))
+	pid = fork();
+	if (pid == -1)
+		exit(EXIT_FAILURE);
+	else if (pid == 0)
 	{
-		pid = fork();
-		if (pid == -1)
-			exit(EXIT_FAILURE);
-		else if (pid == 0)
+		if (!ft_open_first_file(p, &file)
+			|| !ft_do_first_comm2(p, fd, file, n_com))
 		{
-			if (!ft_open_first_file(p, &file)
-				|| !ft_do_first_comm2(p, fd, file, n_com))
-			{
-				g_global.exit_status = 127;
-				return (0);
-			}
+			g_global.exit_status = 127;
+			return (0);
 		}
-		else
-		{
-			while (waitpid(pid, &status, 0) != pid)
-				;
-			close(fd[1]);
-			if (WIFEXITED(status))
-				g_global.exit_status = WEXITSTATUS(status);
-		}
+	}
+	else
+	{
+		while (waitpid(pid, &status, 0) != pid)
+			;
+		close(fd[1]);
+		if (WIFEXITED(status))
+			g_global.exit_status = WEXITSTATUS(status);
 	}
 	return (1);
 }

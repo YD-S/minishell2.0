@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/10 19:45:47 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/10 20:27:28 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	ft_separate_cmds(t_pipex *p, t_aux *auxs, int argc, char **argv)
 	}
 	return (1);
 }
-
 
 void	ft_main(char **argv, int argc, char **paths, t_aux auxs)
 {
