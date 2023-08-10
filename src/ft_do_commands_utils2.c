@@ -22,7 +22,6 @@ void	ft_heredoc(t_pipex *p, int *file)
 		line = readline(FGREEN "> " FWHITE);
 		if (!line)
 			break ;
-		line = ft_strjoin(line, "\n");
 		if (ft_strcmp(line, p->infile[p->i]) == 0)
 		{
 			free(line);
@@ -47,7 +46,9 @@ void	ft_heredocs2(char **delim, int delim_count, int delims, int file)
 
 	while (1)
 	{
-		line = get_next_line(0);
+		line = readline(FGREEN "> " FWHITE);
+		if (!line)
+			break ;
 		if (ft_strcmp(line, delim[delim_count]) == 0)
 		{
 			delim_count++;
@@ -95,7 +96,9 @@ void	ft_do_heredoc(t_pipex *p)
 
 	while (1)
 	{
-		line = get_next_line(0);
+		line = readline(FGREEN "> " FWHITE);
+		if (!line)
+			break ;
 		if (ft_strcmp(line, p->infile[0]) == 0)
 		{
 			free(line);

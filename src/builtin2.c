@@ -82,6 +82,12 @@ void	execute_export(char **args)
 	g_global.exit_status = 0;
 }
 
+void	do_exit(int status)
+{
+	free_env();
+	exit(status);
+}
+
 void	execute_exit(char **args)
 {
 	int	i;
@@ -90,16 +96,17 @@ void	execute_exit(char **args)
 	while (args[i])
 		i++;
 	if (i == 1)
-		exit(0);
+		do_exit(0);
 	else if (i == 2)
 	{
 		if (ft_isdigit(args[1][0]))
-			exit(ft_atoi(args[1]));
+			do_exit(ft_atoi(args[1]));
 		else
 		{
 			ft_printf("minishell: exit: %s: numeric argument required\n",
 				args[1]);
-			exit(255);
+			free_env();
+			do_exit(255);
 		}
 	}
 	else

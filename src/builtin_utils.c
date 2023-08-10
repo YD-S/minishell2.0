@@ -17,7 +17,7 @@ void	assign_var(t_envp *var, char *arg)
 	var->key = ft_substr(arg, 0, ft_strchr(arg, '=') - arg);
 	var->key = ft_strjoin("$", var->key);
 	var->value = ft_substr(arg, ft_strchr(arg, '=') - arg + 1, ft_strlen(arg));
-	remove_quotes(&var->value);
+	remove_quotes_in_array(&var->value);
 }
 
 void	get_new_var(t_envp var)

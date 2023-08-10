@@ -51,6 +51,8 @@ void	free_env(void)
 		list = list->next;
 		free(temp_list);
 	}
+	free(g_global.dir);
+	ft_charppfree(g_global.path);
 	ft_charppfree(g_global.env);
 }
 
@@ -61,8 +63,6 @@ void	handle_eof(char *line)
 	ft_putstr_fd("exit", 1);
 	ft_putstr_fd("\n", 1);
 	free(line);
-	free(g_global.dir);
-	ft_charppfree(g_global.path);
 	free_env();
 	exit(0);
 }

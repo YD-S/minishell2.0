@@ -206,5 +206,6 @@ void			execute_unset(char **args);
 void			assign_var(t_envp *var, char *arg);
 void			get_new_var(t_envp var);
 void			set_temp_path(void);
+void			free_env(void);
 
 #endif

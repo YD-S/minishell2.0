@@ -99,7 +99,6 @@ int	ft_check_io_fl(t_pipex *p, t_aux *auxs, char **argv, int file)
 	else if (strncmp(argv[auxs->i], "<<\0", 3) == 0)
 	{
 		p->heredoc[auxs->cmd] = 1;
-		p->infile[auxs->cmd] = ft_strjoin(argv[auxs->i + 1], "\n");
 	}
 	else
 		return (0);

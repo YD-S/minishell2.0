@@ -34,7 +34,7 @@ int	ft_separate_1st_cmd2(t_pipex *p, t_aux *auxs, char **argv)
 	else if (strncmp(argv[auxs->i], "<<\0", 3) == 0)
 	{
 		p->heredoc[auxs->cmd] = 1;
-		p->infile[auxs->cmd] = ft_strjoin(argv[auxs->i + 1], "\n");
+		p->infile[auxs->cmd] = ft_strdup(argv[auxs->i + 1]);
 		auxs->i += 2;
 		return (1);
 	}
