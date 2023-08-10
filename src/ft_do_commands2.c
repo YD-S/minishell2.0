@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_do_commands2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:47:17 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/04 15:44:13 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/10 11:14:52 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,47 @@ int	get_builtin(char *cmd)
 		return (0);
 }
 
-void	execute_builtin(char **cmd)
+void	check_builtin(t_pipex *p)
 {
-	if (ft_strcmp(cmd[0], "echo") == 0)
-		execute_echo(cmd);
-	if (ft_strcmp(cmd[0], "export") == 0)
-		execute_export(cmd);
-	if (ft_strcmp(cmd[0], "cd") == 0)
-		execute_cd(cmd);
-	if (ft_strcmp(cmd[0], "pwd") == 0)
+	if (ft_strcmp(p->args[0][0], "echo") == 0)
+		execute_echo(p->args[0]);
+	if (ft_strcmp(p->args[0][0], "export") == 0)
+		execute_export(p->args[0]);
+	if (ft_strcmp(p->args[0][0], "cd") == 0)
+		execute_cd(p->args[0]);
+	if (ft_strcmp(p->args[0][0], "pwd") == 0)
 		execute_pwd();
-	if (ft_strcmp(cmd[0], "unset") == 0)
-		execute_unset(cmd);
-	if (ft_strcmp(cmd[0], "exit") == 0)
-		execute_exit(cmd);
-	if (ft_strcmp(cmd[0], "env") == 0)
+	if (ft_strcmp(p->args[0][0], "unset") == 0)
+		execute_unset(p->args[0]);
+	if (ft_strcmp(p->args[0][0], "exit") == 0)
+		execute_exit(p->args[0]);
+	if (ft_strcmp(p->args[0][0], "env") == 0)
 		execute_env(0);
+}
+
+void	execute_builtin(t_pipex *p, int fd[2])
+{
+	int	pid;
+
+	if (p->outfl[0])
+	{
+		pid = fork();
+		if (pid == -1)
+			exit(EXIT_FAILURE);
+		else if (pid == 0)
+		{
+			ft_open_first_out_file(p, fd, 1);
+			check_builtin(p);
+			close(fd[0]);
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			while (waitpid(pid, NULL, 0) != pid)
+				;
+			close(fd[1]);
+		}
+	}
+	else
+		check_builtin(p);
 }

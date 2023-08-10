@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/08 12:49:49 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/10 10:57:01 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,10 @@ void	ft_do_commands2(t_pipex *p, int n_com)
 int	ft_do_commands(t_pipex *p, int n_com)
 {
 	pid_t	pid;
+	int		fd[2];
 
 	if (n_com == 1 && get_builtin(p->args[0][0]))
-		execute_builtin(p->args[0]);
+		execute_builtin(p, fd);
 	else if (n_com == 1 && p->command_not_found[0])
 	{
 		pid = fork();
