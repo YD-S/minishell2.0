@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 02:47:59 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/06 03:28:30 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/10 12:10:44 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 void	assign_var(t_envp *var, char *arg)
 {
+	char	**aux_value;
+
+	aux_value = ft_calloc(sizeof(char *), 1);
 	var->key = ft_substr(arg, 0, ft_strchr(arg, '=') - arg);
 	var->key = ft_strjoin("$", var->key);
-	var->value = ft_substr(arg, ft_strchr(arg, '=') - arg + 1,
+	aux_value[0] = ft_substr(arg, ft_strchr(arg, '=') - arg + 1,
 			ft_strlen(arg));
+	remove_quotes_in_array(aux_value);
+	var->value = aux_value[0];
+	free(aux_value);
 }
 
 void	get_new_var(t_envp var)
