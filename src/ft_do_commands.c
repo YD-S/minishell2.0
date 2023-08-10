@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/10 10:57:01 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/10 20:34:46 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,35 +89,45 @@ void	ft_do_commands2(t_pipex *p, int n_com)
 	}
 }
 
-int	ft_do_commands(t_pipex *p, int n_com)
+int	ft_do_one_command(t_pipex *p)
 {
 	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid == -1)
+		exit(EXIT_FAILURE);
+	else if (pid == 0)
+	{
+		if (execve(p->paths[0], p->args[0], g_global.env) == -1)
+		{
+			ft_write_error("cmd", strerror(errno), p->args[0][0]);
+			free_env();
+			g_global.exit_status = 127;
+			return (0);
+		}
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			g_global.exit_status = WEXITSTATUS(status);
+	}
+	return (1);
+}
+
+int	ft_do_commands(t_pipex *p, int n_com)
+{
 	int		fd[2];
 	int		status;
 
+	status = 1;
 	if (n_com == 1 && get_builtin(p->args[0][0]))
-		execute_builtin(p, fd);
+		execute_builtin(p, fd, status);
 	else if (n_com == 1 && p->command_not_found[0])
 	{
-		pid = fork();
-		if (pid == -1)
-			exit(EXIT_FAILURE);
-		else if (pid == 0)
-		{
-			if (execve(p->paths[0], p->args[0], g_global.env) == -1)
-			{
-				ft_write_error("cmd", strerror(errno), p->args[0][0]);
-				free_env();
-				g_global.exit_status = 127;
-				return (0);
-			}
-		}
-		else
-		{
-			waitpid(pid, &status, 0);
-			if (WIFEXITED(status))
-				g_global.exit_status = WEXITSTATUS(status);
-		}
+		if (!ft_do_one_command(p))
+			return (0);
 	}
 	else
 		ft_do_commands2(p, n_com);

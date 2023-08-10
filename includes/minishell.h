@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/10 10:57:12 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/10 20:27:09 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ void			ft_free_mem(t_pipex *p, int cmd);
 
 void			ft_executer(char **cmds, char **paths);
 void			ft_main(char **argv, int argc, char **paths, t_aux auxs);
-void			execute_builtin(t_pipex *p, int fd[2]);
+void			execute_builtin(t_pipex *p, int fd[2], int status);
 int				get_builtin(char *cmd);
 void			execute_echo(char **args);
 void			execute_export(char **args);
@@ -209,5 +209,6 @@ void			assign_var(t_envp *var, char *arg);
 void			get_new_var(t_envp var);
 void			set_temp_path(void);
 void			free_env(void);
+void			do_call(t_pipex *p, t_aux auxs, char **argv, int argc);
 
 #endif

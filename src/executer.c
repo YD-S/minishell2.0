@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/10 19:25:01 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/10 20:27:28 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,17 @@ void	ft_main(char **argv, int argc, char **paths, t_aux auxs)
 {
 	t_pipex	p;
 
-	ft_reserve_mem(&p, auxs.pipes + 1, ft_count_max_args(argv, argc, auxs.i));
-	ft_count_args(argv, argc, &p);
+	do_call(&p, auxs, argv, argc);
 	auxs.cmd = 0;
 	while (auxs.i < argc)
 	{
 		ft_separate_1st_cmd(&p, &auxs, argv, paths);
-		while (auxs.i < argc && strncmp(argv[auxs.i++], "|\0", 2) != 0)
+		while (auxs.i < argc && strncmp(argv[auxs.i], "|\0", 2) != 0)
 		{
 			if (!ft_separate_cmds(&p, &auxs, argc, argv))
 				break ;
 		}
+		auxs.i++;
 		p.args[auxs.cmd][++auxs.args] = 0;
 		auxs.cmd++;
 	}
