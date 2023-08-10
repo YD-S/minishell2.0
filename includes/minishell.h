@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/10 10:57:12 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/10 19:46:04 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,5 +209,6 @@ void			assign_var(t_envp *var, char *arg);
 void			get_new_var(t_envp var);
 void			set_temp_path(void);
 void			free_env(void);
+void			do_call(t_pipex *p, t_aux auxs, char **argv, int argc);
 
 #endif

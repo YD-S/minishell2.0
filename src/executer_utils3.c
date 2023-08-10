@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 19:14:10 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/10 19:14:10 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/10 19:45:54 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,10 @@ void	ft_reserve_mem(t_pipex *p, int cmd, int max_args)
 	p->heredoc = ft_calloc(sizeof(int), cmd);
 	p->outmode = ft_calloc(sizeof(int), cmd);
 	p->command_not_found = ft_calloc(sizeof(int), cmd);
+}
+
+void	do_call(t_pipex *p, t_aux auxs, char **argv, int argc)
+{
+	ft_reserve_mem(p, auxs.pipes + 1, ft_count_max_args(argv, argc, auxs.i));
+	ft_count_args(argv, argc, p);
 }
