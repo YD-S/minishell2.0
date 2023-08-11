@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:58:54 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/11 19:25:32 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/11 19:33:59 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ void	search_and_replace(t_list *head, const char *key, const char *new_value)
 	while (current != NULL)
 	{
 		env_node = (t_envp *)current->content;
-		if (strcmp(env_node->key, key) == 0)
+		if (ft_strcmp(env_node->key, key) == 0)
 		{
-			env_node->value = strdup(new_value);
+			free(env_node->value);
+			env_node->value = ft_strdup(new_value);
 			return ;
 		}
 		current = current->next;

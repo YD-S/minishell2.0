@@ -30,8 +30,8 @@ void	get_new_var(t_envp var)
 	t_envp	*new_var;
 
 	new_var = ft_calloc(sizeof(t_envp), 1);
-	new_var->key = var.key;
-	new_var->value = var.value;
+	new_var->key = ft_strdup(var.key);
+	new_var->value = ft_strdup(var.value);
 	ft_lstadd_back(&g_global.envp, ft_lstnew(new_var));
 }
 
