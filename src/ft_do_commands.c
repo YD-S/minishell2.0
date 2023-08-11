@@ -109,7 +109,8 @@ int	ft_do_one_command(t_pipex *p)
 	}
 	else
 	{
-		waitpid(pid, &status, 0);
+		while (waitpid(pid, &status, 0) != pid)
+			;
 		if (WIFEXITED(status))
 			g_global.exit_status = WEXITSTATUS(status);
 	}
@@ -127,7 +128,10 @@ int	ft_do_commands(t_pipex *p, int n_com)
 	else if (n_com == 1 && p->command_not_found[0])
 	{
 		if (!ft_do_one_command(p))
+		{
+			ft_free_mem(p, n_com);
 			return (0);
+		}
 	}
 	else
 		ft_do_commands2(p, n_com);

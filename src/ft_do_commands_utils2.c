@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:46:28 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/08 12:48:52 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:47:17 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_heredoc(t_pipex *p, int *file)
 			break ;
 		}
 		write(*file, line, ft_strlen(line));
+		write(*file, "\n", 1);
 		free(line);
 	}
 	close(*file);
