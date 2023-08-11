@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 20:49:40 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/04 10:46:19 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/11 16:07:55 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,17 @@ int	ft_check_io_fl(t_pipex *p, t_aux *auxs, char **argv, int file)
 {
 	if (strncmp(argv[auxs->i], ">\0", 2) == 0)
 	{
+		if (p->outfl[auxs->cmd])
+			free(p->outfl[auxs->cmd]);
 		p->outfl[auxs->cmd] = ft_strdup(argv[auxs->i + 1]);
+		p->outmode[auxs->cmd] = 0;
 		file = open(p->outfl[auxs->cmd], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		close(file);
 	}
 	else if (strncmp(argv[auxs->i], ">>\0", 3) == 0)
 	{
+		if (p->outfl[auxs->cmd])
+			free(p->outfl[auxs->cmd]);
 		p->outfl[auxs->cmd] = ft_strdup(argv[auxs->i + 1]);
 		p->outmode[auxs->cmd] = 1;
 		file = open(p->outfl[auxs->cmd], O_WRONLY | O_APPEND);

@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:07:23 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/10 20:35:23 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:54:54 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ int	ft_do_last_comm(t_pipex *p, int fd[2])
 				g_global.exit_status = WEXITSTATUS(status);
 		}
 	}
+	else
+	{
+		status = 1;
+		execute_builtin(p, fd, status, p->i);
+	}
 	return (1);
 }
 
@@ -98,7 +103,7 @@ int	ft_do_first_comm2(t_pipex *p, int fd[2], int file, int n_com)
 	else
 	{	
 		status = 0;
-		execute_builtin(p, fd, status);
+		execute_builtin(p, fd, status, 0);
 		exit(EXIT_SUCCESS);
 	}
 	return (1);
