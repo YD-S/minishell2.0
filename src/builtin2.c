@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:26:58 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/06 02:54:31 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/11 19:33:25 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,27 +58,31 @@ int	search_var(char *key)
 void	execute_export(char **args)
 {
 	int		i;
-	t_envp	var;
+	t_envp	*var;
 
 	i = 1;
+	var = ft_calloc(1, sizeof(t_envp));
 	if (!args[i])
 		execute_env(1);
 	else if (ft_strchr(args[i], '='))
 	{
-		assign_var(&var, args[i]);
-		if (!search_var(var.key))
+		assign_var(var, args[i]);
+		if (!search_var(var->key))
 		{
 			while (args[i])
 			{
-				get_new_var(var);
+				get_new_var(*var);
 				if (ft_strcmp(args[i], "$PATH") == 0)
 					set_temp_path();
 				i++;
 			}
 		}
 		else
-			search_and_replace(g_global.envp, var.key, var.value);
+			search_and_replace(g_global.envp, var->key, var->value);
 	}
+	free(var->key);
+	free(var->value);
+	free(var);
 	g_global.exit_status = 0;
 }
 

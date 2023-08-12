@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 17:47:17 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/10 20:27:14 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/11 18:14:13 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,39 @@ int	get_builtin(char *cmd)
 		return (0);
 }
 
-void	check_builtin(t_pipex *p)
+void	check_builtin(t_pipex *p, int i)
 {
-	if (ft_strcmp(p->args[0][0], "echo") == 0)
-		execute_echo(p->args[0]);
-	if (ft_strcmp(p->args[0][0], "export") == 0)
-		execute_export(p->args[0]);
-	if (ft_strcmp(p->args[0][0], "cd") == 0)
-		execute_cd(p->args[0]);
-	if (ft_strcmp(p->args[0][0], "pwd") == 0)
+	if (ft_strcmp(p->args[i][0], "echo") == 0)
+		execute_echo(p->args[i]);
+	if (ft_strcmp(p->args[i][0], "export") == 0)
+		execute_export(p->args[i]);
+	if (ft_strcmp(p->args[i][0], "cd") == 0)
+		execute_cd(p->args[i]);
+	if (ft_strcmp(p->args[i][0], "pwd") == 0)
 		execute_pwd();
-	if (ft_strcmp(p->args[0][0], "unset") == 0)
+	if (ft_strcmp(p->args[i][0], "unset") == 0)
 		execute_unset(p->args[0]);
-	if (ft_strcmp(p->args[0][0], "exit") == 0)
+	if (ft_strcmp(p->args[i][0], "exit") == 0)
 		execute_exit(p->args[0]);
-	if (ft_strcmp(p->args[0][0], "env") == 0)
+	if (ft_strcmp(p->args[i][0], "env") == 0)
 		execute_env(0);
 }
 
-void	execute_builtin(t_pipex *p, int fd[2], int status)
+void	execute_builtin2(t_pipex *p, int i, int fd[2])
+{
+	if (!p->outfl[i])
+	{
+		check_builtin(p, i);
+		close(fd[0]);
+	}
+}
+
+void	execute_builtin(t_pipex *p, int fd[2], int status, int i)
 {
 	int	pid;
 
-	if (p->outfl[0])
+	pipe(fd);
+	if (p->outfl[i])
 	{
 		pid = fork();
 		if (pid == -1)
@@ -55,7 +65,7 @@ void	execute_builtin(t_pipex *p, int fd[2], int status)
 		else if (pid == 0)
 		{
 			ft_open_first_out_file(p, fd, 1);
-			check_builtin(p);
+			check_builtin(p, i);
 			close(fd[0]);
 			exit(EXIT_SUCCESS);
 		}
@@ -68,6 +78,5 @@ void	execute_builtin(t_pipex *p, int fd[2], int status)
 				g_global.exit_status = WEXITSTATUS(status);
 		}
 	}
-	else
-		check_builtin(p);
+	execute_builtin2(p, i, fd);
 }
