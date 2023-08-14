@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:01:30 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/11 18:52:38 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:58:10 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,44 +18,56 @@ void	init_all_things(t_count *count)
 	count->j = 0;
 }
 
+void	remove_quotes(char **str)
+{
+	t_count	count;
+	char	*temp;
+
+	init_all_things(&count);
+	temp = ft_strdup(*str);
+	while (temp[count.i])
+	{
+		if (temp[count.i] == '\'' && count.j % 2 == 0)
+			count.j++;
+		else if (temp[count.i] == '\'' && count.j % 2 != 0)
+			count.j--;
+		if (temp[count.i] == '\"' && count.j % 2 == 0)
+			count.j++;
+		else if (temp[count.i] == '\"' && count.j % 2 != 0)
+			count.j--;
+		count.i++;
+	}
+	if (count.j != 0)
+		*str = ft_strdup(temp);
+	else
+		*str = ft_strdup(*str);
+	free(temp);
+}
+
 void	remove_nested_quotes(char **str)
 {
-	char	*src;
-	char	*dest;
+	char	*temp;
+	char	*new_str;
 	t_count	count;
 
 	init_all_things(&count);
-	src = *str;
-	dest = *str;
-	while (*src != '\0')
+	temp = ft_strdup(*str);
+	new_str = malloc(sizeof(char) * (ft_strlen(temp) + 1));
+	while (temp[count.i])
 	{
-		if (*src == DQ && (*(src - 1) != '\\' || (src - 2 >= *str && *(src
-						- 2) == '\\')) && !count.i)
-			count.j = !count.j;
-		else if (*src == SQ && (*(src - 1) != '\\' || (src - 2 >= *str && *(src
-						- 2) == '\\')) && !count.j)
-			count.i = !count.i;
-		if ((*src != DQ && !count.j) || (*src != SQ && !count.i))
-		{
-			*dest = *src;
-			dest++;
-		}
-		src++;
+		if (temp[count.i] == '\"')
+			if_dquote(temp, new_str, &count);
+		if (temp[count.i] == '\'')
+			if_squote(temp, new_str, &count);
+		if (temp[count.i] == '\"' || temp[count.i] == '\'')
+			count.i++;
+		else
+			do_cpy(temp, new_str, &count);
 	}
-	*dest = '\0';
-}
-
-void	remove_quotes(char **str)
-{
-	size_t	length;
-
-	length = strlen(*str);
-	if (length >= 2 && ((*str)[0] == '"' || (*str)[0] == '\'') && (*str)[length
-			- 1] == (*str)[0])
-	{
-		ft_memmove(*str, *str + 1, length - 2);
-		(*str)[length - 2] = '\0';
-	}
+	new_str[count.j] = '\0';
+	*str = ft_strdup(new_str);
+	free(temp);
+	free(new_str);
 }
 
 void	remove_quotes_in_array(char **str_array)

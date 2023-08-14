@@ -101,7 +101,7 @@ int	ft_do_first_comm2(t_pipex *p, int fd[2], int file, int n_com)
 		}
 	}
 	else
-	{	
+	{
 		status = 0;
 		execute_builtin(p, fd, status, 0);
 		exit(EXIT_SUCCESS);
@@ -120,8 +120,8 @@ int	ft_do_first_comm(t_pipex *p, int fd[2], int n_com)
 		exit(EXIT_FAILURE);
 	else if (pid == 0)
 	{
-		if (!ft_open_first_file(p, &file)
-			|| !ft_do_first_comm2(p, fd, file, n_com))
+		if (!ft_open_first_file(p, &file) || !ft_do_first_comm2(p, fd, file,
+				n_com))
 		{
 			g_global.exit_status = 127;
 			return (0);

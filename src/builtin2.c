@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:26:58 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/11 19:33:25 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/14 18:00:29 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,7 @@ void	execute_export(char **args)
 		else
 			search_and_replace(g_global.envp, var->key, var->value);
 	}
-	free(var->key);
-	free(var->value);
-	free(var);
+	free_var(var);
 	g_global.exit_status = 0;
 }
 

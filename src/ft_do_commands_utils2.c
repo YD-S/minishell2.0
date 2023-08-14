@@ -71,8 +71,8 @@ void	ft_heredocs2(char **delim, int delim_count, int delims, int file)
 
 void	ft_heredocs(t_pipex *p, int *file, char **delim)
 {
-	int		delims;
-	int		delim_count;
+	int	delims;
+	int	delim_count;
 
 	p->i = p->i;
 	delims = ft_charpplen(delim);

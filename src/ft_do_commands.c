@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_do_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/11 19:20:28 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:47:32 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_do_command2builtin(t_pipex *p, int fd[2], int fd2[])
 		exit(EXIT_FAILURE);
 	else if (pid == 0)
 	{
-		//ft_printf("AA%d-%d-%d-%d", fd[0], fd[1], fd2[0], fd2[1]);
 		ft_open_out_file(p, fd2);
 		ft_open_in_file(p, fd);
 		status = 0;
@@ -72,7 +71,6 @@ int	ft_do_command(t_pipex *p, int fd[2], int fd2[2])
 		exit(EXIT_FAILURE);
 	else if (pid == 0)
 	{
-		//ft_printf("AA%d-%d-%d-%d", fd[0], fd[1], fd2[0], fd2[1]);
 		ft_open_out_file(p, fd2);
 		if (!ft_do_command2(p, fd))
 			return (0);
@@ -153,8 +151,8 @@ int	ft_do_one_command(t_pipex *p)
 
 int	ft_do_commands(t_pipex *p, int n_com)
 {
-	int		fd[2];
-	int		status;
+	int	fd[2];
+	int	status;
 
 	status = 1;
 	if (n_com == 1 && get_builtin(p->args[0][0]))
@@ -167,11 +165,10 @@ int	ft_do_commands(t_pipex *p, int n_com)
 			return (0);
 		}
 	}
-	else
-		if (!ft_do_commands2(p, n_com))
-		{
-			ft_free_mem(p, n_com);
-			return (0);
-		}
+	else if (!ft_do_commands2(p, n_com))
+	{
+		ft_free_mem(p, n_com);
+		return (0);
+	}
 	return (1);
 }
