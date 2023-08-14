@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 21:29:40 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/11 14:44:46 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/15 01:05:33 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,14 @@ char	*ft_dq(char *prompt, int i)
 	char	*ret;
 
 	len = ft_strclen(prompt, DQ, i + 1);
-	if (prompt[len + i + 2] == DQ)
+	if (prompt[len + i + 2] != ' ')
 	{
-		len += ft_strclen(prompt, DQ, len + 1);
+		if (prompt[len + i + 3] == DQ)
+			len += ft_strclen(prompt, DQ, len + 3);
+		else if (prompt[len + i + 2] == SQ)
+			len += ft_strclen(prompt, SQ, len + 3);
+		else
+			len += wordlen_perso(prompt, len + i + 2);
 		ret = ft_substr(prompt, i, len + 2);
 		return (ret);
 	}
@@ -54,9 +59,14 @@ char	*ft_sq(char *prompt, int i)
 	char	*ret;
 
 	len = ft_strclen(prompt, SQ, i + 1);
-	if (prompt[len + i + 2] == SQ)
+	if (prompt[len + i + 2] != ' ')
 	{
-		len += ft_strclen(prompt, SQ, len + 1);
+		if (prompt[len + i + 3] == DQ)
+			len += ft_strclen(prompt, DQ, len + 3);
+		else if (prompt[len + i + 2] == SQ)
+			len += ft_strclen(prompt, SQ, len + 3);
+		else
+			len += wordlen_perso(prompt, len + i + 2);
 		ret = ft_substr(prompt, i, len + 2);
 		return (ret);
 	}
