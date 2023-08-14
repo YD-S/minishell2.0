@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 21:29:40 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/15 01:05:33 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/15 01:24:39 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,19 @@ char	*ft_dq(char *prompt, int i)
 	char	*ret;
 
 	len = ft_strclen(prompt, DQ, i + 1);
-	if (prompt[len + i + 2] != ' ')
+	len++;
+	if (prompt[i + len + 1] != ' ')
 	{
-		if (prompt[len + i + 3] == DQ)
-			len += ft_strclen(prompt, DQ, len + 3);
-		else if (prompt[len + i + 2] == SQ)
-			len += ft_strclen(prompt, SQ, len + 3);
+		if (prompt[i + len + 1] == DQ)
+			len += ft_strclen(prompt, DQ, len + 2);
+		else if (prompt[i + len + 1] == SQ)
+			len += ft_strclen(prompt, SQ, len + 2);
 		else
 			len += wordlen_perso(prompt, len + i + 2);
 		ret = ft_substr(prompt, i, len + 2);
 		return (ret);
 	}
-	ret = ft_substr(prompt, i, len + 2);
+	ret = ft_substr(prompt, i, len + 1);
 	return (ret);
 }
 
@@ -59,18 +60,19 @@ char	*ft_sq(char *prompt, int i)
 	char	*ret;
 
 	len = ft_strclen(prompt, SQ, i + 1);
-	if (prompt[len + i + 2] != ' ')
+	len++;
+	if (prompt[i + len + 1] != ' ')
 	{
-		if (prompt[len + i + 3] == DQ)
-			len += ft_strclen(prompt, DQ, len + 3);
-		else if (prompt[len + i + 2] == SQ)
-			len += ft_strclen(prompt, SQ, len + 3);
+		if (prompt[i + len + 1] == DQ)
+			len += ft_strclen(prompt, DQ, len + 2);
+		else if (prompt[i + len + 1] == SQ)
+			len += ft_strclen(prompt, SQ, len + 2);
 		else
 			len += wordlen_perso(prompt, len + i + 2);
 		ret = ft_substr(prompt, i, len + 2);
 		return (ret);
 	}
-	ret = ft_substr(prompt, i, len + 2);
+	ret = ft_substr(prompt, i, len + 1);
 	return (ret);
 }
 
