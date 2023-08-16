@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_charppdup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:10:55 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/06 00:29:49 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/16 16:59:58 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_charppdup(char **str)
+char	**ft_charppdup(const char **str)
 {
 	char	**ret;
 	int		i;
 
 	i = 0;
+	if (!str)
+		return (NULL);
 	while (str[i])
 		i++;
 	ret = ft_calloc (sizeof(char *), (i + 1));

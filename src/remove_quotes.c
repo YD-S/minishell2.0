@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:01:30 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/14 17:58:10 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/16 16:59:08 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	remove_quotes(char **str)
 	}
 	if (count.j != 0)
 		*str = ft_strdup(temp);
-	else
-		*str = ft_strdup(*str);
 	free(temp);
 }
 
@@ -65,20 +63,24 @@ void	remove_nested_quotes(char **str)
 			do_cpy(temp, new_str, &count);
 	}
 	new_str[count.j] = '\0';
+	free(*str);
 	*str = ft_strdup(new_str);
 	free(temp);
 	free(new_str);
 }
 
-void	remove_quotes_in_array(char **str_array)
+char	**remove_quotes_in_array(char **str_array)
 {
-	int	i;
+	int		i;
+	char	**temp;
 
+	temp = ft_charppdup((const char **)str_array);
 	i = 0;
-	while (i < ft_charpplen(str_array))
+	while (i < ft_charpplen(temp))
 	{
-		remove_quotes(&str_array[i]);
-		remove_nested_quotes(&str_array[i]);
+		remove_nested_quotes(&temp[i]);
 		i++;
 	}
+	ft_charppfree(str_array);
+	return (temp);
 }

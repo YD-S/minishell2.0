@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/16 10:59:10 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:03:26 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,7 @@ void			ft_error(char *str, char *line);
 void			get_dir(void);
 void			search_and_replace(t_list *head, const char *key,
 					const char *new_value);
-void			remove_quotes(char **str);
-void			remove_quotes_in_array(char **str_array);
+char			**remove_quotes_in_array(char **str_array);
 void			printg_status(char *error, int status);
 int				check_pwd(void);
 void			do_cd(char *path, int flag);
@@ -218,6 +217,5 @@ int				ft_do_else(t_pipex *p, int fd[2]);
 int				ft_do_commands2(t_pipex *p, int n_com);
 int				ft_do_command(t_pipex *p, int fd[2], int fd2[2]);
 int				ft_do_command2builtin(t_pipex *p, int fd[2], int fd2[]);
-
 
 #endif

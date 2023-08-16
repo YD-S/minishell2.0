@@ -20,7 +20,7 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 	if (argc != 1)
 		exit(0);
 	ft_init_global(envp);
-	g_global.env = ft_charppdup(envp);
+	g_global.env = ft_charppdup((const char **)envp);
 	call_signal();
 	while (1)
 	{

@@ -86,5 +86,5 @@ int					ft_strclen(char *str, char c, int start);
 int					ft_isspace(char c);
 int					ft_get_index(char *str, char *index);
 void				print_charpp(char **cmd);
-char				**ft_charppdup(char **str);
+char				**ft_charppdup(const char **str);
 #endif

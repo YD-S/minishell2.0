@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/14 10:46:21 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/16 16:56:55 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ int	ft_separate_1st_cmd2(t_pipex *p, t_aux *auxs, char **argv)
 		return (1);
 	}
 	if (argv[auxs->i])
-	{
 		return (ft_check_outfile(p, auxs, argv));
-	}
 	return (0);
 }
 
@@ -57,7 +55,6 @@ void	ft_separate_1st_cmd(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 		if (!get_builtin(argv[auxs->i]))
 		{
 			temp = ft_strdup(argv[auxs->i]);
-			remove_quotes(&temp);
 			p->paths[auxs->cmd] = ft_check_comm(paths, temp, p, auxs->cmd);
 			free(temp);
 		}
@@ -93,16 +90,13 @@ void	ft_main(char **argv, int argc, char **paths, t_aux auxs)
 	while (auxs.i < argc)
 	{
 		ft_separate_1st_cmd(&p, &auxs, argv, paths);
-		while (auxs.i < argc && strncmp(argv[auxs.i], "|\0", 2) != 0)
-		{
-			if (!ft_separate_cmds(&p, &auxs, argc, argv))
-				break ;
-		}
+		while (auxs.i < argc && ft_strncmp(argv[auxs.i], "|\0", 2) != 0)
+			ft_separate_cmds(&p, &auxs, argc, argv);
 		auxs.i++;
 		p.args[auxs.cmd][++auxs.args] = 0;
 		auxs.cmd++;
 	}
-	remove_quotes_in_array(*p.args);
+	*p.args = remove_quotes_in_array(*p.args);
 	if (p.paths[0])
 	{
 		if (!ft_do_commands(&p, auxs.pipes + 1))
