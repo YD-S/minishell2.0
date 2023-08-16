@@ -37,6 +37,8 @@ char	*ft_readline(void)
 	}
 	if (!line)
 		handle_eof(line);
+	else if (line[0])
+		add_history(line);
 	return (line);
 }
 

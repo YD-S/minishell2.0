@@ -23,7 +23,7 @@ int	ft_vr(char *str, int *i)
 	}
 	else if (str[*i] == '>')
 	{
-		if (str[*i + 1] == '>' || str[*i + 1] == '|')
+		if (str[*i + 1] == '>')
 			*i += 2;
 		else
 			*i += 1;

@@ -45,12 +45,11 @@ char	**ft_parser(char *prompt)
 {
 	char	**cmd;
 
-	prompt = ft_call_replace(prompt);
+	//prompt = ft_call_replace(prompt);
 	cmd = ft_cmdtrim(prompt);
-	if (prompt[ft_strlen(prompt) - 1] == ' ')
+	if (prompt[0] && prompt[ft_strlen(prompt) - 1] == ' ')
 		cmd = ft_charpp_del_back(cmd);
 	cmd = ft_expand_vars(cmd);
-	free(prompt);
 	return (cmd);
 }
 
@@ -73,7 +72,7 @@ char	**ft_cmdtrim(char *prompt)
 	ret = NULL;
 	while (i < (int)ft_strlen(prompt))
 	{
-		while (prompt[i] == ' ')
+		while (prompt[0] && prompt[i] == ' ')
 			i++;
 		if (prompt[i] == DQ)
 			aux = ft_call_dq(prompt, &i);

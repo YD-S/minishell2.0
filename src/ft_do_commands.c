@@ -81,7 +81,7 @@ int	ft_do_command(t_pipex *p, int fd[2], int fd2[2])
 			;
 		close(fd2[1]);
 		if (WIFEXITED(status))
-			g_global.exit_status = WEXITSTATUS(status);
+			g_global.exit_status = 127;
 	}
 	return (1);
 }
@@ -109,7 +109,7 @@ int	ft_do_one_command(t_pipex *p)
 		while (waitpid(pid, &status, 0) != pid)
 			;
 		if (WIFEXITED(status))
-			g_global.exit_status = WEXITSTATUS(status);
+			g_global.exit_status = 127;
 	}
 	return (1);
 }

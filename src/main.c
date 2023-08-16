@@ -6,7 +6,7 @@
 /*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:59:03 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/14 17:48:27 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/16 21:25:00 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 	while (1)
 	{
 		line = ft_readline();
-		add_history(line);
 		if (ft_check_cmd(line))
 		{
 			cmds = ft_parser(line);
 			ft_executer(cmds, g_global.path);
 			ft_charppfree(cmds);
+			free(line);
 		}
 		else
 		{
@@ -77,22 +77,22 @@ char	*ft_get_var(char *cmd)
 {
 	t_master	mas;
 
-	mas.count.i = 0;
-	mas.strs.cpy = ft_strdup(cmd);
-	if ((cmd[0] == SQ && cmd[ft_strlen(cmd) - 1] == SQ)
-		|| !ft_strchr(mas.strs.cpy, '$'))
+	init_all(&mas, cmd);
+	if (cmd[0] == SQ && condition2(cmd, mas))
 		return (mas.strs.cpy);
 	while (mas.strs.cpy[mas.count.i])
 	{
+		if (condition3(mas))
+		{
+			if_dollar_int(&mas);
+			continue ;
+		}
 		mas.strs.aux = ft_strchr(mas.strs.cpy + mas.count.i, '$');
 		if (!mas.strs.aux)
 			break ;
 		mas.count.j = ft_get_index(mas.strs.cpy,
 				ft_strchr(mas.strs.cpy + mas.count.i, '$'));
-		if (ft_isspace(mas.strs.aux[1]) || mas.strs.aux[1] == '\0'
-			|| mas.strs.aux[1] == '$' || mas.strs.aux[1] == '='
-			|| mas.strs.aux[1] == '\"' || mas.strs.aux[1] == '\''
-			|| mas.strs.aux[1] == '?' || mas.strs.aux[1] == '|')
+		if (ft_isspace(mas.strs.aux[1]) || condition(mas))
 		{
 			mas.count.i++;
 			continue ;

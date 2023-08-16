@@ -71,7 +71,7 @@ int	ft_do_last_comm(t_pipex *p, int fd[2], pid_t pid)
 				;
 			close(fd[1]);
 			if (WIFEXITED(status))
-				g_global.exit_status = WEXITSTATUS(status);
+				g_global.exit_status = 127;
 		}
 	}
 	if (!ft_do_else(p, fd))

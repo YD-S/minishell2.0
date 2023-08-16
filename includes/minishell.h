@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/16 16:03:26 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:23:28 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,29 @@ typedef struct s_global
 	char		*dir;
 }				t_global;
 
+typedef struct pipex
+{
+	char		**archive_lines;
+	int			lines;
+	char		**paths;
+	char		***args;
+	int			*n_args;
+	char		**infile;
+	int			*heredoc;
+	char		**outfl;
+	int			*outmode;
+	int			*command_not_found;
+	int			i;
+}				t_pipex;
+
+typedef struct s_aux
+{
+	int			i;
+	int			pipes;
+	int			cmd;
+	int			args;
+}				t_aux;
+
 t_global		g_global;
 
 int				__quote_state(char c, int old_state);
@@ -139,30 +162,8 @@ int				check_pwd(void);
 void			do_cd(char *path, int flag);
 void			update_pwd(void);
 void			do_exit(int status);
-
-typedef struct pipex
-{
-	char		**archive_lines;
-	int			lines;
-	char		**paths;
-	char		***args;
-	int			*n_args;
-	char		**infile;
-	int			*heredoc;
-	char		**outfl;
-	int			*outmode;
-	int			*command_not_found;
-	int			i;
-}				t_pipex;
-
-typedef struct s_aux
-{
-	int			i;
-	int			pipes;
-	int			cmd;
-	int			args;
-}				t_aux;
-
+void			if_no_builtin(t_pipex *p, t_aux *auxs, char **argv,
+					char **paths);
 int				ft_open_in_file(t_pipex *p, int fd[2]);
 void			ft_open_out_file(t_pipex *p, int fd2[2]);
 int				ft_open_first_file(t_pipex *p, int *file);
@@ -217,5 +218,10 @@ int				ft_do_else(t_pipex *p, int fd[2]);
 int				ft_do_commands2(t_pipex *p, int n_com);
 int				ft_do_command(t_pipex *p, int fd[2], int fd2[2]);
 int				ft_do_command2builtin(t_pipex *p, int fd[2], int fd2[]);
+int				condition(t_master mas);
+int				condition2(char *cmd, t_master mas);
+int				condition3(t_master mas);
+void			if_dollar_int(t_master *mas);
+void			init_all(t_master *mas, char *cmd);
 
 #endif

@@ -68,3 +68,24 @@ void	do_call(t_pipex *p, t_aux auxs, char **argv, int argc)
 	ft_reserve_mem(p, auxs.pipes + 1, ft_count_max_args(argv, argc, auxs.i));
 	ft_count_args(argv, argc, p);
 }
+
+void	if_no_builtin(t_pipex *p, t_aux *auxs, char **argv, char **paths)
+{
+	char	*temp;
+	char	*temp2;
+
+	temp = ft_strdup(argv[auxs->i]);
+	temp2 = NULL;
+	if (temp[0] == '"' && temp[ft_strlen(temp) - 1] == '"')
+		temp2 = ft_strtrim(temp, "\"");
+	else if (temp[0] == '\'' && temp[ft_strlen(temp) - 1] == '\'')
+		temp2 = ft_strtrim(temp, "'");
+	if (temp2)
+	{
+		p->paths[auxs->cmd] = ft_check_comm(paths, temp2, p, auxs->cmd);
+		free(temp2);
+	}
+	else
+		p->paths[auxs->cmd] = ft_check_comm(paths, temp, p, auxs->cmd);
+	free(temp);
+}
