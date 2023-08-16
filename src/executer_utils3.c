@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 19:14:10 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/10 19:45:54 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/16 10:30:20 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,37 @@ void	ft_reserve_mem(t_pipex *p, int cmd, int max_args)
 	p->heredoc = ft_calloc(sizeof(int), cmd);
 	p->outmode = ft_calloc(sizeof(int), cmd);
 	p->command_not_found = ft_calloc(sizeof(int), cmd);
+}
+
+void	free_strs(char **result, int index)
+{
+	while (index-- > 0)
+		free(result[index]);
+	free(result);
+}
+
+void	ft_free_mem(t_pipex *p, int cmd)
+{
+	int	i;
+
+	i = 0;
+	while (i < cmd)
+	{
+		ft_charppfree((p->args[i]));
+		if (!p->command_not_found[i])
+			free(p->paths[i]);
+		free(p->infile[i]);
+		free(p->outfl[i]);
+		i++;
+	}
+	free(p->paths);
+	free(p->infile);
+	free(p->outfl);
+	free(p->n_args);
+	free(p->heredoc);
+	free(p->outmode);
+	free(p->args);
+	free(p->command_not_found);
 }
 
 void	do_call(t_pipex *p, t_aux auxs, char **argv, int argc)

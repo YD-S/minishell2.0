@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/14 18:00:47 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/16 10:30:50 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,5 +214,7 @@ void			do_cpy(char *temp, char *new_str, t_count *count);
 void			if_squote(char *temp, char *new_str, t_count *count);
 void			if_dquote(char *temp, char *new_str, t_count *count);
 void			free_var(t_envp *var);
+void			ft_do_else(t_pipex *p, int fd[2], int status);
+int				ft_do_commands2(t_pipex *p, int n_com);
 
 #endif
