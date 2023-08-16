@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:07:23 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/16 10:13:14 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/16 10:45:41 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_do_last_comm(t_pipex *p, int fd[2])
 				g_global.exit_status = WEXITSTATUS(status);
 		}
 	}
-	fd_do_else(p, fd, status);
+	ft_do_else(p, fd, status);
 	return (1);
 }
 
