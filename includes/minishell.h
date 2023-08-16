@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/16 10:30:50 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/16 10:59:10 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void			ft_write_error(char *type, char *error, char *obj);
 int				ft_check_outfile(t_pipex *p, t_aux *auxs, char **argv);
 int				ft_check_io_fl(t_pipex *p, t_aux *auxs, char **argv, int file);
 
-int				ft_do_last_comm(t_pipex *p, int fd[2]);
+int				ft_do_last_comm(t_pipex *p, int fd[2], pid_t pid);
 int				ft_do_first_comm(t_pipex *p, int fd[2], int n_com);
 
 int				ft_do_commands(t_pipex *p, int argc);
@@ -214,7 +214,10 @@ void			do_cpy(char *temp, char *new_str, t_count *count);
 void			if_squote(char *temp, char *new_str, t_count *count);
 void			if_dquote(char *temp, char *new_str, t_count *count);
 void			free_var(t_envp *var);
-void			ft_do_else(t_pipex *p, int fd[2], int status);
+int				ft_do_else(t_pipex *p, int fd[2]);
 int				ft_do_commands2(t_pipex *p, int n_com);
+int				ft_do_command(t_pipex *p, int fd[2], int fd2[2]);
+int				ft_do_command2builtin(t_pipex *p, int fd[2], int fd2[]);
+
 
 #endif
