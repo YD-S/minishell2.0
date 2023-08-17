@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:01:30 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/16 16:59:08 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/17 21:54:27 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	remove_nested_quotes(char **str)
 	init_all_things(&count);
 	temp = ft_strdup(*str);
 	new_str = malloc(sizeof(char) * (ft_strlen(temp) + 1));
-	while (temp[count.i])
+	while (count.i <= (int)ft_strlen(temp) && temp[count.i])
 	{
 		if (temp[count.i] == '\"')
 			if_dquote(temp, new_str, &count);

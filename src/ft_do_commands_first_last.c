@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:07:23 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/17 18:25:08 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/17 19:50:03 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,18 @@ int	ft_do_last_comm2(t_pipex *p, int fd[2])
 {
 	if (!get_builtin(p->args[p->i][0]))
 	{
-		ft_open_in_file(p, fd);
-		if (execve(p->paths[p->i], p->args[p->i], g_global.env) == -1)
+		if (ft_open_in_file(p, fd))
 		{
-			ft_write_error("cmd", strerror(errno), p->args[p->i][0]);
+			if (execve(p->paths[p->i], p->args[p->i], g_global.env) == -1)
+			{
+				ft_write_error("cmd", strerror(errno), p->args[p->i][0]);
+				g_global.exit_status = 127;
+				free_env();
+				return (0);
+			}
+		}
+		else
+		{
 			g_global.exit_status = 127;
 			free_env();
 			return (0);
