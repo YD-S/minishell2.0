@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 21:29:40 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/15 01:24:39 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/17 15:53:05 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_dq(char *prompt, int i)
 		else if (prompt[i + len + 1] == SQ)
 			len += ft_strclen(prompt, SQ, len + 2);
 		else
-			len += wordlen_perso(prompt, len + i + 2);
+			len += wordlen_perso(prompt, len + i);
 		ret = ft_substr(prompt, i, len + 2);
 		return (ret);
 	}
@@ -68,7 +68,7 @@ char	*ft_sq(char *prompt, int i)
 		else if (prompt[i + len + 1] == SQ)
 			len += ft_strclen(prompt, SQ, len + 2);
 		else
-			len += wordlen_perso(prompt, len + i + 2);
+			len += wordlen_perso(prompt, len + i);
 		ret = ft_substr(prompt, i, len + 2);
 		return (ret);
 	}

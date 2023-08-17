@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 19:09:06 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/14 18:01:21 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/17 15:47:22 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,17 @@ int	ft_check_last_pipe(char *str)
 {
 	int	i;
 
-	i = ft_strlen(str) - 1;
+	if (ft_strlen(str) > 0)
+		i = ft_strlen(str) - 1;
+	else
+		i = 0;
 	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
-		i -= 1;
+	{
+		if (i > 0)
+			i -= 1;
+		else
+			break ;
+	}
 	if (str[i] && (str[i] == '|' || str[i] == '<' || str[i] == '>'))
 		return (0);
 	return (1);

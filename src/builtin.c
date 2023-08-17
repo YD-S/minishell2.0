@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:14:51 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/06 03:27:26 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/17 17:10:03 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	get_dir(void)
 	while (dir[i] != '/')
 		i--;
 	i++;
+	free(g_global.dir);
 	g_global.dir = ft_substr(dir, i, ft_strlen(dir));
 	free(dir);
 }
@@ -78,8 +79,12 @@ void	update_pwd(void)
 
 	pwd = getcwd(NULL, sizeof(char *));
 	oldpwd = ft_get_env("$PWD");
-	search_and_replace(g_global.envp, "$OLDPWD", oldpwd);
-	search_and_replace(g_global.envp, "$PWD", pwd);
+	if (oldpwd && pwd)
+	{
+		search_and_replace(g_global.envp, "$OLDPWD", oldpwd);
+		search_and_replace(g_global.envp, "$PWD", pwd);
+	}
+	free(pwd);
 }
 
 void	execute_cd(char **args)
@@ -87,8 +92,6 @@ void	execute_cd(char **args)
 	char	*path;
 
 	path = NULL;
-	if (!check_pwd())
-		return ;
 	if (ft_charpplen(args) == 1 || ft_strcmp(args[1], "~") == 0)
 	{
 		path = ft_get_env("$HOME");

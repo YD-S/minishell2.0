@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:07:23 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/16 11:08:57 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/17 18:07:59 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_do_last_comm2(t_pipex *p, int fd[2])
 		{
 			ft_write_error("cmd", strerror(errno), p->args[p->i][0]);
 			g_global.exit_status = 127;
+			free_env();
 			return (0);
 		}
 	}
@@ -93,6 +94,7 @@ int	ft_do_first_comm2(t_pipex *p, int fd[2], int file, int n_com)
 		{
 			ft_write_error("cmd", strerror(errno), p->args[0][0]);
 			g_global.exit_status = 127;
+			free_env();
 			return (0);
 		}
 	}
