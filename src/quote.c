@@ -65,14 +65,17 @@ char	*ft_sq(char *prompt, int i)
 	len++;
 	if (prompt[i + len + 1] != ' ')
 	{
-		if (prompt[i + len + 1] == DQ)
-			len += ft_strclen(prompt, DQ, len + 2);
-		else if (prompt[i + len + 1] == SQ)
-			len += ft_strclen(prompt, SQ, len + 2);
-		else
-			len += wordlen_perso(prompt, len + i);
-		ret = ft_substr(prompt, i, len + 2);
-		return (ret);
+		if(prompt[len + 1])
+		{
+			if (prompt[i + len + 1] == DQ)
+				len += ft_strclen(prompt, DQ, len + 2);
+			else if (prompt[i + len + 1] == SQ)
+				len += ft_strclen(prompt, SQ, len + 2);
+			else
+				len += wordlen_perso(prompt, len + i);
+			ret = ft_substr(prompt, i, len + 2);
+			return (ret);
+		}
 	}
 	ret = ft_substr(prompt, i, len + 1);
 	return (ret);
