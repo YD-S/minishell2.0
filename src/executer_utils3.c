@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 19:14:10 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/16 16:22:26 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/17 12:28:54 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,8 @@ void	if_no_builtin(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 	if (temp2)
 	{
 		p->paths[auxs->cmd] = ft_check_comm(paths, temp2, p, auxs->cmd);
-		free(temp2);
+		free(temp);
 	}
 	else
 		p->paths[auxs->cmd] = ft_check_comm(paths, temp, p, auxs->cmd);
-	free(temp);
 }

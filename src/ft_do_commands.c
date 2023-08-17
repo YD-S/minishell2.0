@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/16 16:46:32 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/17 12:29:37 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	ft_do_one_command(t_pipex *p)
 		{
 			ft_write_error("cmd", strerror(errno), p->args[0][0]);
 			free_env();
+			
 			g_global.exit_status = 127;
 			return (0);
 		}
@@ -124,6 +125,7 @@ int	ft_do_commands(t_pipex *p, int n_com)
 		execute_builtin(p, fd, status, 0);
 	else if (n_com == 1 && p->command_not_found[0])
 	{
+		p->command_not_found[0] = 0;
 		if (!ft_do_one_command(p))
 		{
 			ft_free_mem(p, n_com);
