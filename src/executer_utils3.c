@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 19:14:10 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/17 18:04:31 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/17 18:30:21 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,34 +39,19 @@ void	free_strs(char **result, int index)
 	free(result);
 }
 
-void	ft_free_mem(t_pipex *p, int cmd)
-{
-	int	i;
-
-	i = 0;
-	while (i < cmd)
-	{
-		ft_charppfree((p->args[i]));
-		if (!p->command_not_found[i])
-			free(p->paths[i]);
-		free(p->infile[i]);
-		free(p->outfl[i]);
-		i++;
-	}
-	free(p->paths);
-	free(p->infile);
-	free(p->outfl);
-	free(p->n_args);
-	free(p->heredoc);
-	free(p->outmode);
-	free(p->args);
-	free(p->command_not_found);
-}
-
 void	do_call(t_pipex *p, t_aux auxs, char **argv, int argc)
 {
 	ft_reserve_mem(p, auxs.pipes + 1, ft_count_max_args(argv, argc, auxs.i));
 	ft_count_args(argv, argc, p);
+}
+
+char	*if_no_builtin2(char *temp, char *temp2)
+{
+	if (temp[0] == '"' && temp[ft_strlen(temp) - 1] == '"')
+		temp2 = ft_strtrim(temp, "\"");
+	else if (temp[0] == '\'' && temp[ft_strlen(temp) - 1] == '\'')
+		temp2 = ft_strtrim(temp, "'");
+	return (temp2);
 }
 
 void	if_no_builtin(t_pipex *p, t_aux *auxs, char **argv, char **paths)
@@ -76,10 +61,7 @@ void	if_no_builtin(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 
 	temp = ft_strdup(argv[auxs->i]);
 	temp2 = NULL;
-	if (temp[0] == '"' && temp[ft_strlen(temp) - 1] == '"')
-		temp2 = ft_strtrim(temp, "\"");
-	else if (temp[0] == '\'' && temp[ft_strlen(temp) - 1] == '\'')
-		temp2 = ft_strtrim(temp, "'");
+	temp2 = if_no_builtin2(temp, temp2);
 	if (temp2)
 	{
 		p->paths[auxs->cmd] = ft_check_comm(paths, temp2, p, auxs->cmd);
@@ -94,10 +76,7 @@ void	if_no_builtin(t_pipex *p, t_aux *auxs, char **argv, char **paths)
 	{
 		p->paths[auxs->cmd] = ft_strdup(temp);
 		if (p->command_not_found[auxs->cmd])
-		{
 			free(temp);
-			return ;
-		}
 	}
 	if (!p->command_not_found[auxs->cmd])
 		free(temp);

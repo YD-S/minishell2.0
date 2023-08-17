@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:07:23 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/17 18:07:59 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/17 18:25:08 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	ft_do_last_comm2(t_pipex *p, int fd[2])
 		}
 	}
 	else
+	{
+		free_env();
 		exit(EXIT_SUCCESS);
+	}
 	return (1);
 }
 
@@ -102,6 +105,7 @@ int	ft_do_first_comm2(t_pipex *p, int fd[2], int file, int n_com)
 	{
 		status = 0;
 		execute_builtin(p, fd, status, 0);
+		free_env();
 		exit(EXIT_SUCCESS);
 	}
 	return (1);

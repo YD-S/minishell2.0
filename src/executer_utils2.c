@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 20:49:40 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/17 14:20:18 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/17 18:28:00 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,28 @@ int	ft_check_io_fl(t_pipex *p, t_aux *auxs, char **argv, int file)
 		return (0);
 	auxs->i += 2;
 	return (1);
+}
+
+void	ft_free_mem(t_pipex *p, int cmd)
+{
+	int	i;
+
+	i = 0;
+	while (i < cmd)
+	{
+		ft_charppfree((p->args[i]));
+		if (!p->command_not_found[i])
+			free(p->paths[i]);
+		free(p->infile[i]);
+		free(p->outfl[i]);
+		i++;
+	}
+	free(p->paths);
+	free(p->infile);
+	free(p->outfl);
+	free(p->n_args);
+	free(p->heredoc);
+	free(p->outmode);
+	free(p->args);
+	free(p->command_not_found);
 }

@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:22:03 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/17 18:08:12 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/17 18:25:16 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	ft_do_command2(t_pipex *p, int fd[2])
 		else
 		{
 			g_global.exit_status = 127;
+			free_env();
 			return (0);
 		}
 	}
