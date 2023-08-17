@@ -1,8 +1,0 @@
-total 8
--rw-r--r--   1 alvalope  2023_malaga     0 Aug 17 18:31 1.txt
--rw-r--r--   1 alvalope  2023_malaga     0 Aug 17 18:31 2.txt
--rw-r--r--   1 alvalope  2023_malaga  1580 Aug 17 11:28 Makefile
-drwxr-xr-x   6 alvalope  2023_malaga   204 Aug 17 18:30 build
-drwxr-xr-x   6 alvalope  2023_malaga   204 Aug 17 11:28 includes
-drwxr-xr-x   3 alvalope  2023_malaga   102 Aug 11 10:57 lib
-drwxr-xr-x  32 alvalope  2023_malaga  1088 Aug 17 17:20 src
