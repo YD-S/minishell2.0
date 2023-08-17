@@ -22,5 +22,6 @@ int	ft_strclen(char *str, char c, int start)
 		ret++;
 		start++;
 	}
+	ret++;
 	return (ret);
 }
