@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_charppfree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 17:41:51 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/10 00:18:40 by ysingh           ###   ########.fr       */
+/*   Created: 2023/04/19 21:46:11 by ysingh            #+#    #+#             */
+/*   Updated: 2023/05/31 18:57:15 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+void	ft_charppfree(char **str)
 {
-	int		length;
-	char	*copy;
-	int		i;
+	int	i;
 
 	i = 0;
-	length = (int)ft_strlen(s);
-	copy = (char *)ft_calloc(sizeof(char), (length + 1));
-	if (!copy)
-		return (NULL);
-	while (i < length)
+	if (str)
 	{
-		copy[i] = s[i];
-		i++;
+		while (str[i])
+		{
+			free(str[i]);
+			i++;
+		}
 	}
-	copy[i] = '\0';
-	return (copy);
+	free(str);
 }

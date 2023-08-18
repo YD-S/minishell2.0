@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_chapplen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 17:41:51 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/10 00:18:40 by ysingh           ###   ########.fr       */
+/*   Created: 2023/04/19 20:17:19 by ysingh            #+#    #+#             */
+/*   Updated: 2023/05/31 18:56:19 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+int	ft_charpplen(char **str)
 {
-	int		length;
-	char	*copy;
-	int		i;
+	int	i;
 
+	if (!str)
+		return (0);
 	i = 0;
-	length = (int)ft_strlen(s);
-	copy = (char *)ft_calloc(sizeof(char), (length + 1));
-	if (!copy)
-		return (NULL);
-	while (i < length)
-	{
-		copy[i] = s[i];
+	while (str[i])
 		i++;
-	}
-	copy[i] = '\0';
-	return (copy);
+	return (i);
 }

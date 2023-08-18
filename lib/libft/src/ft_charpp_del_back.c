@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_charpp_del_back.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42malaga.com>       +#+  +:+       +#+        */
+/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 17:41:51 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/10 00:18:40 by ysingh           ###   ########.fr       */
+/*   Created: 2023/04/28 10:57:22 by ysingh            #+#    #+#             */
+/*   Updated: 2023/05/31 18:56:31 by ysingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+char	**ft_charpp_del_back(char **str)
 {
-	int		length;
-	char	*copy;
+	char	**ret;
+	int		len;
 	int		i;
 
+	len = ft_charpplen(str);
+	ret = ft_calloc(len, sizeof(char *));
 	i = 0;
-	length = (int)ft_strlen(s);
-	copy = (char *)ft_calloc(sizeof(char), (length + 1));
-	if (!copy)
-		return (NULL);
-	while (i < length)
+	while (i < len - 1)
 	{
-		copy[i] = s[i];
+		ret[i] = ft_strdup(str[i]);
 		i++;
 	}
-	copy[i] = '\0';
-	return (copy);
+	ft_charppfree(str);
+	return (ret);
 }
