@@ -22,6 +22,7 @@ void	get_dir(void)
 		ft_printf("Error: getcwd() failed\n");
 	else if (ft_strcmp(dir, ft_get_env("$HOME")) == 0)
 	{
+		free(g_global.dir);
 		g_global.dir = ft_strdup("~");
 		free(dir);
 		return ;

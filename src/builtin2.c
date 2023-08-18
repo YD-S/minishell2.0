@@ -72,13 +72,17 @@ void	execute_export(char **args)
 			while (args[i])
 			{
 				get_new_var(*var);
-				if (ft_strcmp(args[i], "$PATH") == 0)
+				if (ft_strcmp(var->key, "$PATH") == 0)
 					set_temp_path();
 				i++;
 			}
 		}
 		else
+		{
 			search_and_replace(g_global.envp, var->key, var->value);
+			if (ft_strcmp(var->key, "$PATH") == 0)
+				set_temp_path();
+		}
 	}
 	free_var(var);
 	g_global.exit_status = 0;

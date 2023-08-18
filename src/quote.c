@@ -62,7 +62,6 @@ char	*ft_sq(char *prompt, int i)
 	char	*ret;
 
 	len = ft_strclen(prompt, SQ, i + 1);
-	len++;
 	if (prompt[i + len + 1] != ' ')
 	{
 		if(prompt[len + 1])

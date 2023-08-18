@@ -39,7 +39,9 @@ void	set_temp_path(void)
 {
 	char	*temp;
 
-	temp = ft_get_env("$PATH");
+	temp = ft_strdup(ft_get_env("$PATH"));
+	if (g_global.path)
+		ft_charppfree(g_global.path);
 	g_global.path = ft_split(temp, ':');
 	free(temp);
 }

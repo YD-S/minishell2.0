@@ -89,7 +89,7 @@ void	ft_main(char **argv, int argc, char **paths, t_aux auxs)
 		while (auxs.i < argc && ft_strncmp(argv[auxs.i], "|\0", 2) != 0)
 			ft_separate_cmds(&p, &auxs, argc, argv);
 		auxs.i++;
-		p.args[auxs.cmd][++auxs.args] = 0;
+//		p.args[auxs.cmd][++auxs.args] = 0;
 		p.args[auxs.cmd] = remove_quotes_in_array(p.args[auxs.cmd]);
 		auxs.cmd++;
 	}
