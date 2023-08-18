@@ -86,7 +86,7 @@ int	ft_check_cmd(char *prompt)
 	if (state != NO && state != SQC && state != DQC)
 	{
 		ft_printf("Quote Error\n");
-		return (0);
+		return (-1);
 	}
 	__qs('\0', 1);
 	if (!ft_locate_firstpipe(prompt))

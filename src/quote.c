@@ -34,50 +34,48 @@ char	*ft_add_quote(char *str)
 
 char	*ft_dq(char *prompt, int i)
 {
+	char	*aux;
+	int		j;
 	int		len;
-	char	*ret;
 
 	len = ft_strclen(prompt, DQ, i + 1);
-	if (prompt[i + len] != ' ')
+	aux = ft_calloc(len + 2, sizeof(char));
+	j = 1;
+	i++;
+	aux[0] = DQ;
+	while (prompt[i] != DQ)
 	{
-		if (prompt[len + 1])
-		{
-			if (prompt[i + len] == DQ)
-				len += ft_strclen(prompt, DQ, len + 2);
-			else if (prompt[i + len] == SQ)
-				len += ft_strclen(prompt, SQ, len + 2);
-			else
-				len += wordlen_perso(prompt, len + i);
-			ret = ft_substr(prompt, i, len + 2);
-			return (ret);
-		}
+		aux[j] = prompt[i];
+		if (prompt[i] == '\0')
+			return (aux);
+		i++;
+		j++;
 	}
-	ret = ft_substr(prompt, i, len + 1);
-	return (ret);
+	aux[j] = DQ;
+	return (aux);
 }
 
 char	*ft_sq(char *prompt, int i)
 {
+	char	*aux;
+	int		j;
 	int		len;
-	char	*ret;
 
 	len = ft_strclen(prompt, SQ, i + 1);
-	if (prompt[i + len + 1] != ' ')
+	aux = ft_calloc(len + 2, sizeof(char));
+	j = 1;
+	i++;
+	aux[0] = SQ;
+	while (prompt[i] != SQ)
 	{
-		if (prompt[len + 1])
-		{
-			if (prompt[i + len + 1] == DQ)
-				len += ft_strclen(prompt, DQ, len + 2);
-			else if (prompt[i + len + 1] == SQ)
-				len += ft_strclen(prompt, SQ, len + 2);
-			else
-				len += wordlen_perso(prompt, len + i);
-			ret = ft_substr(prompt, i, len + 2);
-			return (ret);
-		}
+		aux[j] = prompt[i];
+		if (prompt[i] == '\0')
+			return (aux);
+		i++;
+		j++;
 	}
-	ret = ft_substr(prompt, i, len + 1);
-	return (ret);
+	aux[j] = SQ;
+	return (aux);
 }
 
 int	wordlen_perso(char *prompt, int i)
@@ -96,10 +94,19 @@ int	wordlen_perso(char *prompt, int i)
 
 char	*ft_noq(char *prompt, int i)
 {
+	char	*aux;
+	int		j;
 	int		len;
-	char	*ret;
 
 	len = wordlen_perso(prompt, i);
-	ret = ft_substr(prompt, i, len);
-	return (ret);
+	aux = ft_calloc(len + 2, sizeof(char));
+	j = 0;
+	while (prompt[i] != ' ' && prompt[i] != '"'
+		&& prompt[i] != '\'' && prompt[i] != '\0')
+	{
+		aux[j] = prompt[i];
+		i++;
+		j++;
+	}
+	return (aux);
 }

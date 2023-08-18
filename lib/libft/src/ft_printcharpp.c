@@ -19,7 +19,7 @@ void	print_charpp(char **cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		ft_printf("%s\n", cmd[i]);
+		ft_printf("-%s-\n", cmd[i]);
 		i++;
 	}
 }

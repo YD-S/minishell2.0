@@ -16,6 +16,7 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 {
 	char	*line;
 	char	**cmds;
+	int		check;
 
 	if (argc != 1)
 		exit(0);
@@ -25,18 +26,16 @@ int	main(int argc, char **argv __attribute__((unused)), char **envp)
 	while (1)
 	{
 		line = ft_readline();
-		if (ft_check_cmd(line))
+		check = ft_check_cmd(line);
+		if (check == 1)
 		{
 			cmds = ft_parser(line);
 			ft_executer(cmds, g_global.path);
 			ft_charppfree(cmds);
 			free(line);
 		}
-		else
-		{
+		else if (check == 0)
 			ft_error("minishell syntax error\n", line);
-			g_global.exit_status = 258;
-		}
 	}
 }
 

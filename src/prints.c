@@ -16,6 +16,7 @@ void	ft_error(char *str, char *line)
 {
 	free(line);
 	ft_putstr_fd(str, 2);
+	g_global.exit_status = 258;
 }
 
 char	*ft_readline(void)

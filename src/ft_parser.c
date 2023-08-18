@@ -46,7 +46,7 @@ char	**ft_parser(char *prompt)
 	char	**cmd;
 
 	cmd = ft_cmdtrim(prompt);
-	if (prompt[0] && prompt[ft_strlen(prompt) - 1] == ' ')
+	if (prompt[ft_strlen(prompt) - 1] == ' ')
 		cmd = ft_charpp_del_back(cmd);
 	cmd = ft_expand_vars(cmd);
 	return (cmd);
@@ -69,7 +69,7 @@ char	**ft_cmdtrim(char *prompt)
 
 	i = 0;
 	ret = NULL;
-	while (i < (int)ft_strlen(prompt))
+	while (prompt[i] != '\0')
 	{
 		while (prompt[0] && prompt[i] == ' ')
 			i++;
