@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:55:13 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/16 21:23:28 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:11:13 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,5 +223,6 @@ int				condition2(char *cmd, t_master mas);
 int				condition3(t_master mas);
 void			if_dollar_int(t_master *mas);
 void			init_all(t_master *mas, char *cmd);
+void			do_search_and_replace(char *key, char *value);
 
 #endif
