@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_do_commands_first_last2.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/31 18:58:31 by ysingh            #+#    #+#             */
-/*   Updated: 2023/05/31 18:58:33 by ysingh           ###   ########.fr       */
+/*   Created: 2023/08/16 10:09:35 by alvalope          #+#    #+#             */
+/*   Updated: 2023/08/16 16:04:24 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_do_else(t_pipex *p, int fd[2])
 {
-	while (*s1 && *s2 && *s1 == *s2)
+	int	status;
+
+	if (get_builtin(p->args[p->i][0]))
 	{
-		s1++;
-		s2++;
+		status = 1;
+		*p->args = remove_quotes_in_array(*p->args);
+		execute_builtin(p, fd, status, p->i);
 	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+	return (1);
 }
