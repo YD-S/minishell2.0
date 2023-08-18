@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysingh <ysingh@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 10:26:58 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/14 18:00:29 by ysingh           ###   ########.fr       */
+/*   Updated: 2023/08/18 15:08:53 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,7 @@ void	execute_export(char **args)
 			}
 		}
 		else
-		{
-			search_and_replace(g_global.envp, var->key, var->value);
-			if (ft_strcmp(var->key, "$PATH") == 0)
-				set_temp_path();
-		}
+			do_search_and_replace(g_global.envp, var->key, var->value);
 	}
 	free_var(var);
 	g_global.exit_status = 0;

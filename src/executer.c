@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:57:41 by alvalope          #+#    #+#             */
-/*   Updated: 2023/08/17 19:57:45 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:03:50 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	ft_main(char **argv, int argc, char **paths, t_aux auxs)
 		while (auxs.i < argc && ft_strncmp(argv[auxs.i], "|\0", 2) != 0)
 			ft_separate_cmds(&p, &auxs, argc, argv);
 		auxs.i++;
-//		p.args[auxs.cmd][++auxs.args] = 0;
 		p.args[auxs.cmd] = remove_quotes_in_array(p.args[auxs.cmd]);
 		auxs.cmd++;
 	}

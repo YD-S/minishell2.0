@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:58:54 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/17 17:58:23 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:08:33 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ void	ft_init_global(char **envp)
 	g_global.exit_status = 0;
 	g_global.heredoc_out = NULL;
 	g_global.user = ft_get_env("$USER");
+}
+
+void	do_search_and_replace(char *key, char *value)
+{
+	search_and_replace(g_global.envp, key, value);
+	if (ft_strcmp(key, "$PATH") == 0)
+		set_temp_path();
 }
 
 void	search_and_replace(t_list *head, const char *key, const char *new_value)

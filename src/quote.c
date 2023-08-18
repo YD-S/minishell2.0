@@ -6,7 +6,7 @@
 /*   By: alvalope <alvalope@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 21:29:40 by ysingh            #+#    #+#             */
-/*   Updated: 2023/08/17 21:51:48 by alvalope         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:03:13 by alvalope         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_dq(char *prompt, int i)
 	len = ft_strclen(prompt, DQ, i + 1);
 	if (prompt[i + len] != ' ')
 	{
-		if(prompt[len + 1])
+		if (prompt[len + 1])
 		{
 			if (prompt[i + len] == DQ)
 				len += ft_strclen(prompt, DQ, len + 2);
@@ -64,7 +64,7 @@ char	*ft_sq(char *prompt, int i)
 	len = ft_strclen(prompt, SQ, i + 1);
 	if (prompt[i + len + 1] != ' ')
 	{
-		if(prompt[len + 1])
+		if (prompt[len + 1])
 		{
 			if (prompt[i + len + 1] == DQ)
 				len += ft_strclen(prompt, DQ, len + 2);
